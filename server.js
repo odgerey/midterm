@@ -106,6 +106,20 @@ app.get("/:user", (req, res) => {
     });
 });
 
+//Post request to add favourite
+app.post("/:user", (req, res) => {
+  const queryString = `
+  query to edit favourite flag
+  `;
+  pool
+    .query(queryString)
+    .then((res) => res.rows)
+    .then((products) => {
+      res.render("user_page");
+      console.log("Post request to add favourite product");
+    });
+});
+
 //Get user listings
 app.get("/:user/listings", (req, res) => {
   const queryString = `
