@@ -61,10 +61,15 @@ app.use(
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
+
 // app.get("/", (req, res) => {
 //   res.render("index");
 //   console.log("Get request for index page");
 // });
+
+/*
+Main page routes
+*/
 
 // Index
 app.get("/", (req, res) => {
@@ -81,7 +86,23 @@ app.get("/", (req, res) => {
     });
 });
 
-// Login Routes
+//Post request to filter by price
+app.post("/:user", (req, res) => {
+  const queryString = `
+  query to sort products by price
+  `;
+  pool
+    .query(queryString)
+    .then((res) => res.rows)
+    .then((products) => {
+      res.render("index");
+      console.log("Post request to filter items by price");
+    });
+});
+
+/*
+Login Routes
+*/
 
 //Login Get Route
 app.get("/login", (req, res) => {
@@ -90,7 +111,9 @@ app.get("/login", (req, res) => {
 
 // Post routes?
 
-// User account
+/*
+User Account Routes
+*/
 
 //Get user page
 app.get("/:user", (req, res) => {
