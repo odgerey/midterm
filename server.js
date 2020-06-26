@@ -1,15 +1,6 @@
 // load .env data into process.env
 require("dotenv").config();
 
-//Cookie-session
-const cookieSession = require("cookie-session");
-app.use(
-  cookieSession({
-    name: "session",
-    keys: ["user_id"],
-  })
-);
-
 // Web server config
 const PORT = process.env.PORT || 8080;
 const ENV = process.env.ENV || "development";
@@ -54,6 +45,15 @@ app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
+//Cookie-session
+const cookieSession = require("cookie-session");
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["user_id"],
+  })
+);
+
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
@@ -75,11 +75,6 @@ app.get("/", (req, res) => {
       res.render("index");
       console.log("Get request for index page");
     });
-
-  // } else {
-  //   res.redirect("/login");
-  //   console.log("Get request for login page via Index conditional");
-  // }
 });
 
 // Login Routes
@@ -89,12 +84,23 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-// Get route
-// Post route
+// Post routes?
 
-// My account
-// Get route needs to get all products that are in the favourite db
-// Post route neeeds to post products that are set as favourite
+// User account
+
+// Index
+app.get("/:user", (req, res) => {
+  const queryString = `
+  query to pull all user's favourite products
+  `;
+  pool
+    .query(queryString)
+    .then((res) => res.rows)
+    .then((products) => {
+      res.render("index");
+      console.log("Get request for individual user page");
+    });
+});
 
 // Main page
 // Get route needs to show all products that are in the database
