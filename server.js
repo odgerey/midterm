@@ -1,8 +1,14 @@
 // load .env data into process.env
 require("dotenv").config();
 
-//Cookie session
-var cookieSession = require("cookie-session");
+//Cookie-session
+const cookieSession = require("cookie-session");
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["user_id"],
+  })
+);
 
 // Web server config
 const PORT = process.env.PORT || 8080;
@@ -58,36 +64,40 @@ app.use("/api/widgets", widgetsRoutes(db));
 
 // Index
 app.get("/", (req, res) => {
-  res.render("index");
-  console.log("Get request for index page");
-  // if (req.session.user_id) {
-  //   const userCookie = req.session.user_id;
-  //   const templateVars = {
-  //     username: users[userCookie],
-  //     urls: urlForUser(userCookie, urlDatabase),
-  //   };
-  //   res.render("index", templateVars);
-  //   console.log("Get request for index page");
+  //Need to add conditional to see if the user is logged in
+  const queryString = `
+  query to pull all products
+  `;
+  pool
+    .query(queryString)
+    .then((res) => res.rows)
+    .then((products) => {
+      res.render("index");
+      console.log("Get request for index page");
+    });
+
   // } else {
   //   res.redirect("/login");
   //   console.log("Get request for login page via Index conditional");
   // }
 });
 
+// Login Routes
+
 // Get route
 // Post route
 
 // My account
-// Get route
-// Post route
+// Get route needs to get all products that are in the favourite db
+// Post route neeeds to post products that are set as favourite
 
 // Main page
-// Get route
-// post route (filter by price)
-// post (send a message)
+// Get route needs to show all products that are in the database
+// post route to filter by price
+// post route to send a message
 
 // Admin page
-// Get route
+// Get route needs to only be shown if the admin user is logged in. else redirects to login page
 // Post edit
 // Post delete
 // Post route new listings
