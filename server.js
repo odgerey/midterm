@@ -116,6 +116,36 @@ app.get("/:user/listings", (req, res) => {
     });
 });
 
+//Post to edit user listings
+//Need conditional to check if the user is logged in
+app.post("/:user/listings", (req, res) => {
+  const queryString = `
+  query to edit product in user listing
+  `;
+  pool
+    .query(queryString)
+    .then((res) => res.rows)
+    .then((products) => {
+      res.render("user_listings");
+      console.log("Post request to edit individual user listing");
+    });
+});
+
+//Post to edit delete user listing
+//Need conditional to check if the user is logged in
+app.post("/:user/listings/:id/delete", (req, res) => {
+  const queryString = `
+  query to delete individual product in user listing
+  `;
+  pool
+    .query(queryString)
+    .then((res) => res.rows)
+    .then((products) => {
+      res.render("user_listings");
+      console.log("Post request to delete individual product");
+    });
+});
+
 // Main page
 // Get route needs to show all products that are in the database
 // post route to filter by price
