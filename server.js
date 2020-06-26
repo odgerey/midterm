@@ -81,8 +81,8 @@ app.get("/", (req, res) => {
     .query(queryString)
     .then((res) => res.rows)
     .then((products) => {
-      res.render("index");
-      console.log("Get request for index page");
+      res.render("main");
+      console.log("Get request for main page");
     });
 });
 
@@ -95,7 +95,7 @@ app.post("/:user", (req, res) => {
     .query(queryString)
     .then((res) => res.rows)
     .then((products) => {
-      res.render("index");
+      res.render("main");
       console.log("Post request to filter items by price");
     });
 });
@@ -187,9 +187,6 @@ app.post("/:user/listings/:id/delete", (req, res) => {
     });
 });
 
-// Error page
-// Get route
-
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`pp listening on port ${PORT}`);
 });
