@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const sass = require("node-sass-middleware");
 const app = express();
 const morgan = require("morgan");
+const bcrypt = require("bcrypt");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -44,6 +45,9 @@ const widgetsRoutes = require("./routes/widgets");
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
+
+//bcrypt
+const saltRounds = 10;
 
 //Cookie-session
 const cookieSession = require("cookie-session");
@@ -145,17 +149,6 @@ app.post("/:user/listings/:id/delete", (req, res) => {
       console.log("Post request to delete individual product");
     });
 });
-
-// Main page
-// Get route needs to show all products that are in the database
-// post route to filter by price
-// post route to send a message
-
-// Admin page
-// Get route needs to only be shown if the admin user is logged in. else redirects to login page
-// Post edit
-// Post delete
-// Post route new listings
 
 // Error page
 // Get route
