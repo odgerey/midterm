@@ -84,6 +84,11 @@ app.get("/", (req, res) => {
 
 // Login Routes
 
+//Login Get Route
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
 // Get route
 // Post route
 
