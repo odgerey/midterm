@@ -88,7 +88,7 @@ app.get("/login", (req, res) => {
 
 // User account
 
-// Index
+//Get user page
 app.get("/:user", (req, res) => {
   const queryString = `
   query to pull all user's favourite products
@@ -97,8 +97,22 @@ app.get("/:user", (req, res) => {
     .query(queryString)
     .then((res) => res.rows)
     .then((products) => {
-      res.render("index");
+      res.render("user_page");
       console.log("Get request for individual user page");
+    });
+});
+
+//Get user listings
+app.get("/:user/listings", (req, res) => {
+  const queryString = `
+  query to pull all user's listings
+  `;
+  pool
+    .query(queryString)
+    .then((res) => res.rows)
+    .then((products) => {
+      res.render("user_listings");
+      console.log("Get request for individual user listings page");
     });
 });
 
