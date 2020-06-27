@@ -11,26 +11,24 @@ const bcrypt = require("bcrypt");
 const { user } = require("osenv");
 const { redirect } = require("statuses");
 module.exports = (db) => {
-  /*
-
-  Index Routes
-
-  */
+  /*  Index Routes  */
 
   //GET route to show index. Index displays all listings.
   router.get("/", (req, res) => {
     db.query(
       `
-      SELECT * FROM listings
+      SELECT *
+      FROM listings;
   `
     )
       .then((data) => {
         const products = data.rows;
-        res.json({ products });
         res.render("index");
         console.log("GET request for index page");
       })
       .catch((err) => {
+        console.log("GET request for index page");
+
         res.status(500).json({ error: err.message });
       });
   });
@@ -81,9 +79,7 @@ module.exports = (db) => {
     res.redirect("login/");
   });
 
-  /*
-      User Specific Routes
-    */
+  /* User Specific Routes */
 
   //GET route for buyer's page. Shows all favourite items.
   router.get("/:user", (req, res) => {
@@ -140,11 +136,43 @@ module.exports = (db) => {
       });
   });
 
-  /*
+  //POST route to edit seller's listings
+  router.post("/listings:user", (req, res) => {
+    db.query(
+      `
+      Query to edit items
+      `
+    )
+      .then((data) => {
+        const products = data.rows;
+        res.json({ products });
+        res.render("user-listings");
+        console.log("POST request to edit items");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
 
-      End of routes
+  //POST route to delete seller's listings
+  router.post("/listings:user/delete", (req, res) => {
+    db.query(
+      `
+      Query to delete items
+      `
+    )
+      .then((data) => {
+        const products = data.rows;
+        res.json({ products });
+        res.render("user-listings");
+        console.log("POST request to delete items");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
 
-      */
+  /* End of Routes */
 
   return router;
 };
