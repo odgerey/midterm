@@ -42,7 +42,7 @@ const widgetsRoutes = require("./routes/widgets");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/api/users", usersRoutes(db));
+app.use("/", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
@@ -54,7 +54,7 @@ const cookieSession = require("cookie-session");
 app.use(
   cookieSession({
     name: "session",
-    keys: ["user_id"],
+    keys: ["email"],
   })
 );
 
@@ -62,6 +62,7 @@ app.use(
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+<<<<<<< HEAD
 /*
 Index for testing
 */
@@ -194,6 +195,8 @@ app.post("/:user/listings/:id/delete", (req, res) => {
     });
 });
 
+=======
+>>>>>>> feature/routing
 app.listen(PORT, () => {
-  console.log(`pp listening on port ${PORT}`);
+  console.log(`app listening on port ${PORT}`);
 });
