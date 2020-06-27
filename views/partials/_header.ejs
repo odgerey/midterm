@@ -1,10 +1,12 @@
-    <!-- <%- include('partials/_header') %> -->
+<!-- <%- include('partials/_header') %> -->
 
 <header>
   <nav>
     <a href="/listings">Website name</a>
   <% if (user.email) { %>
-    <div>Logged in as: <%= user.email %></div>
+    <div>Logged in as:
+      <strong><%= user.email %></strong>
+    </div>
     <form method="POST" action="/logout">
       <button type="submit">Logout</button>
     </form>
