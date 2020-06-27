@@ -58,33 +58,28 @@ module.exports = (db) => {
       });
   });
 
-    // Helper function to check username
-    const login = function (email)
-    };
+  // Helper function to check username
+  const login = function (email) {};
+  router.post("/login", (req, res) => {
+    const { email } = req.body;
+    login(email)
+      .then((email) => {
+        if (!email) {
+          res.send({ error: "error" });
+          return;
+        }
+        req.session.email = email;
+        res.redirect("/");
+      })
+      .catch((e) => res.send(e));
+  });
 
-  //login get route
+  // Logout Post
 
-    router.post("/login", (req, res) => {
-      const { email } = req.body;
-      login(email)
-        .then((email) => {
-          if (!email) {
-            res.send({ error: "error" });
-            return;
-          }
-          req.session.email = email;
-          res.redirect("/")
-
-        })
-        .catch((e) => res.send(e));
-    });
-
-  //   // Logout Post
-
-  //   router.post("/logout", (req, res) => {
-  //     req.session.email = null;
-  //   //redirect
-  //   });
+  router.post("/logout", (req, res) => {
+    req.session.email = null;
+    res.redirect("login/");
+  });
 
   //   /*
   //     User Specific Routes
