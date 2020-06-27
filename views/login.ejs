@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Home Page</title>
+    <title>Login Page</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -13,30 +13,26 @@
 
   <body>
     <header>
-      <div id = "website-name">
-        Website name
-      </div>
+      <nav>
+        <a href="/urls">Website name</a>
+      </nav>
     </header>
 
     <main>
       <section>
-        <form>
+        <form method="POST" action="/login">
           <label>
-            Login
+            Login form
           </label>
-          <input>
-          <input>
+          <input type=email name=email placeholder="Your email here...">
+          <input type=password name=password placeholder="Your password here...">
+          <button type="submit">
+            Login
+          </button>
         </form>
       </section>
     </main>
 
-    <footer>
-      <div id = "contacts">
-        Contact details
-      </div>
-      <div>
-        Copyright
-      </div>
-    </footer>
+    <%- include('partials/footer') %>
   </body>
 </html>
