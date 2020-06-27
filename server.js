@@ -82,7 +82,6 @@ app.get("/", (req, res) => {
   //Need to add conditional to see if the user is logged in
   const queryString = `
   SELECT * FROM listings
-
   `;
   pool
     .query(queryString)
@@ -96,7 +95,9 @@ app.get("/", (req, res) => {
 //Post request to filter by price
 app.post("/:user", (req, res) => {
   const queryString = `
-  query to sort products by price
+  SELECT price FROM listings
+  GROUP BY price
+  ORDER BY price ASC
   `;
   pool
     .query(queryString)
@@ -113,6 +114,7 @@ Login Routes
 
 //Login Get Route
 app.get("/login", (req, res) => {
+
   res.render("login");
 });
 
@@ -125,7 +127,7 @@ User Account Routes
 //Get user page
 app.get("/:user", (req, res) => {
   const queryString = `
-  query to pull all user's favourite products
+
   `;
   pool
     .query(queryString)
@@ -139,7 +141,7 @@ app.get("/:user", (req, res) => {
 //Post request to add favourite
 app.post("/:user", (req, res) => {
   const queryString = `
-  query to buyer's favourite listings
+
   `;
   pool
     .query(queryString)
@@ -153,7 +155,8 @@ app.post("/:user", (req, res) => {
 //Get user listings
 app.get("/:user/listings", (req, res) => {
   const queryString = `
-  query to pull all seller's listings
+
+
   `;
   pool
     .query(queryString)
