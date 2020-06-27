@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>All the listings</title>
+    <title>My listings</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/user.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
@@ -25,9 +25,9 @@
     <main>
       <section>
         <h1>
-          Current listings
+          My listings
         </h1>
-        <form method="POST" action="/listings">
+        <!-- <form method="POST" action="/listings">
           <label>
             Filter by
           </label>
@@ -35,7 +35,7 @@
           <button type="submit">
             Filter
           </button>
-        </form>
+        </form> -->
 
         <div class = "listing-container">
           <img href="">
@@ -43,11 +43,8 @@
           <article class = "listing-description"><%= listings.description %></article>
           <h4><%= listings.price %></h4>
           <h5><%= listings.date %></h5>
-          <button type="submit" class = "listing-add-favourite"></button>
-          <form method="GET" action="/messages">
-            <button type="submit">
-              Contact the seller
-            </button>
+          <form method="GET" action="/listings/<%= listings.id %>">
+            <button type="submit">Edit</button>
           </form>
         </div>
       </section>
