@@ -13,24 +13,38 @@
 
   <body>
     <header>
-      <div id = "website-name">
-        Website name
-      </div>
+      <nav>
+        <a href="/urls">Website name</a>
+      </nav>
     </header>
 
     <main>
       <section>
+        <h1>
+          Current listings
+        </h1>
         <form method="POST" action="/listings">
           <label>
             Filter by
           </label>
+          <input placeholder="Please specify...">
           <button type="submit">
             Filter
           </button>
         </form>
 
-        <div class = "listing">
-
+        <div class = "listing-container">
+          <img href="">
+          <h3 class = "listing-title">Title</h3>
+          <article class = "listing-description">Title</article>
+          <h4>Price</h4>
+          <h5>Date</h5>
+          <button class = "listing-add-favourite"></button>
+          <form method="GET" action="/messages">
+            <button type="submit">
+              Contact the seller
+            </button>
+          </form>
         </div>
       </section>
     </main>
