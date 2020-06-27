@@ -1,5 +1,3 @@
-const queries = require("./routes/database");
-
 // load .env data into process.env
 require("dotenv").config();
 
@@ -56,7 +54,7 @@ const cookieSession = require("cookie-session");
 app.use(
   cookieSession({
     name: "session",
-    keys: ["email_id"],
+    keys: ["email"],
   })
 );
 
@@ -68,10 +66,10 @@ app.use(
 Index for testing
 */
 
-app.get("/", (req, res) => {
-  res.render("index");
-  console.log("Get request for index page");
-});
+// app.get("/", (req, res) => {
+//   res.render("index");
+//   console.log("Get request for index page");
+// });
 
 // // Remove comments below to begin working on routes
 
