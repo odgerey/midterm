@@ -37,8 +37,8 @@ CREATE TABLE favorites (
 
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
-  buyer_id INTEGER REFERENCES buyer(id) ON DELETE CASCADE,
-  seller_id INTEGER REFERENCES seller(id) ON DELETE CASCADE,
+  buyer_id INTEGER REFERENCES buyers(id) ON DELETE CASCADE,
+  seller_id INTEGER REFERENCES sellers(id) ON DELETE CASCADE,
   title VARCHAR (255) NOT NULL,
   description text
 );

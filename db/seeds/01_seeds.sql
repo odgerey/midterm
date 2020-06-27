@@ -35,8 +35,8 @@ INSERT INTO favorites (buyer_id, listing_id)
 VALUES (5, 6),
 (3, 5),
 (4, 9),
-(3, 8),
+(3, 8);
 
 INSERT INTO messages (buyer_id, seller_id, title, description)
-VALUES (8, 1, "INTERESTED", 'Hey, man I really want that'),
-(5, 1, 'Call me', 'Can you accept 100?'),
+VALUES (8, 1, 'INTERESTED', 'Hey, man I really want that'),
+(5, 1, 'Call me', 'Can you accept 100?');
