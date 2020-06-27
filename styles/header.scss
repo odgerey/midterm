@@ -1,6 +1,5 @@
 nav {
-  // position: fixed;
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,11 +9,26 @@ nav {
   background-color: rgb(121, 0, 80);
   background-image: url("https://www.transparenttextures.com/patterns/light-wool.png");
   font-family: "Source Sans Pro", sans-serif;
+  font-size: 20px;
   color: #FFFFFF;
+
+  a {
+    text-decoration: none;
+    color: #FFFFFF;
+    font-weight: 700;
+  }
 
   button {
     border: none;
     color: inherit;
     background-color: inherit;
   }
+}
+
+@media only screen and (min-width: 1024px) {
+
+  nav {
+    font-size: 26px;
+  }
+
 }
