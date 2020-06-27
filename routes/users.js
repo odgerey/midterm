@@ -79,8 +79,9 @@ module.exports = (db) => {
 
   // POST route to logout. Sets cookie to NULL
   router.post("/logout", (req, res) => {
-    req.session.email = null;
-    res.redirect("login/");
+    const userCookie = req.session.email;
+    userCookie = null;
+    res.redirect("/login");
   });
 
   /* User Specific Routes */
@@ -95,9 +96,9 @@ module.exports = (db) => {
     )
       .then((data) => {
         const products = data.rows;
-        res.json({ products });
-        res.render("user");
+        const templateVars = {};
         console.log("Get request for user page");
+        res.render("user", templateVars);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -113,9 +114,9 @@ module.exports = (db) => {
     )
       .then((data) => {
         const products = data.rows;
-        res.json({ products });
-        res.render("index");
+        const templateVars = {};
         console.log("POST request to add favourite");
+        res.render("index", templateVars);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -131,9 +132,9 @@ module.exports = (db) => {
     )
       .then((data) => {
         const products = data.rows;
-        res.json({ products });
-        res.render("user-listings");
+        const templateVars = {};
         console.log("GET request to view seller's listings");
+        res.render("user-listings", templateVars);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -149,9 +150,8 @@ module.exports = (db) => {
     )
       .then((data) => {
         const products = data.rows;
-        res.json({ products });
-        res.render("user-listings");
         console.log("POST request to edit items");
+        res.render("user-listings");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -167,9 +167,8 @@ module.exports = (db) => {
     )
       .then((data) => {
         const products = data.rows;
-        res.json({ products });
-        res.render("user-listings");
         console.log("POST request to delete items");
+        res.render("user-listings");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
