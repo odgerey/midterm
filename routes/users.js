@@ -23,12 +23,11 @@ module.exports = (db) => {
     )
       .then((data) => {
         const products = data.rows;
-        res.render("index");
+        const templateVars = {};
         console.log("GET request for index page");
+        res.render("index", templateVars);
       })
       .catch((err) => {
-        console.log("GET request for index page");
-
         res.status(500).json({ error: err.message });
       });
   });
@@ -42,7 +41,6 @@ module.exports = (db) => {
     )
       .then((data) => {
         const products = data.rows;
-        res.json({ products });
         res.render("index");
         console.log("Post request for filter by price");
       })
@@ -54,19 +52,25 @@ module.exports = (db) => {
   /* Login Routes */
 
   // Helper function to check username
-  const login = function (email) {};
+  const loginVerification = function (email) {
+    const emailFromDatabase = "";
+    if (email === emailFromDatabase) {
+      return true;
+    }
+    false;
+  };
 
   //POST route to login. Stores e-mail address in cookie
   router.post("/login", (req, res) => {
-    const { email } = req.body;
-    login(email)
+    const email = req.body.email;
+    loginVerification(email)
       .then((email) => {
         if (!email) {
-          res.send({ error: "error" });
           console.log("Post login: Login credential error");
+          res.send({ error: "error" });
           return;
         }
-        req.session.email = email;
+        email = req.session.email;
         console.log("Post login: Success");
         res.redirect("/");
       })
