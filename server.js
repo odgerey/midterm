@@ -62,6 +62,11 @@ app.use(
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+app.get("/login", (req, res) => {
+  res.render("login");
+  console.log("Get request for index page");
+});
+
 app.listen(PORT, () => {
   console.log(`app listening on port ${PORT}`);
 });
