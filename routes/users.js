@@ -8,6 +8,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const { user } = require("osenv");
 module.exports = (db) => {
   /*
 
@@ -21,42 +22,42 @@ module.exports = (db) => {
   Index Routes
   */
 
-  // Index (get all listings)
-  router.get("/", (req, res) => {
-    database
-      .getAllListings(req.query)
-      .then((listings) => res.send({ listings }))
-      .catch((e) => {
-        console.error(e);
-        res.send(e);
-      });
-  });
+
+ router.get("/", (req, res) => {
+  db.query(`
+
+  query to get all of the listings
+
+
+  `)
+    .then(data => {
+      const users = data.rows;
+      res.json({ users });
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+
 
   //Post route to filter by price
 
-  router.post("/", (req, res) => {
-    database
-      .getAllListingsByPrice(req.query)
-      .then((listings) => res.send({ listings }))
-      .catch((e) => {
-        console.error(e);
-        res.send(e);
-      });
-  });
+  router.post("/:price", (req, res) => {
+    db.query(`
+    query to get afilter the listings by price
 
-  // //Post request to filter by price
-  // app.post("/:user", (req, res) => {
-  //   const queryString = `
-  //   query to sort products by price
-  //   `;
-  //   pool
-  //     .query(queryString)
-  //     .then((res) => res.rows)
-  //     .then((products) => {
-  //       res.render("index");
-  //       console.log("Post request to filter items by price");
-  //     });
-  // });
+    `)
+      .then(data => {
+        const products = data.rows;
+        res.json({ products });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+
 
   //Login Routes
   /**
@@ -64,26 +65,28 @@ module.exports = (db) => {
    * @param {String} email
    * @param {String} password encrypted
    */
-  const login = function (email, password) {
-    return database.getUserWithEmail(email).then((user) => {
-      if (bcrypt.compareSync(password, user.password)) {
-        return user;
-      }
-      return null;
-    });
+
+   //helper function
+  const login = function (email) {
+
+    //user check
+
+    return email
+
   };
-  exports.login = login;
+
+
+//login get route
 
   router.post("/login", (req, res) => {
-    const { email, password } = req.body;
-    login(email, password)
-      .then((user) => {
-        if (!user) {
+    const { email } = req.body;
+    login(email)
+      .then((email) => {
+        if (!email) {
           res.send({ error: "error" });
           return;
         }
-        req.session.userId = user.id;
-        res.send({ user: { name: user.name, email: user.email, id: user.id } });
+        req.session.email = email;
       })
       .catch((e) => res.send(e));
   });
@@ -94,6 +97,35 @@ module.exports = (db) => {
     req.session.userId = null;
     res.send({});
   });
+
+  /*
+    User Specific Routes
+  */
+
+  //Get user page
+  router.get("/:user", (req, res) => {
+    database
+      .getAllFavorites(req.query)
+      .then((listings) => res.send({ listings }))
+      .catch((e) => {
+        console.error(e);
+        res.send(e);
+      });
+  });
+
+  // //Get user page
+  // app.get("/:user", (req, res) => {
+  //   const queryString = `
+  //   query to pull all user's favourite products
+  //   `;
+  //   pool
+  //     .query(queryString)
+  //     .then((res) => res.rows)
+  //     .then((products) => {
+  //       res.render("user_page");
+  //       console.log("Get request for individual user page");
+  //     });
+  // });
 
   /*
 
