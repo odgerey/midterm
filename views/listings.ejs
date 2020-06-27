@@ -13,23 +13,25 @@
 
   <body>
     <header>
-      <nav>
-        <a class="navbar-brand" href="/urls">Website name</a>
-      </nav>
+      <div id = "website-name">
+        Website name
+      </div>
     </header>
 
     <main>
       <section>
-        <form method="POST" action="/login">
+        <form method="POST" action="/listings">
           <label>
-            Login form
+            Filter by
           </label>
-          <input type=email name=email placeholder="Your email here...">
-          <input type=password name=password placeholder="Your password here...">
           <button type="submit">
-            Login
+            Filter
           </button>
         </form>
+
+        <div class = "listing">
+
+        </div>
       </section>
     </main>
 
