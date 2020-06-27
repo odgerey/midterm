@@ -1,3 +1,4 @@
+
 // load .env data into process.env
 require("dotenv").config();
 
@@ -62,147 +63,10 @@ app.use(
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-<<<<<<< HEAD
-/*
-Index for testing
-*/
-
-app.get("/", (req, res) => {
-  res.render("index");
-  console.log("Get request for index page");
-});
-
-// Remove comments below to begin working on routes
-
-// /*
-// Main page routes
-// */
-
-// Index
-app.get("/", (req, res) => {
-  //Need to add conditional to see if the user is logged in
-  const queryString = `
-  SELECT * FROM listings
-  `;
-  pool
-    .query(queryString)
-    .then((res) => res.rows)
-    .then((products) => {
-      res.render("index");
-      console.log("Get request for index page");
-    });
-});
-
-//Post request to filter by price
-app.post("/:user", (req, res) => {
-  const queryString = `
-  SELECT price FROM listings
-  GROUP BY price
-  ORDER BY price ASC
-  `;
-  pool
-    .query(queryString)
-    .then((res) => res.rows)
-    .then((products) => {
-      res.render("index");
-      console.log("Post request to filter items by price");
-    });
-});
-
-/*
-Login Routes
-*/
-
-//Login Get Route
-=======
->>>>>>> fa61f72a92d3c21d58a982417102034a7b773ad8
-app.get("/login", (req, res) => {
-
-  res.render("login");
-<<<<<<< HEAD
-});
-
-// Post routes?
-
-/*
-User Account Routes
-*/
-
-//Get user page
-app.get("/:user", (req, res) => {
-  const queryString = `
-
-  `;
-  pool
-    .query(queryString)
-    .then((res) => res.rows)
-    .then((products) => {
-      res.render("user_page");
-      console.log("Get request for individual user page");
-    });
-});
-
-//Post request to add favourite
-app.post("/:user", (req, res) => {
-  const queryString = `
-
-  `;
-  pool
-    .query(queryString)
-    .then((res) => res.rows)
-    .then((products) => {
-      res.render("user_page");
-      console.log("Post request to add favourite product");
-    });
-});
-
-//Get user listings
-app.get("/:user/listings", (req, res) => {
-  const queryString = `
-
-
-  `;
-  pool
-    .query(queryString)
-    .then((res) => res.rows)
-    .then((products) => {
-      res.render("listings");
-      console.log("Get request for individual user listings page");
-    });
-});
-
-//Post to edit user listings
-//Need conditional to check if the user is logged in
-app.post("/:user/listings", (req, res) => {
-  const queryString = `
-  query to edit product in user listing
-  `;
-  pool
-    .query(queryString)
-    .then((res) => res.rows)
-    .then((products) => {
-      res.render("user_listings");
-      console.log("Post request to edit individual user listing");
-    });
-});
-
-//Post to edit delete user listing
-//Need conditional to check if the user is logged in
-app.post("/:user/listings/:id/delete", (req, res) => {
-  const queryString = `
-  query to delete individual product in user listing
-  `;
-  pool
-    .query(queryString)
-    .then((res) => res.rows)
-    .then((products) => {
-      res.render("user_listings");
-      console.log("Post request to delete individual product");
-    });
-=======
-  console.log("Get request for index page");
->>>>>>> fa61f72a92d3c21d58a982417102034a7b773ad8
-});
+// app.get("/login", (req, res) => {
+//   res.render("login");
+//   console.log("Get request for index page");
+// });
 
 app.listen(PORT, () => {
   console.log(`app listening on port ${PORT}`);
