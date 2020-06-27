@@ -77,121 +77,121 @@ app.get("/", (req, res) => {
 // Main page routes
 // */
 
-// // Index
-// app.get("/", (req, res) => {
-//   //Need to add conditional to see if the user is logged in
-//   const queryString = `
-//   query to pull all products
-//   `;
-//   pool
-//     .query(queryString)
-//     .then((res) => res.rows)
-//     .then((products) => {
-//       res.render("index");
-//       console.log("Get request for index page");
-//     });
-// });
+// Index
+app.get("/", (req, res) => {
+  //Need to add conditional to see if the user is logged in
+  const queryString = `
+  query to pull all products
+  `;
+  pool
+    .query(queryString)
+    .then((res) => res.rows)
+    .then((products) => {
+      res.render("index");
+      console.log("Get request for index page");
+    });
+});
 
-// //Post request to filter by price
-// app.post("/:user", (req, res) => {
-//   const queryString = `
-//   query to sort products by price
-//   `;
-//   pool
-//     .query(queryString)
-//     .then((res) => res.rows)
-//     .then((products) => {
-//       res.render("index");
-//       console.log("Post request to filter items by price");
-//     });
-// });
+//Post request to filter by price
+app.post("/:user", (req, res) => {
+  const queryString = `
+  query to sort products by price
+  `;
+  pool
+    .query(queryString)
+    .then((res) => res.rows)
+    .then((products) => {
+      res.render("index");
+      console.log("Post request to filter items by price");
+    });
+});
 
-// /*
-// Login Routes
-// */
+/*
+Login Routes
+*/
 
-// //Login Get Route
-// app.get("/login", (req, res) => {
-//   res.render("login");
-// });
+//Login Get Route
+app.get("/login", (req, res) => {
+  res.render("login");
+});
 
-// // Post routes?
+// Post routes?
 
-// /*
-// User Account Routes
-// */
+/*
+User Account Routes
+*/
 
-// //Get user page
-// app.get("/:user", (req, res) => {
-//   const queryString = `
-//   query to pull all user's favourite products
-//   `;
-//   pool
-//     .query(queryString)
-//     .then((res) => res.rows)
-//     .then((products) => {
-//       res.render("user_page");
-//       console.log("Get request for individual user page");
-//     });
-// });
+//Get user page
+app.get("/:user", (req, res) => {
+  const queryString = `
+  query to pull all user's favourite products
+  `;
+  pool
+    .query(queryString)
+    .then((res) => res.rows)
+    .then((products) => {
+      res.render("user_page");
+      console.log("Get request for individual user page");
+    });
+});
 
-// //Post request to add favourite
-// app.post("/:user", (req, res) => {
-//   const queryString = `
-//   query to edit favourite flag
-//   `;
-//   pool
-//     .query(queryString)
-//     .then((res) => res.rows)
-//     .then((products) => {
-//       res.render("user_page");
-//       console.log("Post request to add favourite product");
-//     });
-// });
+//Post request to add favourite
+app.post("/:user", (req, res) => {
+  const queryString = `
+  query to buyer's favourite listings
+  `;
+  pool
+    .query(queryString)
+    .then((res) => res.rows)
+    .then((products) => {
+      res.render("user_page");
+      console.log("Post request to add favourite product");
+    });
+});
 
-// //Get user listings
-// app.get("/:user/listings", (req, res) => {
-//   const queryString = `
-//   query to pull all user's listings
-//   `;
-//   pool
-//     .query(queryString)
-//     .then((res) => res.rows)
-//     .then((products) => {
-//       res.render("listings");
-//       console.log("Get request for individual user listings page");
-//     });
-// });
+//Get user listings
+app.get("/:user/listings", (req, res) => {
+  const queryString = `
+  query to pull all seller's listings
+  `;
+  pool
+    .query(queryString)
+    .then((res) => res.rows)
+    .then((products) => {
+      res.render("listings");
+      console.log("Get request for individual user listings page");
+    });
+});
 
-// //Post to edit user listings
-// //Need conditional to check if the user is logged in
-// app.post("/:user/listings", (req, res) => {
-//   const queryString = `
-//   query to edit product in user listing
-//   `;
-//   pool
-//     .query(queryString)
-//     .then((res) => res.rows)
-//     .then((products) => {
-//       res.render("user_listings");
-//       console.log("Post request to edit individual user listing");
-//     });
-// });
+//Post to edit user listings
+//Need conditional to check if the user is logged in
+app.post("/:user/listings", (req, res) => {
+  const queryString = `
+  query to edit product in user listing
+  `;
+  pool
+    .query(queryString)
+    .then((res) => res.rows)
+    .then((products) => {
+      res.render("user_listings");
+      console.log("Post request to edit individual user listing");
+    });
+});
 
-// //Post to edit delete user listing
-// //Need conditional to check if the user is logged in
-// app.post("/:user/listings/:id/delete", (req, res) => {
-//   const queryString = `
-//   query to delete individual product in user listing
-//   `;
-//   pool
-//     .query(queryString)
-//     .then((res) => res.rows)
-//     .then((products) => {
-//       res.render("user_listings");
-//       console.log("Post request to delete individual product");
-//     });
-// });
+//Post to edit delete user listing
+//Need conditional to check if the user is logged in
+app.post("/:user/listings/:id/delete", (req, res) => {
+  const queryString = `
+  query to delete individual product in user listing
+  `;
+  pool
+    .query(queryString)
+    .then((res) => res.rows)
+    .then((products) => {
+      res.render("user_listings");
+      console.log("Post request to delete individual product");
+    });
+});
 
 app.listen(PORT, () => {
   console.log(`pp listening on port ${PORT}`);
