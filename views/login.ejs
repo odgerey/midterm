@@ -20,12 +20,15 @@
 
     <main>
       <section>
-        <form>
+        <form method="POST" action="/login">
           <label>
-            Login
+            Login form
           </label>
-          <input>
-          <input>
+          <input type=email name=email placeholder="Your email here...">
+          <input type=password name=password placeholder="Your password here...">
+          <button type="submit">
+            Login
+          </button>
         </form>
       </section>
     </main>
