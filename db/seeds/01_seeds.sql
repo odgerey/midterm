@@ -1,23 +1,23 @@
 INSERT INTO buyers(username, email, password)
 VALUES ('nadia01', 'nadia@gmail.com', '#Nadia123'),
-VALUES ('sarah01', 'sarah@gmail.com', '#Sarah123'),
-VALUES ('john01', 'john@gmail.com', '#John123'),
-VALUES ('rudolph01', 'rudolphe@gmail.com', '#rudolph123'),
-VALUES ('jerry01', 'jerry01@gmail.com', '#jerry01'),
-VALUES ('schmidtKing', 'schmidtking@gmail.com', '#king01'),
-VALUES ('simoneCat', 'thedarksphynx@gmail.com', '#435KIND'),
-VALUES ('Nickyappy', 'nickeyhappy@gmail.com', 'HA34KF');
+('sarah01', 'sarah@gmail.com', '#Sarah123'),
+('john01', 'john@gmail.com', '#John123'),
+('rudolph01', 'rudolphe@gmail.com', '#rudolph123'),
+('jerry01', 'jerry01@gmail.com', '#jerry01'),
+('schmidtKing', 'schmidtking@gmail.com', '#king01'),
+('simoneCat', 'thedarksphynx@gmail.com', '#435KIND'),
+('Nickyappy', 'nickeyhappy@gmail.com', 'HA34KF');
 
 
 INSERT INTO listings(title, description, thumbnail_photo_url, cover_photo_url, price, for_sale)
-VALUES ('Norman Guiter', 'Brand new, barely used','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 300, 1, true ),
-('Glitter Box', 'Crazy lady selling box of glitter','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 45, 2, true ),
-('The Cranberries RARE autographed copy', 'CD signed by Dolores O Riodan, collectors item','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 80, 3, false ),
-('Seinfeld Seasons 1-6', 'Mint condition','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 98, 4, true ),
-('Sofa to give away', 'Pick it up and it is yours','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 0, 5, true ),
-('Marathon gear', 'A little sweaty, nothing a little cleaning can fix','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 100, 6, true ),
-('Collection of Encyclopedias', 'The full collection A to Z dating form 1975, vintage!','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 75, 7, false ),
-('Pumpkin', 'Just a pumpkin','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 10,true ),
+VALUES ('Norman Guiter', 'Brand new, barely used','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 300, true ),
+('Glitter Box', 'Crazy lady selling box of glitter','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 45,true ),
+('The Cranberries RARE autographed copy', 'CD signed by Dolores O Riodan, collectors item','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 80, false ),
+('Seinfeld Seasons 1-6', 'Mint condition','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 98, true ),
+('Sofa to give away', 'Pick it up and it is yours','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 0,true ),
+('Marathon gear', 'A little sweaty, nothing a little cleaning can fix','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 100,true ),
+('Collection of Encyclopedias', 'The full collection A to Z dating form 1975, vintage!','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 75,false ),
+('Pumpkin', 'Just a pumpkin','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg',10,true ),
 ('Rayban sunglasses 1995', 'Brand new, barely used','https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https: //images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 225, true );
 
 INSERT INTO sellers(buyer_id, listing_id )

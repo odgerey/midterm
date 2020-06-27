@@ -81,7 +81,8 @@ app.get("/", (req, res) => {
 app.get("/", (req, res) => {
   //Need to add conditional to see if the user is logged in
   const queryString = `
-  query to pull all products
+  SELECT * FROM listings
+
   `;
   pool
     .query(queryString)
