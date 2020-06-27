@@ -13,16 +13,11 @@ const { redirect } = require("statuses");
 module.exports = (db) => {
   /*
 
-
-  Routes Below
-
-
-  */
-
-  /*
   Index Routes
+
   */
 
+  //GET route to show index. Index displays all listings.
   router.get("/", (req, res) => {
     db.query(
       `
@@ -30,91 +25,126 @@ module.exports = (db) => {
   `
     )
       .then((data) => {
-        const users = data.rows;
-        res.json({ users });
+        const products = data.rows;
+        res.json({ products });
         res.render("index");
-        console.log("test");
+        console.log("GET request for index page");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
   });
 
-  //Post route to filter by price
-
+  //POST route to filter by price
   router.post("/:price", (req, res) => {
     db.query(
       `
-      SELECT price FROM listings
-      `
+        SELECT price FROM listings
+        `
     )
       .then((data) => {
         const products = data.rows;
         res.json({ products });
         res.render("index");
+        console.log("Post request for filter by price");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
   });
 
+  /* Login Routes */
+
   // Helper function to check username
   const login = function (email) {};
+
+  //POST route to login. Stores e-mail address in cookie
   router.post("/login", (req, res) => {
     const { email } = req.body;
     login(email)
       .then((email) => {
         if (!email) {
           res.send({ error: "error" });
+          console.log("Post login: Login credential error");
           return;
         }
         req.session.email = email;
+        console.log("Post login: Success");
         res.redirect("/");
       })
       .catch((e) => res.send(e));
   });
 
-  // Logout Post
-
+  // POST route to logout. Sets cookie to NULL
   router.post("/logout", (req, res) => {
     req.session.email = null;
     res.redirect("login/");
   });
 
-  //   /*
-  //     User Specific Routes
-  //   */
+  /*
+      User Specific Routes
+    */
 
-  //   //Get user profile page
-  //   router.get("/:user", (req, res) => {
-  //     database
-  //       .getAllFavorites(req.query)
-  //       .then((listings) => res.send({ listings }))
-  //       .catch((e) => {
-  //         console.error(e);
-  //         res.send(e);
-  //       });
-  //   });
+  //GET route for buyer's page. Shows all favourite items.
+  router.get("/:user", (req, res) => {
+    db.query(
+      `
+      query to show all user's favourites
 
-  //   // //Get user page
-  //   // app.get("/:user", (req, res) => {
-  //   //   const queryString = `
-  //   //   query to pull all user's favourite products
-  //   //   `;
-  //   //   pool
-  //   //     .query(queryString)
-  //   //     .then((res) => res.rows)
-  //   //     .then((products) => {
-  //   //       res.render("user_page");
-  //   //       console.log("Get request for individual user page");
-  //   //     });
-  //   // });
+      `
+    )
+      .then((data) => {
+        const products = data.rows;
+        res.json({ products });
+        res.render("user");
+        console.log("Get request for user page");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
 
-  //   /*
+  //POST route to add favourite
+  router.post("/:price", (req, res) => {
+    db.query(
+      `
+      Query to add favourite
+      `
+    )
+      .then((data) => {
+        const products = data.rows;
+        res.json({ products });
+        res.render("index");
+        console.log("POST request to add favourite");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
 
-  //     End of routes
+  //GET route to view seller's listings
+  router.get("/listings:user", (req, res) => {
+    db.query(
+      `
+      Query to view specific seller's items
+      `
+    )
+      .then((data) => {
+        const products = data.rows;
+        res.json({ products });
+        res.render("user-listings");
+        console.log("GET request to view seller's listings");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
 
-  //     */
+  /*
+
+      End of routes
+
+      */
 
   return router;
 };
