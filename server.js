@@ -87,8 +87,8 @@ app.get("/", (req, res) => {
 //     .query(queryString)
 //     .then((res) => res.rows)
 //     .then((products) => {
-//       res.render("main");
-//       console.log("Get request for main page");
+//       res.render("index");
+//       console.log("Get request for index page");
 //     });
 // });
 
@@ -101,7 +101,7 @@ app.get("/", (req, res) => {
 //     .query(queryString)
 //     .then((res) => res.rows)
 //     .then((products) => {
-//       res.render("main");
+//       res.render("index");
 //       console.log("Post request to filter items by price");
 //     });
 // });
@@ -158,7 +158,7 @@ app.get("/", (req, res) => {
 //     .query(queryString)
 //     .then((res) => res.rows)
 //     .then((products) => {
-//       res.render("user_listings");
+//       res.render("listings");
 //       console.log("Get request for individual user listings page");
 //     });
 // });
