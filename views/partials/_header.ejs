@@ -1,0 +1,15 @@
+<header>
+  <nav>
+    <a href="/listings">Website name</a>
+  <% if (user.email) { %>
+    <div>Logged in as: <%= user.email %></div>
+    <form method="POST" action="/logout">
+      <button type="submit">Logout</button>
+    </form>
+  <% } else { %>
+    <form method="GET" action="/login">
+      <button type="submit">Login</button>
+    </form>
+  <% } %>
+  </nav>
+</header>

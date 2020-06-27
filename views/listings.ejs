@@ -12,11 +12,13 @@
   </head>
 
   <body>
-    <header>
+    <%- include('partials/_header') %>
+
+    <!-- <header>
       <nav>
-        <a href="/urls">Website name</a>
+        <a href="/listings">Website name</a>
       </nav>
-    </header>
+    </header> -->
 
     <main>
       <section>
@@ -35,10 +37,10 @@
 
         <div class = "listing-container">
           <img href="">
-          <h3 class = "listing-title">Title</h3>
-          <article class = "listing-description">Title</article>
-          <h4>Price</h4>
-          <h5>Date</h5>
+          <h3 class = "listing-title"><%= listings.title %></h3>
+          <article class = "listing-description"><%= listings.description %></article>
+          <h4><%= listings.price %></h4>
+          <h5><%= listings.date %></h5>
           <button class = "listing-add-favourite"></button>
           <form method="GET" action="/messages">
             <button type="submit">
@@ -49,6 +51,6 @@
       </section>
     </main>
 
-    <%- include('partials/footer') %>
+    <%- include('partials/_footer') %>
   </body>
 </html>
