@@ -10,33 +10,33 @@ body {
   font-family: "Bungee", "Source Sans Pro", sans-serif;
   font-size: 16px;
   color: #545149;
+}
 
 // To move to the header.scss when it is working
 
-  nav {
-    position: fixed;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 5em;
-    width: 100%;
-    padding: 1.5em;
-    background-color: rgb(121, 0, 80);
-    background-image: url("https://www.transparenttextures.com/patterns/light-wool.png");
-    font-family: "Source Sans Pro", sans-serif;
-    color: #FFFFFF;
-  }
+nav {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5em;
+  width: 100%;
+  padding: 1.5em;
+  background-color: rgb(121, 0, 80);
+  background-image: url("https://www.transparenttextures.com/patterns/light-wool.png");
+  font-family: "Source Sans Pro", sans-serif;
+  color: #FFFFFF;
+}
+
+main {
+  margin-top: 5em;
+  width: 90%;
+  margin: auto;
 
   button {
     border: none;
     color: inherit;
     background-color: inherit;
-  }
-
-  main {
-    margin-top: 5em;
-    width: 90%;
-    margin: auto;
   }
 }
 
