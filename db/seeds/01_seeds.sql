@@ -37,3 +37,6 @@ VALUES (3, 5, true),
 VALUES (4, 9, true),
 VALUES (3, 8, true),
 
+INSERT INTO messages (buyer_id, seller_id, title, description)
+VALUES (8, 1, "INTERESTEED", 'Hey, man I really want that'),
+VALUES (5, 1, 'Call me', 'Can you accept 100?'),
