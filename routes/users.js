@@ -67,6 +67,8 @@ module.exports = (db) => {
 
   //POST route to login. Stores e-mail address in cookie
   router.post("/login", (req, res) => {
+    console.log(req);
+    console.log('test');
     const email = req.body.email;
     console.log("Email should be value of form: ");
     loginVerification(email)
