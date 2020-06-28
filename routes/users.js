@@ -168,16 +168,17 @@ module.exports = (db) => {
   //POST route to remove favourite
   router.post("/:remove_favorite", (req, res) => {
     const queryString = `
-      ALTER TABLE favorites
-      DROP column favorite_id;
-      VALUES  (5)
+    DELETE FROM favorites
+    WHERE buyer_id = $1
+    AND listing_id = $2
       `;
     // const userIDCookie = req.session.buyer_id
-    const listingID = req.body.listingID;
+    const listingID = req.body.listingIDForRemoval;
     const values = listingID;
+    console.log(listingID);
     db.query(queryString, [values])
       .then((data) => {
-        console.log("POST request to add favourite");
+        console.log("POST request to remove favourite");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
