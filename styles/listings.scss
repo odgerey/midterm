@@ -15,6 +15,7 @@ section {
 section > div {
   display: flex;
   justify-content: space-around;
+  align-items: flex-start;
 }
 
 #filter {
@@ -72,8 +73,9 @@ img {
   padding: 1em;
 }
 
-// .listing-add-favourite {
-// }
+.listing-add-favourite {
+  width: 5em;
+}
 
 .contact-seller {
   button  {

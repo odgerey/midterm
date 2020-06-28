@@ -63,8 +63,8 @@
               <div class="listing-parameters">
                 <h3 class="listing-title"><%= products[value].title%></h3>
                 <div>
-                  <span><%= products[value].price%></span>
-                  <span><%= products[value].date%></span>
+                  <span>CAD <%= products[value].price%></span>
+                  <span>Posted on: <%= products[value].date%></span>
                 </div>
               </div>
               <article class="listing-description">
@@ -73,6 +73,7 @@
             </div>
             <div class="listing-buttons">
               <button type="submit" class="listing-add-favourite">Heart</button>
+              <button type="submit" class="listing-add-favourite">Empty heart</button>
               <form method="GET" action="/messages" class="contact-seller">
                 <button type="submit">
                   Contact the seller
