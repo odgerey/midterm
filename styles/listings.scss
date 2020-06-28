@@ -1,14 +1,23 @@
 section {
-  height: 18em;
-  display: flex;
-  justify-content: center;
-  border: black solid;
+  // display: flex;
+  // justify-content: center;
+  padding: 0 1em 1em 1em;
+  border: rgb(22, 3, 15) solid;
   margin: 4em 0 3em 0;
-  width: 50%;
+  width: 90%;
   background-color: white;
+
+  h1 {
+    margin-left: 0.25em;
+  }
 }
 
-form {
+section > div {
+  display: flex;
+  justify-content: space-around;
+}
+
+#filter {
   padding: 2em 2em;
   display: flex;
   flex-direction: column;
@@ -25,6 +34,49 @@ form {
 
   button {
     font-size: 14px;
+  }
+}
+
+#filter > * {
+  margin: 0.5em 0;
+}
+
+.listing-container {
+  display: flex;
+  width: 70%;
+  margin: 1em 0 0 3em;
+}
+
+img {
+  height: 5em;
+}
+
+.listing-parameters {
+  display: flex;
+  justify-content: space-between;
+
+  div {
+    display: flex;
+    // justify-content: space-between;
+    span {
+      margin: auto 0.5em;
+    }
+  }
+}
+
+.listing-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1em;
+}
+
+// .listing-add-favourite {
+// }
+
+.contact-seller {
+  button  {
+    width: 5em;
   }
 }
 
