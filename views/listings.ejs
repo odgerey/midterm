@@ -72,12 +72,22 @@
                 </article>
               </div>
               <div class="listing-buttons">
+<<<<<<< HEAD
                 <button type="submit" class="listing-add-favourite">
                   Heart
                 </button>
                 <button type="submit" class="listing-add-favourite">
                   Empty heart
                 </button>
+=======
+                <span class="listing-id"><%= products[value].listingID%></span>
+                <form method="POST" action="/:add_favorite">
+                  <button type="submit" class="listing-add-favourite">Empty heart</button>
+                </form>
+                <form method="POST" action="/:remove_favorite">
+                  <button type="submit" class="listing-remove-favourite">Heart</button>
+                </form>
+>>>>>>> master
                 <form method="GET" action="/messages" class="contact-seller">
                   <button type="submit">
                     Contact the seller

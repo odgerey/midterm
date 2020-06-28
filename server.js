@@ -66,20 +66,27 @@ app.get("/login", (req, res) => {
   console.log("Get request for login page");
 });
 
-app.get("/listings", (req, res) => {
-  res.render("listings");
-  console.log("Get request for listings page");
-});
+// app.post("/login", (req, res) => {
+//   db.query(``)
+//   console.log(req);
+//   // res.render("login");
+//   console.log("Get request for login page");
+// });
 
-app.get("/user", (req, res) => {
-  res.render("user");
-  console.log("Get request for the user page");
-});
+// app.get("/listings", (req, res) => {
+//   res.render("listings");
+//   console.log("Get request for listings page");
+// });
 
-app.get("/listings/:id", (req, res) => {
-  res.render("specific_listing.ejs");
-  console.log("Get request for the listing page");
-});
+// app.get("/user", (req, res) => {
+//   res.render("user");
+//   console.log("Get request for the user page");
+// });
+
+// app.get("/listings/:id", (req, res) => {
+//   res.render("specific_listing.ejs");
+//   console.log("Get request for the listing page");
+// });
 
 // app.post("/login", (req, res) => {
 //   console.log("POST request for Login");
