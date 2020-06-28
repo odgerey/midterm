@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const sass = require("node-sass-middleware");
 const app = express();
 const morgan = require("morgan");
+const cookieSession = require("cookie-session");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -49,11 +50,10 @@ app.use("/api/widgets", widgetsRoutes(db));
 const saltRounds = 10;
 
 //Cookie-session
-const cookieSession = require("cookie-session");
 app.use(
   cookieSession({
     name: "session",
-    keys: ["email"],
+    keys: ["email", "buyer_id"],
   })
 );
 
@@ -80,6 +80,10 @@ app.get("/listings/:id", (req, res) => {
   res.render("specific_listing.ejs");
   console.log("Get request for the listing page");
 });
+
+// app.post("/login", (req, res) => {
+//   console.log("POST request for Login");
+// });
 
 app.listen(PORT, () => {
   console.log(`app listening on port ${PORT}`);
