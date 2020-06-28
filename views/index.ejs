@@ -20,19 +20,20 @@
 
     <main>
       <section>
-        <form method="POST" action="/login">
-          <label>
-            Login form
-          </label>
-          <input type=email name=email placeholder="Your email here...">
-          <input type=password name=password placeholder="Your password here...">
-          <button type="submit">
-            Login
-          </button>
-        </form>
+        <% for(value in products) { %>
+        <ul style="list-style: none;">
+          <li>ID: <%= products[value].id %></li>
+          <li>Title: <%= products[value].title %></li>
+          <li>Description: <%= products[value].description %></li>
+          <li>
+            Thumbnail: <img src="<%=products[value].thumbnail_photo_url%>" />
+          </li>
+          <li>Photo: <img src="<%=products[value].cover_photo_url%>" /></li>
+          <li>Price: $<%= products[value].price %></li>
+          <li>Sold Flag: <%= products[value].for_sale %></li>
+        </ul>
+        <% } %>
       </section>
     </main>
-
-    <%- include('partials/_footer') %>
   </body>
 </html>

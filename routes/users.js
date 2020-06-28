@@ -26,7 +26,9 @@ module.exports = (db) => {
     db.query(queryString)
       .then((data) => {
         const products = data.rows;
-        const templateVars = {};
+        const templateVars = {
+          products,
+        };
         console.log(products);
         console.log("GET request for index page");
         res.render("index", templateVars);
