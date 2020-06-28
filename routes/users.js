@@ -165,6 +165,24 @@ module.exports = (db) => {
       });
   });
 
+  //POST route to remove favourite
+  router.post("/:remove_favorite", (req, res) => {
+    const queryString = `
+      INSERT INTO favorites (buyer_id, listing_id)
+      VALUES  (3, $1);
+      `;
+    // const userIDCookie = req.session.buyer_id
+    const listingID = req.body.listingID;
+    const values = listingID;
+    db.query(queryString, [values])
+      .then((data) => {
+        console.log("POST request to add favourite");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
   //GET route to view seller's listings
   router.get("/listings:user", (req, res) => {
     const queryString = ` Query to add specific sellers items  `;
