@@ -71,6 +71,10 @@ app.use(
 //   console.log("Get request for listings page");
 // });
 
+// app.post("/login", (req, res) => {
+//   console.log("test");
+// });
+
 app.listen(PORT, () => {
   console.log(`app listening on port ${PORT}`);
 });
