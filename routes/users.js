@@ -9,15 +9,7 @@ const express = require("express");
 const { c } = require("tar");
 const { query } = require("express");
 const router = express.Router();
-
-//Cookie-session
 const cookieSession = require("cookie-session");
-router.use(
-  cookieSession({
-    name: "session",
-    keys: ["email"],
-  })
-);
 
 // const bcrypt = require("bcrypt");
 // const { user } = require("osenv");
@@ -47,22 +39,46 @@ module.exports = (db) => {
       });
   });
 
-  //POST route to filter by price
-  router.post("/:price", (req, res) => {
-    const queryString = `query to sort products by price`;
-    db.query(queryString)
-      .then((data) => {
-        const products = data.rows;
-        console.log(products);
-        res.render("index");
-        console.log("POST request for filter by price");
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
+  // //GET route for specific listing
+  // router.get("/listings/:id", (req, res) => {
+  //   const queryString = `
+  // Query to pull 1 listing
+  //   `;
+  //   const values = req.params.listing;
+  //   db.query(queryString)
+  //     .then((data) => {
+  //       const products = data.rows;
+  //       const templateVars = { products };
+  //       console.log(products);
 
-  // /* Login Routes */
+  //       console.log("GET request for index page");
+  //       res.render("listings", templateVars);
+  //     })
+  //     .catch((err) => {
+  //       res.status(500).json({ error: err.message });
+  //     });
+  // });
+
+  // //POST route to filter by price
+  // router.post("/:price", (req, res) => {
+  //   const queryString = `query to sort products by price`;
+  //   db.query(queryString)
+  //     .then((data) => {
+  //       const products = data.rows;
+  //       console.log(products);
+  //       res.render("index");
+  //       console.log("POST request for filter by price");
+  //     })
+  //     .catch((err) => {
+  //       res.status(500).json({ error: err.message });
+  //     });
+  // });
+
+  /*
+
+  Login Routes
+
+  */
 
   // GET route for login page
   router.get("/login", (req, res) => {
@@ -79,45 +95,32 @@ module.exports = (db) => {
     return false;
   };
 
+  //POST route for login page
   router.post("/login", (req, res) => {
-    console.log("test");
-    const email = req.body;
-    console.log(email);
+    const email = req.body.email;
+
+    console.log("Req Body:", email);
+
     const queryString = `
-    SELECT *
-    FROM listings;
+    SELECT email
+    FROM buyers
+    WHERE buyers.email = $1;
+
     `;
-    db.query(queryString)
+
+    db.query(queryString, [email])
       .then((data) => {
         const emailFromDatabase = data.rows;
-        console.log(emailFromDatabase);
-        // res.render("users/:id");
-        console.log("POST request for login");
+        console.log(emailFromDatabase[0]);
+
+        // req.session.email =
+        // console.log("Cookie", req.session.email);
       })
       .catch((err) => {
         console.log("Catch");
         res.status(500).json({ error: err.message });
       });
   });
-
-  //POST route to login. Stores e-mail address in cookie
-  // router.post("/login", (req, res) => {
-  //   const email = req.body.email;
-  //   console.log("Email should be value of form: ");
-  //   // loginVerification(email)
-  //     .then((email) => {
-  //       // if (!email) {
-  //       //   console.log("Post login: Login credential error");
-  //       //   res.send({ error: "error" });
-  //       //   return;
-  //       // }
-  //       email = req.session.email;
-  //       console.log("Email should be cookie: ");
-  //       console.log("Post login: Success");
-  //       res.redirect("/");
-  //     })
-  //     .catch((e) => res.send(e));
-  // });
 
   // POST route to logout. Sets cookie to NULL
   router.post("/logout", (req, res) => {
@@ -126,7 +129,12 @@ module.exports = (db) => {
     res.redirect("/login");
   });
 
-  /* User Specific Routes */
+  /*
+
+
+  User Specific Routes
+
+  */
 
   //GET route for buyer's page. Shows all favourite items.
   router.get("/users/:id", (req, res) => {
