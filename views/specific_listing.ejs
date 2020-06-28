@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>All the listings</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
+
+    <!-- Custom fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Global layout CSS -->
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+    <!-- Header CSS -->
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+
+    <!-- Listings page CSS -->
+    <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
+
+    <!-- Footer CSS -->
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+  </head>
+
+  <body>
+    <%- include('partials/_header') %>
+
+    <main>
+      <section>
+        <h1>
+          Current listings
+        </h1>
+
+        <div>
+          <form method="POST" action="/listings" id="filter">
+            <label>
+              Filter by price
+            </label>
+            <input placeholder="Please specify..." />
+            <button type="submit">
+              Filter
+            </button>
+          </form>
+
+          <div id="all-listings">
+            <% for(value in products) { %>
+            <div class="one-listing">
+              <img href="" />
+              <div class="listing-text">
+                <div class="listing-parameters">
+                  <h3 class="listing-title"><%= products[value].title%></h3>
+                  <div>
+                    <span>CAD <%= products[value].price%></span>
+                    <span>Posted on: <%= products[value].date%></span>
+                  </div>
+                </div>
+                <article class="listing-description">
+                  <%= products[value].description %>
+                </article>
+              </div>
+              <div class="listing-buttons">
+                <button type="submit" class="listing-add-favourite">Heart</button>
+                <button type="submit" class="listing-add-favourite">Empty heart</button>
+                <form method="GET" action="/messages" class="contact-seller">
+                  <button type="submit">
+                    Contact the seller
+                  </button>
+                </form>
+              </div>
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <%- include('partials/_footer') %>
+  </body>
+</html>

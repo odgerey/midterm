@@ -61,20 +61,25 @@ app.use(
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-// app.get("/login", (req, res) => {
-//   res.render("login");
-//   console.log("Get request for login page");
-// });
+app.get("/login", (req, res) => {
+  res.render("login");
+  console.log("Get request for login page");
+});
 
-// app.get("/listings", (req, res) => {
-//   res.render("listings");
-//   console.log("Get request for listings page");
-// });
+app.get("/listings", (req, res) => {
+  res.render("listings");
+  console.log("Get request for listings page");
+});
 
-// app.get("/user", (req, res) => {
-//   res.render("user");
-//   console.log("Get request for user page");
-// });
+app.get("/user", (req, res) => {
+  res.render("user");
+  console.log("Get request for the user page");
+});
+
+app.get("/listings/:id", (req, res) => {
+  res.render("specific_listing.ejs");
+  console.log("Get request for the listing page");
+});
 
 app.listen(PORT, () => {
   console.log(`app listening on port ${PORT}`);
