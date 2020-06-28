@@ -80,18 +80,22 @@ module.exports = (db) => {
   };
 
   router.post("/login", (req, res) => {
+    console.log("test");
+    const email = req.body;
+    console.log(email);
     const queryString = `
     SELECT *
     FROM listings;
     `;
     db.query(queryString)
       .then((data) => {
-        const products = data.rows;
-        console.log(products);
-        res.render("index");
-        console.log("POST request for filter by price");
+        const emailFromDatabase = data.rows;
+        console.log(emailFromDatabase);
+        // res.render("users/:id");
+        console.log("POST request for login");
       })
       .catch((err) => {
+        console.log("Catch");
         res.status(500).json({ error: err.message });
       });
   });
