@@ -148,15 +148,17 @@ module.exports = (db) => {
   });
 
   //POST route to add favourite
-  router.post("/:favorite", (req, res) => {
+  router.post("/:add_favorite", (req, res) => {
+    console.log("test");
     const queryString = `
     INSERT INTO favorites (buyer_id, listing_id)
     VALUES ($1, $2)
 
     `;
-    let listingID = req.body.listingID;
-    const values = ("3", listingID)
-      .query(queryString, values)
+    // let listingID = req.body;
+    console.log(req.body);
+    const values = ["3", "2"]
+      .query(queryString, [values])
       .then((data) => {
         const products = data.rows;
         const templateVars = {};
