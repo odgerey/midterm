@@ -9,15 +9,7 @@ const express = require("express");
 const { c } = require("tar");
 const { query } = require("express");
 const router = express.Router();
-
-//Cookie-session
 const cookieSession = require("cookie-session");
-router.use(
-  cookieSession({
-    name: "session",
-    keys: ["email"],
-  })
-);
 
 // const bcrypt = require("bcrypt");
 // const { user } = require("osenv");
@@ -48,13 +40,18 @@ module.exports = (db) => {
   });
 
   //POST route to filter by price
-  router.post("/:price", (req, res) => {
-    const queryString = `query to sort products by price`;
+  router.post("/listings", (req, res) => {
+    const queryString = `
+    SELECT *
+    FROM listings
+    ORDER BY price ASC;
+    `;
     db.query(queryString)
       .then((data) => {
         const products = data.rows;
+        const templateVars = { products };
         console.log(products);
-        res.render("index");
+        res.render("listings", templateVars);
         console.log("POST request for filter by price");
       })
       .catch((err) => {
@@ -62,7 +59,11 @@ module.exports = (db) => {
       });
   });
 
-  // /* Login Routes */
+  /*
+
+  Login Routes
+
+  */
 
   // GET route for login page
   router.get("/login", (req, res) => {
@@ -79,45 +80,32 @@ module.exports = (db) => {
     return false;
   };
 
+  //POST route for login page
   router.post("/login", (req, res) => {
-    console.log("test");
-    const email = req.body;
-    console.log(email);
+    const email = req.body.email;
+    console.log("Req Body:", email);
     const queryString = `
-    SELECT *
-    FROM listings;
+    SELECT email, id
+    FROM buyers
+    WHERE buyers.email = $1;
+
     `;
-    db.query(queryString)
+
+    db.query(queryString, [email])
       .then((data) => {
         const emailFromDatabase = data.rows;
-        console.log(emailFromDatabase);
-        // res.render("users/:id");
-        console.log("POST request for login");
+        console.log(emailFromDatabase[0]);
+        //Need to pull email from object and store it in req.session.email
+        //Need to pull ID from object and store it in req.session.buyer_ID
+
+        // req.session.email =
+        // console.log("Cookie", req.session.email);
       })
       .catch((err) => {
         console.log("Catch");
         res.status(500).json({ error: err.message });
       });
   });
-
-  //POST route to login. Stores e-mail address in cookie
-  // router.post("/login", (req, res) => {
-  //   const email = req.body.email;
-  //   console.log("Email should be value of form: ");
-  //   // loginVerification(email)
-  //     .then((email) => {
-  //       // if (!email) {
-  //       //   console.log("Post login: Login credential error");
-  //       //   res.send({ error: "error" });
-  //       //   return;
-  //       // }
-  //       email = req.session.email;
-  //       console.log("Email should be cookie: ");
-  //       console.log("Post login: Success");
-  //       res.redirect("/");
-  //     })
-  //     .catch((e) => res.send(e));
-  // });
 
   // POST route to logout. Sets cookie to NULL
   router.post("/logout", (req, res) => {
@@ -126,7 +114,12 @@ module.exports = (db) => {
     res.redirect("/login");
   });
 
-  /* User Specific Routes */
+  /*
+
+
+  User Specific Routes
+
+  */
 
   //GET route for buyer's page. Shows all favourite items.
   router.get("/users/:id", (req, res) => {
@@ -155,15 +148,35 @@ module.exports = (db) => {
   });
 
   //POST route to add favourite
-  router.post("/:price", (req, res) => {
-    const queryString = ` Query to add favourite  `;
-    db.query(queryString)
+  router.post("/:add_favorite", (req, res) => {
+    const queryString = `
+    INSERT INTO favorites (buyer_id, listing_id)
+    VALUES  (3, $1);
+    `;
+    // const userIDCookie = req.session.buyer_id
+    const listingID = req.body.listingID;
+    const values = listingID;
+    db.query(queryString, [values])
       .then((data) => {
-        const products = data.rows;
-        const templateVars = {};
-        console.log(products);
         console.log("POST request to add favourite");
-        res.render("index", templateVars);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  //POST route to remove favourite
+  router.post("/:remove_favorite", (req, res) => {
+    const queryString = `
+      INSERT INTO favorites (buyer_id, listing_id)
+      VALUES  (3, $1);
+      `;
+    // const userIDCookie = req.session.buyer_id
+    const listingID = req.body.listingID;
+    const values = listingID;
+    db.query(queryString, [values])
+      .then((data) => {
+        console.log("POST request to add favourite");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });

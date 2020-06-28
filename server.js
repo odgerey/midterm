@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const sass = require("node-sass-middleware");
 const app = express();
 const morgan = require("morgan");
+const cookieSession = require("cookie-session");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -49,11 +50,10 @@ app.use("/api/widgets", widgetsRoutes(db));
 const saltRounds = 10;
 
 //Cookie-session
-const cookieSession = require("cookie-session");
 app.use(
   cookieSession({
     name: "session",
-    keys: ["email"],
+    keys: ["email", "buyer_id"],
   })
 );
 
@@ -61,37 +61,41 @@ app.use(
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-app.get("/login", (req, res) => {
-  res.render("login");
-  console.log("Get request for login page");
-});
+// app.get("/login", (req, res) => {
+//   res.render("login");
+//   console.log("GET request for login page");
+// });
 
 // app.post("/login", (req, res) => {
 //   db.query(``)
 //   console.log(req);
 //   // res.render("login");
-//   console.log("Get request for login page");
+//   console.log("GET request for login page");
 // });
 
 // app.get("/listings", (req, res) => {
 //   res.render("listings");
-//   console.log("Get request for listings page");
+//   console.log("GET request for listings page");
 // });
 
 // app.get("/user", (req, res) => {
 //   res.render("user");
-//   console.log("Get request for the user page");
+//   console.log("GET request for the user page");
 // });
 
 // app.get("/listings/:id", (req, res) => {
 //   res.render("specific_listing.ejs");
-//   console.log("Get request for the specific listing page");
+//   console.log("GET request for the specific listing page");
 // });
 
 app.get("/listings/new", (req, res) => {
   res.render("new_listing.ejs");
-  console.log("Get request for a new listing page");
+  console.log("GET request for a new listing page");
 });
+
+// app.post("/login", (req, res) => {
+//   console.log("POST request for Login");
+// });
 
 app.listen(PORT, () => {
   console.log(`app listening on port ${PORT}`);
