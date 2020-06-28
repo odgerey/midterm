@@ -13,7 +13,6 @@ const router = express.Router();
 // const { user } = require("osenv");
 // const { redirect } = require("statuses");
 // const { query } = require("express");
-
 module.exports = (db) => {
   /*  Index Routes  */
 
