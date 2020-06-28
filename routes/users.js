@@ -26,10 +26,11 @@ module.exports = (db) => {
     db.query(queryString)
       .then((data) => {
         const products = data.rows;
-        const templateVars = {};
+        const templateVars = { products };
         console.log(products);
+
         console.log("GET request for index page");
-        res.render("index", templateVars);
+        res.render("listings", templateVars);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -54,19 +55,15 @@ module.exports = (db) => {
   // /* Login Routes */
 
   //GET request for login page
-  router.get("login", (req, res) => {
-    console.log("GET request for login page");
-    res.render("login");
-  });
-
-  // Helper function to check username
-  const loginVerification = function (email) {
-    const emailFromDatabase = "";
-    if (email === emailFromDatabase) {
-      return true;
-    }
-    return false;
-  };
+  // res.render("login");
+  // // Helper function to check username
+  // const loginVerification = function (email) {
+  //   const emailFromDatabase = "";
+  //   if (email === emailFromDatabase) {
+  //     return true;
+  //   }
+  //   return false;
+  // };
 
   //POST route to login. Stores e-mail address in cookie
   router.post("/login", (req, res) => {
