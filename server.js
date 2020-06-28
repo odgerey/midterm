@@ -66,12 +66,12 @@ app.get("/login", (req, res) => {
   console.log("Get request for login page");
 });
 
-app.post("/login", (req, res) => {
-  db.query(``)
-  console.log(req);
-  // res.render("login");
-  console.log("Get request for login page");
-});
+// app.post("/login", (req, res) => {
+//   db.query(``)
+//   console.log(req);
+//   // res.render("login");
+//   console.log("Get request for login page");
+// });
 
 // app.get("/listings", (req, res) => {
 //   res.render("listings");
