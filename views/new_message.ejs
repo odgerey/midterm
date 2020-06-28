@@ -39,21 +39,21 @@
 
     <main>
       <section>
-        <form method="POST" action="/login">
+        <form method="POST" action="/new_message">
           <label>
-            Login form
+            Send a new message
           </label>
-          <input type="email"
-            name="email"
-            placeholder="Your email here..."
+          <input type="subject"
+            name="subject"
+            placeholder="Please enter the subject..."
           />
           <input
-            type="password"
-            name="password"
-            placeholder="Your password here..."
+            type="body"
+            name="body"
+            placeholder="Your message here..."
           />
-          <button type="submit">
-            Login
+          <button type="submit" id="new-message-button">
+            Send
           </button>
         </form>
       </section>
