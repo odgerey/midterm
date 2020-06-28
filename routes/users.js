@@ -83,11 +83,9 @@ module.exports = (db) => {
   //POST route for login page
   router.post("/login", (req, res) => {
     const email = req.body.email;
-
     console.log("Req Body:", email);
-
     const queryString = `
-    SELECT email
+    SELECT email, id
     FROM buyers
     WHERE buyers.email = $1;
 
@@ -97,6 +95,8 @@ module.exports = (db) => {
       .then((data) => {
         const emailFromDatabase = data.rows;
         console.log(emailFromDatabase[0]);
+        //Need to pull email from object and store it in req.session.email
+        //Need to pull ID from object and store it in req.session.buyer_ID
 
         // req.session.email =
         // console.log("Cookie", req.session.email);
@@ -148,9 +148,15 @@ module.exports = (db) => {
   });
 
   //POST route to add favourite
-  router.post("/:price", (req, res) => {
-    const queryString = ` Query to add favourite  `;
-    db.query(queryString)
+  router.post("/:favorite", (req, res) => {
+    const queryString = `
+    INSERT INTO favorites (buyer_id, listing_id)
+    VALUES ($1, $2)
+
+    `;
+    let listingID = req.body.listingID;
+    const values = ("3", listingID)
+      .query(queryString, values)
       .then((data) => {
         const products = data.rows;
         const templateVars = {};
