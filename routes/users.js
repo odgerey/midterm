@@ -29,7 +29,7 @@ module.exports = (db) => {
         const templateVars = {};
         console.log(products);
         console.log("GET request for index page");
-        res.render("index", templateVars);
+        res.render("listings", templateVars);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -38,7 +38,10 @@ module.exports = (db) => {
 
   //POST route to filter by price
   router.post("/:price", (req, res) => {
-    const queryString = `query to sort products by price`;
+    const queryString = `
+    SELECT price FROM listings
+    GROUP BY price
+    ORDER BY price ASC`;
     db.query(queryString)
       .then((data) => {
         const products = data.rows;
@@ -98,7 +101,10 @@ module.exports = (db) => {
 
   //GET route for buyer's page. Shows all favourite items.
   router.get("/:user", (req, res) => {
-    const queryString = `   `;
+    const queryString = `
+    SELECT favorites.id as favorites, buyers.username
+    FROM favorites
+    JOIN buyers ON buyers.id = buyer_id`;
     db.query(queryString)
       .then((data) => {
         const products = data.rows;
@@ -114,13 +120,14 @@ module.exports = (db) => {
 
   //POST route to add favourite
   router.post("/:price", (req, res) => {
-    const queryString = ` Query to add favourite  `;
+    const queryString = `
+    SELECT listings.*, favorites.*
+    FROM favorites
+    JOIN listings ON favorites.listing_id = listings.id`;
     db.query(queryString)
       .then((data) => {
         const products = data.rows;
         const templateVars = {};
-        console.log(products);
-        console.log("POST request to add favourite");
         res.render("index", templateVars);
       })
       .catch((err) => {
@@ -129,8 +136,12 @@ module.exports = (db) => {
   });
 
   //GET route to view seller's listings
-  router.get("/listings:user", (req, res) => {
-    const queryString = ` Query to add specific sellers items  `;
+  router.get("/listings/:user", (req, res) => {
+    const queryString = `
+    SELECT listings.*, sellers.*
+    FROM sellers
+    JOIN listings ON sellers.listing_id = listings.id
+    WHERE sellers.buyer_id = $1`;
     db.query(queryString)
       .then((data) => {
         const products = data.rows;
@@ -145,8 +156,9 @@ module.exports = (db) => {
   });
 
   //POST route to edit seller's listings
-  router.post("/listings:user", (req, res) => {
-    const queryString = ` query to edit items`;
+  router.post("/listings/:user", (req, res) => {
+    const queryString = ` SELECT * FROM listings
+    WHERE listing_id = $1`;
     db.query(queryString)
       .then((data) => {
         const products = data.rows;
@@ -160,8 +172,9 @@ module.exports = (db) => {
   });
 
   //POST route to delete seller's listings
-  router.post("/listings:user/delete", (req, res) => {
-    const queryString = ` Query to delete items `;
+  router.post("/listings/:user/delete", (req, res) => {
+    const queryString = ` SELECT * FROM listings
+    WHERE listing_id = $1`;
     db.query(queryString)
       .then((data) => {
         const products = data.rows;
@@ -172,6 +185,12 @@ module.exports = (db) => {
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
+  });
+
+
+  router.get("/errors", (req, res) => {
+    let templateVars = {};
+    res.render("urls_errors", templateVars);
   });
 
   // /* End of Routes */
