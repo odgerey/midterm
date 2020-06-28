@@ -9,6 +9,16 @@ const express = require("express");
 const { c } = require("tar");
 const { query } = require("express");
 const router = express.Router();
+
+//Cookie-session
+const cookieSession = require("cookie-session");
+router.use(
+  cookieSession({
+    name: "session",
+    keys: ["email"],
+  })
+);
+
 // const bcrypt = require("bcrypt");
 // const { user } = require("osenv");
 // const { redirect } = require("statuses");
@@ -54,35 +64,56 @@ module.exports = (db) => {
 
   // /* Login Routes */
 
-  //GET request for login page
-  // res.render("login");
-  // // Helper function to check username
-  // const loginVerification = function (email) {
-  //   const emailFromDatabase = "";
-  //   if (email === emailFromDatabase) {
-  //     return true;
-  //   }
-  //   return false;
-  // };
+  // GET route for login page
+  router.get("/login", (req, res) => {
+    res.render("login");
+    console.log("Get request for login page");
+  });
+
+  // Helper function to check username
+  const loginVerification = function (email) {
+    const emailFromDatabase = "";
+    if (email === emailFromDatabase) {
+      return true;
+    }
+    return false;
+  };
+
+  router.post("/login", (req, res) => {
+    const queryString = `
+    SELECT *
+    FROM listings;
+    `;
+    db.query(queryString)
+      .then((data) => {
+        const products = data.rows;
+        console.log(products);
+        res.render("index");
+        console.log("POST request for filter by price");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
 
   //POST route to login. Stores e-mail address in cookie
-  router.post("/login", (req, res) => {
-    const email = req.body.email;
-    console.log("Email should be value of form: ");
-    loginVerification(email)
-      .then((email) => {
-        if (!email) {
-          console.log("Post login: Login credential error");
-          res.send({ error: "error" });
-          return;
-        }
-        email = req.session.email;
-        console.log("Email should be cookie: ");
-        console.log("Post login: Success");
-        res.redirect("/");
-      })
-      .catch((e) => res.send(e));
-  });
+  // router.post("/login", (req, res) => {
+  //   const email = req.body.email;
+  //   console.log("Email should be value of form: ");
+  //   // loginVerification(email)
+  //     .then((email) => {
+  //       // if (!email) {
+  //       //   console.log("Post login: Login credential error");
+  //       //   res.send({ error: "error" });
+  //       //   return;
+  //       // }
+  //       email = req.session.email;
+  //       console.log("Email should be cookie: ");
+  //       console.log("Post login: Success");
+  //       res.redirect("/");
+  //     })
+  //     .catch((e) => res.send(e));
+  // });
 
   // POST route to logout. Sets cookie to NULL
   router.post("/logout", (req, res) => {
@@ -144,7 +175,7 @@ module.exports = (db) => {
         const templateVars = {};
         console.log(products);
         console.log("GET request to view seller's listings");
-        res.render("user-listings", templateVars);
+        res.render("user", templateVars);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
