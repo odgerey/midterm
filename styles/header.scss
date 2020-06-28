@@ -18,6 +18,16 @@ nav {
     font-weight: 700;
   }
 
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+      margin-right: 1em;
+    }
+  }
+
   button {
     display: inline-block;
     text-align: center;
