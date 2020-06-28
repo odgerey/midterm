@@ -71,8 +71,14 @@ app.use(
 //   console.log("Get request for listings page");
 // });
 
+<<<<<<< HEAD
 // app.post("/login", (req, res) => {
 //   console.log("test");
+=======
+// app.get("/user", (req, res) => {
+//   res.render("user");
+//   console.log("Get request for user page");
+>>>>>>> master
 // });
 
 app.listen(PORT, () => {
