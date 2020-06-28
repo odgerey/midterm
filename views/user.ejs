@@ -7,45 +7,64 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/user.css" type="text/css" />
 
+    <!-- Custom fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap" rel="stylesheet">
+
+    <!-- Global layout CSS -->
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+    <!-- Header CSS -->
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+
+    <!-- User page CSS -->
+    <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
+
+    <!-- Footer CSS -->
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
   </head>
 
   <body>
-    <header>
-      <nav>
-        <a href="/listings">Website name</a>
-        <div>Logged in as: </div>
-        <form method="POST" action="/logout">
-          <button type="submit">Logout</button>
-        </form>
-      </nav>
-    </header>
+    <%- include('partials/_header') %>
 
     <main>
       <section>
         <h1>
           My listings
         </h1>
-        <!-- <form method="POST" action="/listings">
-          <label>
-            Filter by
-          </label>
-          <input placeholder="Please specify...">
-          <button type="submit">
-            Filter
-          </button>
-        </form> -->
 
-        <div class = "listing-container">
-          <img href="">
-          <h3 class = "listing-title"><%= listings.title %></h3>
-          <article class = "listing-description"><%= listings.description %></article>
-          <h4><%= listings.price %></h4>
-          <h5><%= listings.date %></h5>
-          <form method="GET" action="/listings/<%= listings.id %>">
-            <button type="submit">Edit</button>
+        <div>
+          <form method="POST" action="/listings" id="filter">
+            <label>
+              Filter by
+            </label>
+            <input placeholder="Please specify...">
+            <button type="submit">
+              Filter
+            </button>
           </form>
+
+          <div class="listing-container">
+            <img href="">
+            <div class="listing-text">
+              <div class="listing-parameters">
+                <h3 class="listing-title"><%= listings.title %></h3>
+                <div>
+                  <span><%= listings.price %></span>
+                  <span><%= listings.date %></span>
+                </div>
+              </div>
+              <article class = "listing-description"><%= listings.description %></article>
+            </div>
+            <form method="GET" action="/listings/<%= listings.id %>">
+              <button type="submit">Edit</button>
+            </form>
+          </div>
         </div>
       </section>
     </main>
