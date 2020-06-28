@@ -69,9 +69,9 @@
             <% for(value in products) { %>
             <div class="one-listing">
               <img href="" />
-              <div class="listing-text">
+              <div>
                 <div class="listing-parameters">
-                  <h3 class="listing-title"><%= products[value].title%></h3>
+                  <h3><%= products[value].title%></h3>
                   <div>
                     <span>CAD <%= products[value].price%></span>
                     <span>Posted on: <%= products[value].date%></span>
@@ -102,8 +102,8 @@
                     <i class="fas fa-heart"></i>
                   <!-- </button> -->
                 </form>
-                <form method="GET" action="/send_message" class="contact-seller">
-                  <button type="submit" class="contact-button">
+                <form method="GET" action="/new_message">
+                  <button type="submit" class="new-message-button">
                     Contact the seller
                   </button>
                 </form>

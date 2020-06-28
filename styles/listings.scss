@@ -17,7 +17,7 @@ section > div {
   justify-content: space-between;
 }
 
-#new-listing-button, #filter-button, .contact-button {
+#new-listing-button, #filter-button, .new-message-button {
   display: inline-block;
   text-align: center;
   text-decoration: none;
@@ -38,12 +38,12 @@ section > div {
   margin: 2em 1em 0 0;
 }
 
-.contact-button {
+.new-message-button {
   width: 10em;
   font-size: 14px;
 }
 
-#new-listing-button:hover, #filter-button:hover, .contact-button:hover {
+#new-listing-button:hover, #filter-button:hover, .new-message-button:hover {
   background-color: rgb(22, 3, 15);
   color: white;
 }
@@ -91,16 +91,22 @@ img {
   height: auto;
   width: 10em;
   border: rgb(22, 3, 15);
+  margin: 0 1em 0 0;
 }
 
 .listing-parameters {
   display: flex;
   justify-content: space-between;
-  margin: 0 0 0 1em;
+
+  // h3 {
+  //   overflow-wrap: anywhere;
+  // }
 
   div {
     display: flex;
     // justify-content: space-between;
+    justify-content: flex-end;
+
     span {
       margin: auto 0.5em;
     }
@@ -144,7 +150,7 @@ img {
     font-size: 16px;
   }
 
-  .contact-button {
+  .new-message-button {
     font-size: 16px;
   }
 

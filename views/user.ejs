@@ -61,18 +61,20 @@
           <div id="all-listings">
             <% for(value in products) { %>
             <div class="one-listing">
-              <img href="" />
-              <div class="listing-text">
-                <div class="listing-parameters">
-                  <h3 class="listing-title"><%= products[value].title%></h3>
-                  <div>
-                    <span>CAD <%= products[value].price%></span>
-                    <span>Posted on: <%= products[value].date%></span>
+              <div>
+                <img href="" />
+                <div>
+                  <div class="listing-parameters">
+                    <h3><%= products[value].title%></h3>
+                    <div>
+                      <span>CAD <%= products[value].price%></span>
+                      <span>Posted on: <%= products[value].date%></span>
+                    </div>
                   </div>
+                  <article class="listing-description">
+                    <%= products[value].description %>
+                  </article>
                 </div>
-                <article class="listing-description">
-                  <%= products[value].description %>
-                </article>
               </div>
               <form method="GET" action="/listings/<%= products[value].id %>">
                 <button type="submit" class="edit-listing-button">
