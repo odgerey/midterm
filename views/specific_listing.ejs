@@ -25,6 +25,9 @@
     <!-- Footer CSS -->
     <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
 
+    <!-- Fontawesome custom icons -->
+    <script src="https://kit.fontawesome.com/f0b575b405.js" crossorigin="anonymous"></script>
+
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
 
@@ -80,26 +83,26 @@
               </div>
               <div class="listing-buttons">
                 <form method="POST" action="/:add_favorite">
-                  <button type="submit" class="listing-add-favourite">
+                  <!-- <button type="submit" class="listing-add-favourite"> -->
                     <input
                       name="listingID"
                       value="<%= products[value].id%>"
                       style="visibility: hidden;"
                     />
-                    Empty heart
-                  </button>
+                    <i class="far fa-heart"></i>
+                  <!-- </button> -->
                 </form>
                 <form method="POST" action="/:remove_favorite">
-                  <button type="submit" class="listing-add-favourite">
+                  <!-- <button type="submit" class="listing-remove-favourite"> -->
                     <input
                       name="listingID"
                       value="<%= products[value].id%>"
                       style="visibility: hidden;"
                     />
-                    Empty heart
-                  </button>
+                    <i class="fas fa-heart"></i>
+                  <!-- </button> -->
                 </form>
-                <form method="GET" action="/messages" class="contact-seller">
+                <form method="GET" action="/send_message" class="contact-seller">
                   <button type="submit" class="contact-button">
                     Contact the seller
                   </button>

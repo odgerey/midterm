@@ -24,12 +24,23 @@ section > div {
   padding: 10px 15px;
   border: 2px solid rgb(22, 3, 15);
   border-radius: 5px;
-  margin: 2em 1em 0 0;
-  // margin: 4px 2px;
   font-size: 16px;
   background-color: white;
   transition-duration: 0.4s;
   cursor: pointer;
+}
+
+#filter-button {
+  font-size: 14px;
+}
+
+#new-listing-button {
+  margin: 2em 1em 0 0;
+}
+
+.contact-button {
+  width: 10em;
+  font-size: 14px;
 }
 
 #new-listing-button:hover, #filter-button:hover, .contact-button:hover {
@@ -57,10 +68,6 @@ section > div {
   input {
     font-size: 14px;
   }
-
-  button {
-    font-size: 14px;
-  }
 }
 
 #filter > * {
@@ -81,7 +88,7 @@ section > div {
 }
 
 img {
-  height: 10em;
+  height: auto;
   width: 10em;
   border: rgb(22, 3, 15);
 }
@@ -89,6 +96,7 @@ img {
 .listing-parameters {
   display: flex;
   justify-content: space-between;
+  margin: 0 0 0 1em;
 
   div {
     display: flex;
@@ -107,18 +115,12 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: flex-end;
   padding: 1em;
 }
 
-.listing-add-favourite {
+.listing-add-favourite, .listing-remove-favourite {
   width: 5em;
-}
-
-.contact-seller {
-  button  {
-    width: 5em;
-    font-size: 14px;
-  }
 }
 
 // @media only screen and (min-width: 768px) {
@@ -136,16 +138,14 @@ img {
     input {
       font-size: 16px;
     }
-
-    button {
-      font-size: 16px;
-    }
   }
 
-  .contact-seller {
-    button  {
-      font-size: 16px;
-    }
+  #filter-button {
+    font-size: 16px;
+  }
+
+  .contact-button {
+    font-size: 16px;
   }
 
 }
