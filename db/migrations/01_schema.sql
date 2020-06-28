@@ -43,3 +43,17 @@ CREATE TABLE messages (
   description text
 );
 
+ALTER TABLE buyers
+OWNER TO labber;
+
+ALTER TABLE listings
+OWNER TO labber;
+
+ALTER TABLE sellers
+OWNER TO labber;
+
+ALTER TABLE favorites
+OWNER TO labber;
+
+ALTER TABLE messages
+OWNER TO labber;

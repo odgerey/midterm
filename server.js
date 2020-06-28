@@ -71,10 +71,10 @@ app.use(
 //   console.log("Get request for listings page");
 // });
 
-app.get("/user", (req, res) => {
-  res.render("user");
-  console.log("Get request for user page");
-});
+// app.get("/user", (req, res) => {
+//   res.render("user");
+//   console.log("Get request for user page");
+// });
 
 app.listen(PORT, () => {
   console.log(`app listening on port ${PORT}`);
