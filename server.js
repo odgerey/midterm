@@ -93,6 +93,11 @@ app.get("/listings/new", (req, res) => {
   console.log("GET request for a new listing page");
 });
 
+app.get("/send_message", (req, res) => {
+  res.render("send_message.ejs");
+  console.log("GET request for a page to send a message to the seller");
+});
+
 // app.post("/login", (req, res) => {
 //   console.log("POST request for Login");
 // });
