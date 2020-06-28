@@ -7,8 +7,26 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
 
+    <!-- Custom fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap" rel="stylesheet">
+
+    <!-- Global layout CSS -->
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+    <!-- Header CSS -->
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+
+    <!-- Listings page CSS -->
+    <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
+
+    <!-- Footer CSS -->
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
   </head>
 
   <body>
@@ -39,10 +57,10 @@
 
         <div class = "listing-container">
           <img href="">
-          <h3 class = "listing-title"><%= listings.title %></h3>
-          <article class = "listing-description"><%= listings.description %></article>
-          <h4><%= listings.price %></h4>
-          <h5><%= listings.date %></h5>
+          <h3 class = "listing-title">Listing title</h3>
+          <article class = "listing-description">Listing description</article>
+          <h4>Listing price</h4>
+          <h5>Listing date</h5>
           <button type="submit" class = "listing-add-favourite"></button>
           <form method="GET" action="/messages">
             <button type="submit">

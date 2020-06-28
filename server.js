@@ -64,7 +64,12 @@ app.use(
 
 app.get("/login", (req, res) => {
   res.render("login");
-  console.log("Get request for index page");
+  console.log("Get request for login page");
+});
+
+app.get("/listings", (req, res) => {
+  res.render("listings");
+  console.log("Get request for listings page");
 });
 
 app.listen(PORT, () => {

@@ -1,0 +1,55 @@
+section {
+  display: flex;
+  justify-content: center;
+  margin: 3em 0 2em 0;
+  width: 90%;
+
+  form {
+    height: 18em;
+    width: 50%;
+    padding: 2em 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border: black solid;
+    background-color: white;
+
+    label {
+      font-weight: 700;
+    }
+
+    input {
+      font-size: 14px;
+    }
+
+    button {
+      font-size: 14px;
+    }
+  }
+}
+
+
+// @media only screen and (min-width: 768px) {
+
+//   nav {
+//     background-color: #4056A1;
+//     background-image: none;
+//   }
+
+// }
+
+@media only screen and (min-width: 1024px) {
+
+  section {
+    form {
+      input {
+        font-size: 16px;
+      }
+
+      button {
+        font-size: 16px;
+      }
+    }
+  }
+}
