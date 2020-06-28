@@ -94,13 +94,23 @@ module.exports = (db) => {
   /* User Specific Routes */
 
   //GET route for buyer's page. Shows all favourite items.
-  router.get("/:user", (req, res) => {
-    const queryString = `   `;
-    db.query(queryString)
+  router.get("/users/:id", (req, res) => {
+    const queryString = `
+    SELECT listings.*, favorites.*
+    FROM favorites
+    JOIN listings ON favorites.listing_id = listings.id
+    JOIN buyers ON favorites.buyer_id = buyers.id
+    WHERE buyers.email = $1;
+    `;
+    // const email = req.session.email;
+    const email = "john@gmail.com";
+    const values = email;
+    db.query(queryString, [values])
       .then((data) => {
         const products = data.rows;
-        const templateVars = {};
         console.log(products);
+        const templateVars = { products };
+
         console.log("Get request for buyer page");
         res.render("user", templateVars);
       })
