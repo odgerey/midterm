@@ -39,40 +39,25 @@ module.exports = (db) => {
       });
   });
 
-  // //GET route for specific listing
-  // router.get("/listings/:id", (req, res) => {
-  //   const queryString = `
-  // Query to pull 1 listing
-  //   `;
-  //   const values = req.params.listing;
-  //   db.query(queryString)
-  //     .then((data) => {
-  //       const products = data.rows;
-  //       const templateVars = { products };
-  //       console.log(products);
-
-  //       console.log("GET request for index page");
-  //       res.render("listings", templateVars);
-  //     })
-  //     .catch((err) => {
-  //       res.status(500).json({ error: err.message });
-  //     });
-  // });
-
-  // //POST route to filter by price
-  // router.post("/:price", (req, res) => {
-  //   const queryString = `query to sort products by price`;
-  //   db.query(queryString)
-  //     .then((data) => {
-  //       const products = data.rows;
-  //       console.log(products);
-  //       res.render("index");
-  //       console.log("POST request for filter by price");
-  //     })
-  //     .catch((err) => {
-  //       res.status(500).json({ error: err.message });
-  //     });
-  // });
+  //POST route to filter by price
+  router.post("/listings", (req, res) => {
+    const queryString = `
+    SELECT *
+    FROM listings
+    ORDER BY price ASC;
+    `;
+    db.query(queryString)
+      .then((data) => {
+        const products = data.rows;
+        const templateVars = { products };
+        console.log(products);
+        res.render("listings", templateVars);
+        console.log("POST request for filter by price");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
 
   /*
 
