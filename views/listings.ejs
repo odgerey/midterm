@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
 
     <!-- Custom fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Global layout CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
@@ -26,7 +29,10 @@
     <script type="text/javascript" src="/scripts/app.js"></script>
 
     <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
   </head>
 
   <body>
@@ -43,23 +49,27 @@
             <label>
               Filter by
             </label>
-            <input placeholder="Please specify...">
+            <input placeholder="Please specify..." />
             <button type="submit">
               Filter
             </button>
           </form>
 
           <div class="listing-container">
-            <img href="">
+            <% for(value in products) { %>
+
+            <img href="" />
             <div class="listing-text">
               <div class="listing-parameters">
-                <h3 class="listing-title"><%= listings.title %></h3>
+                <h3 class="listing-title"><%= products[value].title%></h3>
                 <div>
-                  <span><%= listings.price %></span>
-                  <span><%= listings.date %></span>
+                  <span><%= products[value].price%></span>
+                  <span><%= products[value].date%></span>
                 </div>
               </div>
-              <article class = "listing-description"><%= listings.description %></article>
+              <article class="listing-description">
+                <%= products[value].description %>
+              </article>
             </div>
             <div class="listing-buttons">
               <button type="submit" class="listing-add-favourite">Heart</button>
@@ -69,11 +79,10 @@
                 </button>
               </form>
             </div>
+            <% } %>
           </div>
         </div>
       </section>
     </main>
-
-    <%- include('partials/_footer') %>
   </body>
 </html>
