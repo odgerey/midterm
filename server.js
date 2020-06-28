@@ -9,7 +9,6 @@ const bodyParser = require("body-parser");
 const sass = require("node-sass-middleware");
 const app = express();
 const morgan = require("morgan");
-const bcrypt = require("bcrypt");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -62,15 +61,15 @@ app.use(
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-app.get("/login", (req, res) => {
-  res.render("login");
-  console.log("Get request for login page");
-});
+// app.get("/login", (req, res) => {
+//   res.render("login");
+//   console.log("Get request for login page");
+// });
 
-app.get("/listings", (req, res) => {
-  res.render("listings");
-  console.log("Get request for listings page");
-});
+// app.get("/listings", (req, res) => {
+//   res.render("listings");
+//   console.log("Get request for listings page");
+// });
 
 app.get("/user", (req, res) => {
   res.render("user");

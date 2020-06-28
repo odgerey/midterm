@@ -26,23 +26,13 @@
     <script type="text/javascript" src="/scripts/app.js"></script>
 
     <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+    <meta
+      name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
   </head>
 
   <body>
-    <header>
-      <nav>
-        <a href="/listings">Website name</a>
-        <div>
-          <span>Logged in as: <strong>
-            <a href="/user">Username</a></strong>
-          </span>
-          <form method="POST" action="/logout">
-            <button type="submit">Logout</button>
-          </form>
-        </div>
-      </nav>
-    </header>
+    <%- include('partials/_header') %>
 
     <main>
       <section>
@@ -55,27 +45,32 @@
             <label>
               Filter by
             </label>
-            <input placeholder="Please specify...">
+            <input placeholder="Please specify..." />
             <button type="submit">
               Filter
             </button>
           </form>
 
           <div class="listing-container">
-            <img href="">
+            <% for(value in products) { %>
+
+            <img href="" />
             <div class="listing-text">
               <div class="listing-parameters">
-                <h3 class="listing-title">Listing title: Lorem ipsum best story</h3>
+                <h3 class="listing-title"><%= products[value].title %></h3>
                 <div>
-                  <span>Listing price</span>
-                  <span>Listing date</span>
+                  <span><%= products[value].price %></span>
+                  <span><%= products[value].date %></span>
                 </div>
               </div>
-              <article class = "listing-description">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat</article>
+              <article class="listing-description">
+                <%= products[value].description %>
+              </article>
             </div>
-            <form method="GET" action="/listings/:id">
+            <form method="GET" action="/listings/<%= products[value].id %>">
               <button type="submit">Edit</button>
             </form>
+            <% } %>
           </div>
         </div>
       </section>
