@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>My listings</title>
+    <title>All the listings</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/user.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
 
     <!-- Custom fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Global layout CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
@@ -16,8 +19,8 @@
     <!-- Header CSS -->
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
 
-    <!-- User page CSS -->
-    <link rel="stylesheet" href="/styles/user.css" type="text/css" />
+    <!-- Listings page CSS -->
+    <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
 
     <!-- Footer CSS -->
     <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
@@ -27,7 +30,8 @@
 
     <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
     <meta
-      name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
     />
   </head>
 
@@ -37,7 +41,7 @@
     <main>
       <section>
         <h1>
-          My listings
+          Current listings
         </h1>
 
         <div>
@@ -67,9 +71,15 @@
                   <%= products[value].description %>
                 </article>
               </div>
-              <form method="GET" action="/listings/<%= products[value].id %>">
-                <button type="submit">Edit</button>
-              </form>
+              <div class="listing-buttons">
+                <button type="submit" class="listing-add-favourite">Heart</button>
+                <button type="submit" class="listing-add-favourite">Empty heart</button>
+                <form method="GET" action="/messages" class="contact-seller">
+                  <button type="submit">
+                    Contact the seller
+                  </button>
+                </form>
+              </div>
             </div>
             <% } %>
           </div>
