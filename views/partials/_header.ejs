@@ -5,9 +5,9 @@
     <a href="/listings">Website name</a>
   <% if (user.email) { %>
     <div>
-      <div>Logged in as:
-        <strong><%= user.email %></strong>
-      </div>
+      <span>Logged in as:
+        <strong><a href="/user"><%= user.username %></a></strong>
+      </span>
       <form method="POST" action="/logout">
         <button type="submit">Logout</button>
       </form>
