@@ -7,18 +7,40 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
 
+    <!-- Custom fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap" rel="stylesheet">
+
+    <!-- Global layout CSS -->
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+    <!-- Header CSS -->
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+
+    <!-- Listings page CSS -->
+    <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
+
+    <!-- Footer CSS -->
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
   </head>
 
   <body>
     <header>
       <nav>
         <a href="/listings">Website name</a>
-        <div>Logged in as: </div>
-        <form method="POST" action="/logout">
-          <button type="submit">Logout</button>
-        </form>
+        <div>
+          <span>Logged in as: <strong>
+            <a href="/user">Username</a></strong>
+          </span>
+          <form method="POST" action="/logout">
+            <button type="submit">Logout</button>
+          </form>
+        </div>
       </nav>
     </header>
 
@@ -27,28 +49,38 @@
         <h1>
           Current listings
         </h1>
-        <form method="POST" action="/listings">
-          <label>
-            Filter by
-          </label>
-          <input placeholder="Please specify...">
-          <button type="submit">
-            Filter
-          </button>
-        </form>
-
-        <div class = "listing-container">
-          <img href="">
-          <h3 class = "listing-title"><%= listings.title %></h3>
-          <article class = "listing-description"><%= listings.description %></article>
-          <h4><%= listings.price %></h4>
-          <h5><%= listings.date %></h5>
-          <button type="submit" class = "listing-add-favourite"></button>
-          <form method="GET" action="/messages">
+        <div>
+          <form method="POST" action="/listings" id="filter">
+            <label>
+              Filter by
+            </label>
+            <input placeholder="Please specify...">
             <button type="submit">
-              Contact the seller
+              Filter
             </button>
           </form>
+
+          <div class="listing-container">
+            <img href="">
+            <div class="listing-text">
+              <div class="listing-parameters">
+                <h3 class="listing-title">Listing title: Lorem ipsum best story</h3>
+                <div>
+                  <span>Listing price</span>
+                  <span>Listing date</span>
+                </div>
+              </div>
+              <article class = "listing-description">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat</article>
+            </div>
+            <div class="listing-buttons">
+              <button type="submit" class="listing-add-favourite">Heart</button>
+              <form method="GET" action="/messages" class="contact-seller">
+                <button type="submit">
+                  Contact the seller
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </section>
     </main>

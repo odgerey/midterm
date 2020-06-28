@@ -1,10 +1,15 @@
 section {
-  width: 90%;
-  padding: 2em 2em;
+  height: 18em;
+  display: flex;
+  justify-content: center;
+  border: rgb(22, 3, 15) solid;
+  margin: 4em 0 3em 0;
+  width: 50%;
+  background-color: white;
 }
 
 form {
-  height: 18em;
+  padding: 2em 2em;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
