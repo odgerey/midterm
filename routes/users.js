@@ -168,8 +168,9 @@ module.exports = (db) => {
   //POST route to remove favourite
   router.post("/:remove_favorite", (req, res) => {
     const queryString = `
-      INSERT INTO favorites (buyer_id, listing_id)
-      VALUES  (3, $1);
+      ALTER TABLE favorites
+      DROP column favorite_id;
+      VALUES  (5)
       `;
     // const userIDCookie = req.session.buyer_id
     const listingID = req.body.listingID;
