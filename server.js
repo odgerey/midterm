@@ -85,8 +85,13 @@ app.get("/login", (req, res) => {
 
 // app.get("/listings/:id", (req, res) => {
 //   res.render("specific_listing.ejs");
-//   console.log("Get request for the listing page");
+//   console.log("Get request for the specific listing page");
 // });
+
+app.get("/listings/new", (req, res) => {
+  res.render("new_listing.ejs");
+  console.log("Get request for a new listing page");
+});
 
 app.listen(PORT, () => {
   console.log(`app listening on port ${PORT}`);

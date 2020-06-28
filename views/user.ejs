@@ -36,11 +36,18 @@
 
     <main>
       <section>
-        <h1>
-          My listings
-        </h1>
-
         <div>
+          <h1>
+            My listings
+          </h1>
+          <form method="GET" action="/listings/new">
+            <button type="submit" id="new-listing-button">
+              Add a new listing
+            </button>
+          </form>
+        </div>
+
+        <div id="listings-container">
           <form method="POST" action="/listings" id="filter">
             <label>
               Filter by price
