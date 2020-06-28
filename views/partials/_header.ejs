@@ -4,15 +4,14 @@
     <div>
       <span>
         Logged in as:
-        <strong></strong>
+        <strong>Username</strong>
       </span>
+      <form method="GET" action="/login">
+        <button type="submit">Login</button>
+      </form>
       <form method="POST" action="/logout">
         <button type="submit">Logout</button>
       </form>
     </div>
-
-    <form method="GET" action="/login">
-      <button type="submit">Login</button>
-    </form>
   </nav>
 </header>
