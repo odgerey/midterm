@@ -106,11 +106,6 @@ module.exports = (db) => {
 
         req.session.email = userData.email;
         req.session.buyer_id = userData.id;
-
-        // console.log("Email:", )
-        // for (let key in database) {
-        //   req.session.email = database[key].email;
-        //   req.session.buyer_id = database[key].buyer_id;
         console.log(
           `User Cookie ${req.session.email} and id is ${req.session.buyer_id}`
         );
@@ -158,14 +153,13 @@ module.exports = (db) => {
     WHERE buyers.email = $1;
     `;
     const listingsQuery = `
-      SELECT listings.*, sellers.* FROM listings
-      JOIN sellers ON listings.seller_id = listings.id
-      JOIN buyers ON sellers.buyer_id = buyers.id
-      WHERE buyer_id = $1;`;
+      SELECT *
+      FROM listings
+      WHERE seller_id = $1;
+      `;
 
     // const email = req.session.email;
     const email = req.session.email;
-    const values = email;
     const username = email;
     const promises = [
       db.query(favoritesQuery, [email]),
@@ -175,9 +169,7 @@ module.exports = (db) => {
     Promise.all(promises).then(([favoritesResults, listingResults]) => {
       const favorites = favoritesResults.rows;
       const listings = listingResults.rows;
-
       const templateVars = { favorites, listings, username };
-      console.log(listings);
       console.log("Get request for buyer page");
       res.render("user", templateVars);
     });
@@ -225,28 +217,56 @@ module.exports = (db) => {
       });
   });
 
-  //POST route to add new vistings
+  //POST route to add new listings
   router.post("/new_listing", (req, res) => {
     const queryString = `
 
     INSERT INTO listings
-    (title, description, cover_photo_url, price, for_sale)
-    VALUES ($1, $2, $3, $4, $5)
+    (title, description, cover_photo_url, price, for_sale, seller_id)
+    VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *;
 
     `;
+
     const values = [
       req.body.title,
       req.body.description,
       req.body.image_url,
       req.body.price,
       true,
+      req.session.buyer_id,
     ];
-    console.log(values);
     db.query(queryString, values)
       .then((data) => {
         console.log("New listing added");
-        // res.render("user-listings");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  //POST route to delete listings
+  router.post("/new_listing", (req, res) => {
+    const queryString = `
+
+      INSERT INTO listings
+      (title, description, cover_photo_url, price, for_sale, seller_id)
+      VALUES ($1, $2, $3, $4, $5, $6)
+      RETURNING *;
+
+      `;
+
+    const values = [
+      req.body.title,
+      req.body.description,
+      req.body.image_url,
+      req.body.price,
+      true,
+      req.session.buyer_id,
+    ];
+    db.query(queryString, values)
+      .then((data) => {
+        console.log("New listing added");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
