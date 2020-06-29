@@ -15,6 +15,18 @@ const { user } = require("osenv");
 module.exports = (db) => {
   /*  Index Routes  */
 
+  //GET route to view seller's listings
+  router.post("/new_message", (req, res) => {
+    const queryString = `  `;
+    db.query(queryString)
+      .then((data) => {
+        res.render("new_message");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
   //GET route to show index. Index displays all listings.
   router.get("/", (req, res) => {
     const queryString = `
@@ -66,8 +78,8 @@ module.exports = (db) => {
 
   //POST route for login page
   router.post("/login", (req, res) => {
-    let userCookieEmail = req.session.email;
-    let userCookieBuyerID = req.session.buyer_id;
+    // let userCookieEmail = req.session.email;
+    // let userCookieBuyerID = req.session.buyer_id;
     const email = req.body.email;
     console.log("Req Body:", email);
     const queryString = `
@@ -83,14 +95,22 @@ module.exports = (db) => {
           console.log("User does not exist");
           res.status(403).json({ message: "User does not exist" });
         }
-        const database = data.rows;
-        for (let key in database) {
-          userCookieEmail = database[key].email;
-          userCookieBuyerID = database[key].id;
-        }
+        const userData = data.rows[0];
+
+        req.session.email = userData.email;
+        req.session.buyer_id = userData.id;
+
+        // console.log("Email:", )
+        // for (let key in database) {
+        //   req.session.email = database[key].email;
+        //   req.session.buyer_id = database[key].buyer_id;
+        console.log(
+          `User Cookie ${req.session.email} and id is ${req.session.buyer_id}`
+        );
+        // }
         console.log(`Login successful.
-        User Cookie ${userCookieEmail} and id is ${userCookieBuyerID}`);
-        res.redirect("/users/:id");
+        // User Cookie ${req.session.email} and id is ${req.session.buyer_id}`);
+        res.redirect(`/users/${req.session.buyer_id}`);
       })
 
       .catch((err) => {
@@ -121,8 +141,8 @@ module.exports = (db) => {
 
   //GET route for buyer's page. Shows all favourite items.
   router.get("/users/:id", (req, res) => {
-    let userCookieEmail = req.session.email;
-    console.log("Email Cookie is:", userCookieEmail);
+    // let userCookieEmail = req.session.email;
+    console.log("Email Cookie is:", req.session.email);
     const queryString = `
     SELECT listings.*, favorites.*
     FROM favorites
@@ -131,7 +151,7 @@ module.exports = (db) => {
     WHERE buyers.email = $1;
     `;
     // const email = req.session.email;
-    const email = userCookieEmail;
+    const email = req.session.email;
     const values = email;
     db.query(queryString, [values])
       .then((data) => {
@@ -146,17 +166,16 @@ module.exports = (db) => {
   });
 
   //POST route to add favourite
-  router.post("/:add_favorite", (req, res) => {
+  router.post("/add_favorite/:listingID", (req, res) => {
     let userCookieBuyerID = req.session.buyer_id;
-    console.log("Email Cookie is:", userCookieEmail);
     const queryString = `
     INSERT INTO favorites (buyer_id, listing_id)
     VALUES  ($1, $2);
     `;
-    const listingID = req.body.listingID;
+    const listingID = req.params.listingID;
     const values = [userCookieBuyerID, listingID];
     console.log(values);
-    db.query(queryString, [values])
+    db.query(queryString, values)
       .then((data) => {
         console.log("POST request to add favourite");
       })
@@ -166,18 +185,17 @@ module.exports = (db) => {
   });
 
   //POST route to remove favourite
-  router.post("/:remove_favorite", (req, res) => {
+  router.post("/remove_favorite/:listingID", (req, res) => {
     let userCookieBuyerID = req.session.buyer_id;
     const queryString = `
     DELETE FROM favorites
     WHERE buyer_id = $1
     AND listing_id = $2
       `;
-    // const userIDCookie = req.session.buyer_id
-    const listingID = req.body.listingIDForRemoval;
+    const listingID = req.params.listingID;
     const values = [userCookieBuyerID, listingID];
-    console.log(listingID);
-    db.query(queryString, [values])
+    console.log(values);
+    db.query(queryString, values)
       .then((data) => {
         console.log("POST request to remove favourite");
       })
@@ -226,6 +244,18 @@ module.exports = (db) => {
         console.log(products);
         console.log("POST request to delete items");
         res.render("user-listings");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  //GET route to view seller's listings
+  router.post("/listings/new", (req, res) => {
+    const queryString = `  `;
+    db.query(queryString)
+      .then((data) => {
+        res.render("new_listing");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
