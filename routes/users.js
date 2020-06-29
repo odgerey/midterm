@@ -172,12 +172,11 @@ module.exports = (db) => {
     ];
 
     Promise.all(promises).then(([favoritesResults, listingResults]) => {
-      // const products = data.rows;
-      console.log(favoritesResults.rows, listingResults.rows);
       const favorites = favoritesResults.rows;
       const listings = listingResults.rows;
 
       const templateVars = { favorites, listings, username };
+      console.log(listings);
       console.log("Get request for buyer page");
       res.render("user", templateVars);
     });
