@@ -37,7 +37,7 @@ app.use(
 app.use(
   cookieSession({
     name: "session",
-    keys: ["email"],
+    keys: ["email", "buyer_id"],
   })
 );
 app.use(express.static("public"));
