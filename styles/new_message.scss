@@ -16,6 +16,7 @@ form {
   align-items: center;
 
   label {
+    font-size: 18px;
     font-weight: 700;
   }
 
@@ -54,6 +55,10 @@ form {
 @media only screen and (min-width: 1024px) {
 
   form {
+    label {
+      font-size: 28px;
+    }
+
     input {
       font-size: 16px;
     }

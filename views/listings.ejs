@@ -83,24 +83,22 @@
               </div>
               <div class="listing-buttons">
                 <form method="POST" action="/:add_favorite">
-                  <!-- <button type="submit" class="listing-add-favourite"> -->
-                    <input
-                      name="listingID"
-                      value="<%= products[value].id%>"
-                      style="visibility: hidden;"
-                    />
+                  <input
+                    name="listingID"
+                    value="<%= products[value].id%>";
+                  />
+                  <button type="submit" class="button-favorite">
                     <i class="far fa-heart"></i>
-                  <!-- </button> -->
+                  </button>
                 </form>
                 <form method="POST" action="/:remove_favorite">
-                  <!-- <button type="submit" class="listing-remove-favourite"> -->
-                    <input
-                      name="listingID"
-                      value="<%= products[value].id%>"
-                      style="visibility: hidden;"
-                    />
+                  <input
+                    name="listingID"
+                    value="<%= products[value].id%>";
+                  />
+                  <button type="submit" class="button-favorite">
                     <i class="fas fa-heart"></i>
-                  <!-- </button> -->
+                  </button>
                 </form>
                 <form method="GET" action="/new_message">
                   <button type="submit" class="new-message-button">

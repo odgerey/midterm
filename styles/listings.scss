@@ -123,10 +123,18 @@ img {
   justify-content: space-between;
   align-items: flex-end;
   padding: 1em;
+
+  form {
+    input {
+      visibility: hidden;
+    }
+  }
 }
 
-.listing-add-favourite, .listing-remove-favourite {
-  width: 5em;
+.button-favorite {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 // @media only screen and (min-width: 768px) {
