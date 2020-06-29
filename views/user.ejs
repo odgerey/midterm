@@ -88,7 +88,7 @@
             <% for(value in favorites) { %>
             <div class="one-listing">
               <div class="listing-info">
-                <img href="" />
+                <img src="<%= favorites[value].thumbnail_photo_url%>"/>
                 <div>
                   <div class="listing-parameters">
                     <h3><%= favorites[value].title%></h3>
@@ -102,14 +102,21 @@
                   </article>
                 </div>
               </div>
-              <form
-                method="POST"
-                action="/remove_favorite/<%=favorites[value].id%>"
-              >
-                <button type="submit" class="button-favorite">
-                  <i class="fas fa-heart"></i>
-                </button>
-              </form>
+              <div class="listing-buttons">
+                <form
+                  method="POST"
+                  action="/remove_favorite/<%=favorites[value].id%>"
+                >
+                  <button type="submit" class="button-favorite">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </form>
+                <form method="GET" action="/new_message">
+                  <button type="submit" class="new-message-button">
+                    Contact the seller
+                  </button>
+                </form>
+              </div>
             </div>
             <% } %>
           </div>
@@ -143,7 +150,7 @@
             <% for(value in listings) { %>
             <div class="one-listing">
               <div class="listing-info">
-                <img href="" />
+                <img src="<%= listings[value].thumbnail_photo_url%>"/>
                 <div>
                   <div class="listing-parameters">
                     <h3><%= listings[value].title%></h3>
