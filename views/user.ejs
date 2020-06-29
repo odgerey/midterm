@@ -88,7 +88,7 @@
             <% for(value in favorites) { %>
             <div class="one-listing">
               <div class="listing-info">
-                <img href="" />
+                <img src="<%= favorites[value].thumbnail_photo_url%>"/>
                 <div>
                   <div class="listing-parameters">
                     <h3><%= favorites[value].title%></h3>
@@ -150,7 +150,7 @@
             <% for(value in listings) { %>
             <div class="one-listing">
               <div class="listing-info">
-                <img href="" />
+                <img src="<%= listings[value].thumbnail_photo_url%>"/>
                 <div>
                   <div class="listing-parameters">
                     <h3><%= listings[value].title%></h3>
