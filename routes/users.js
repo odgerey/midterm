@@ -214,7 +214,12 @@ module.exports = (db) => {
 
   //GET route to view seller's listings
   router.get("/listings:user", (req, res) => {
-    const queryString = ` Query to add specific sellers items  `;
+    const queryString = `
+    SELECT listings.*, sellers.* FROM sellers
+    JOIN listings ON sellers.listing_id = listings.id
+    JOIN buyers ON sellers.buyer_id = buyers.id
+    WHERE buyer_id = 3;
+`;
     db.query(queryString)
       .then((data) => {
         const products = data.rows;
