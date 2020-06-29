@@ -37,11 +37,12 @@ module.exports = (db) => {
     `;
     db.query(queryString)
       .then((data) => {
+        if (req.session.email === null){
+        res.redirect("login")
+        }
         const products = data.rows;
         const username = req.session.email;
         const templateVars = { products, username };
-        console.log(templateVars);
-        console.log("GET request for index page");
         res.render("listings", templateVars);
       })
       .catch((err) => {
@@ -303,6 +304,13 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   });
+
+    // GET route for new messages
+    router.get("/new_message", (req, res) => {
+      const username = req.session.email;
+      templateVars = { username };
+      res.render("new_message", templateVars);
+    });
 
   //GET route to view seller's listings
   router.get("/listings/new", (req, res) => {
