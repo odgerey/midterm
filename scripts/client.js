@@ -14,5 +14,7 @@ $('document').ready(function() {
     $('#received-messages').slideToggle('fast');
   });
 
-
+  $('#my-account-button').on('click', function() {
+    location.href = "/users/:id";
+  });
 });
