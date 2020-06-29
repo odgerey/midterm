@@ -82,6 +82,7 @@
 }
 
 .edit-listing-button {
+  width: 5rem;
   margin: 1em 0 0 1em;
   font-size: 14px;
 }
@@ -132,7 +133,7 @@
   margin: 0 1em 2em 0;
 }
 
-.one-listing > div {
+.listing-info {
   display: flex;
   width: 80%;
   flex-grow: 100;
@@ -160,6 +161,11 @@ img {
       margin: auto 0.5em;
     }
   }
+}
+
+.listing-buttons {
+  display: flex;
+  flex-direction: column;
 }
 
 // @media only screen and (min-width: 768px) {

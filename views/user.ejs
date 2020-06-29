@@ -87,7 +87,7 @@
           <div id="all-listings">
             <% for(value in favorites) { %>
             <div class="one-listing">
-              <div>
+              <div class="listing-info">
                 <img href="" />
                 <div>
                   <div class="listing-parameters">
@@ -142,7 +142,7 @@
           <div id="all-listings">
             <% for(value in listings) { %>
             <div class="one-listing">
-              <div>
+              <div class="listing-info">
                 <img href="" />
                 <div>
                   <div class="listing-parameters">
@@ -157,11 +157,18 @@
                   </article>
                 </div>
               </div>
-              <form method="GET" action="/listings/<%= listings[value].id %>">
-                <button type="submit" class="edit-listing-button">
-                  Edit
-                </button>
-              </form>
+              <div class="listing-buttons">
+                <form method="GET" action="/listings/<%= listings[value].id %>">
+                  <button type="submit" class="edit-listing-button">
+                    Edit
+                  </button>
+                </form>
+                <form method="POST" action="/listings/<%= listings[value].id %>/delete">
+                  <button type="submit" class="edit-listing-button">
+                    Delete
+                  </button>
+                </form>
+              </div>
             </div>
             <% } %>
           </div>
