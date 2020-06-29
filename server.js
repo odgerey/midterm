@@ -57,6 +57,10 @@ app.use(
   })
 );
 
+app.use(function (req, res) {
+  req.session.email = "test";
+});
+
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
