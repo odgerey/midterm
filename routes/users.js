@@ -150,27 +150,40 @@ module.exports = (db) => {
   router.get("/users/:id", (req, res) => {
     // let userCookieEmail = req.session.email;
     console.log("Email Cookie is:", req.session.email);
-    const queryString = `
+    const favoritesQuery = `
     SELECT listings.*, favorites.*
     FROM favorites
     JOIN listings ON favorites.listing_id = listings.id
     JOIN buyers ON favorites.buyer_id = buyers.id
     WHERE buyers.email = $1;
     `;
+    const listingsQuery = ` SELECT listings.*, sellers.* FROM sellers
+      JOIN listings ON sellers.listing_id = listings.id
+      JOIN buyers ON sellers.buyer_id = buyers.id
+      WHERE buyer_id = $1;`;
+
     // const email = req.session.email;
     const email = req.session.email;
     const values = email;
     const username = email;
-    db.query(queryString, [values])
-      .then((data) => {
-        const products = data.rows;
-        const templateVars = { products, username };
-        console.log("Get request for buyer page");
-        res.render("user", templateVars);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+    const promises = [
+      db.query(favoritesQuery, [email]),
+      db.query(listingsQuery, [req.session.buyer_id]),
+    ];
+
+    Promise.all(promises).then(([favoritesResults, listingResults]) => {
+      // const products = data.rows;
+      console.log(favoritesResults.rows, listingResults.rows);
+      const favorites = favoritesResults.rows;
+      const listings = listingResults.rows;
+
+      const templateVars = { favorites, listings, username };
+      console.log("Get request for buyer page");
+      res.render("user", templateVars);
+    });
+    // .catch((err) => {
+    //   res.status(500).json({ error: err.message });
+    // });
   });
 
   //POST route to add favourite
@@ -212,10 +225,18 @@ module.exports = (db) => {
       });
   });
 
-  //GET route to view seller's listings
-  router.get("/listings:user", (req, res) => {
-    const queryString = ` Query to add specific sellers items  `;
-    db.query(queryString)
+  // GET route to view seller's listings
+  router.get("/user/:id", (req, res) => {
+    const queryString = `
+
+  SELECT listings.*, sellers.* FROM sellers
+  JOIN listings ON sellers.listing_id = listings.id
+  JOIN buyers ON sellers.buyer_id = buyers.id
+  WHERE buyer_id = 1;
+
+      `;
+    const values = req.session.email;
+    db.query(queryString, values)
       .then((data) => {
         const products = data.rows;
         const templateVars = {};
@@ -259,7 +280,7 @@ module.exports = (db) => {
   });
 
   //GET route to view seller's listings
-  router.post("/listings/new", (req, res) => {
+  router.get("/listings/new", (req, res) => {
     const queryString = `  `;
     const username = req.body.email;
     const templateVars = { username };
