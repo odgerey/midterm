@@ -102,14 +102,21 @@
                   </article>
                 </div>
               </div>
-              <form
-                method="POST"
-                action="/remove_favorite/<%=favorites[value].id%>"
-              >
-                <button type="submit" class="button-favorite">
-                  <i class="fas fa-heart"></i>
-                </button>
-              </form>
+              <div class="listing-buttons">
+                <form
+                  method="POST"
+                  action="/remove_favorite/<%=favorites[value].id%>"
+                >
+                  <button type="submit" class="button-favorite">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </form>
+                <form method="GET" action="/new_message">
+                  <button type="submit" class="new-message-button">
+                    Contact the seller
+                  </button>
+                </form>
+              </div>
             </div>
             <% } %>
           </div>
