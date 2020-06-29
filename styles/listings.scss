@@ -35,7 +35,7 @@ section > div {
 }
 
 #new-listing-button {
-  margin: 2em 1em 0 0;
+  margin: 2em 1.25em 0 0;
 }
 
 .new-message-button {
@@ -124,7 +124,7 @@ img {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 1em;
+  padding: 0 1em;
 
   form {
     input {
@@ -135,6 +135,7 @@ img {
 }
 
 .button-favorite {
+  margin: 1.25rem 0 0 0;
   background-color: transparent;
   border: none;
   cursor: pointer;

@@ -11,10 +11,16 @@ $('document').ready(function() {
   // Showing or hiding the received messages on the user's page
 
   $('#show-messages-button').on('click', function() {
+    // $('#show-messages-button').next('#received-messages');
+    // $('#show-messages-button').next().slideToggle('fast');
     $('#received-messages').slideToggle('fast');
   });
 
-  $('#my-account-button').on('click', function() {
-    location.href = "/users/:id";
+  // Showing or hiding the user's favourites on the user's page
+
+  $('#show-favorites-button').on('click', function() {
+    $('#show-favorites-button').next('#favorites-container');
+    $('#favorites-container').slideToggle('fast');
   });
+
 });
