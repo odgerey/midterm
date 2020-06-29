@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="/styles/user.css" type="text/css" />
 
     <!-- Custom fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Global layout CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
@@ -27,7 +30,8 @@
 
     <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
     <meta
-      name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
     />
   </head>
 
@@ -144,7 +148,7 @@
                   </article>
                 </div>
               </div>
-              <form method="GET" action="/listings/<%= products[value].id %>">
+              <form method="GET" action="/listings/<%= listings[value].id %>">
                 <button type="submit" class="edit-listing-button">
                   Edit
                 </button>
