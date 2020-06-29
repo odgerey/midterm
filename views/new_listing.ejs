@@ -19,8 +19,8 @@
     <!-- Header CSS -->
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
 
-    <!-- Listings page CSS -->
-    <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
+    <!-- New listing page CSS -->
+    <link rel="stylesheet" href="/styles/new_listing.css" type="text/css" />
 
     <!-- Footer CSS -->
     <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
@@ -40,75 +40,35 @@
 
     <main>
       <section>
-        <div>
-          <h1>
-            Current listings
-          </h1>
-          <form method="GET" action="/listings/new">
-            <button type="submit" id="new-listing-button">
-              Add a new listing
-            </button>
-          </form>
-        </div>
-
-        <div id="listings-container">
-          <form method="POST" action="/listings" id="filter">
-            <label>
-              Filter by price
-            </label>
-            <input placeholder="Please specify..." />
-            <button type="submit" id="filter-button">
-              Filter
-            </button>
-          </form>
-
-          <div id="all-listings">
-            <% for(value in products) { %>
-            <div class="one-listing">
-              <img href="" />
-              <div class="listing-text">
-                <div class="listing-parameters">
-                  <h3 class="listing-title"><%= products[value].title%></h3>
-                  <div>
-                    <span>CAD <%= products[value].price%></span>
-                    <span>Posted on: <%= products[value].date%></span>
-                  </div>
-                </div>
-                <article class="listing-description">
-                  <%= products[value].description %>
-                </article>
-              </div>
-              <div class="listing-buttons">
-                <form method="POST" action="/:add_favorite">
-                  <button type="submit" class="listing-add-favourite">
-                    <input
-                      name="listingID"
-                      value="<%= products[value].id%>"
-                      style="visibility: hidden;"
-                    />
-                    Empty heart
-                  </button>
-                </form>
-                <form method="POST" action="/:remove_favorite">
-                  <button type="submit" class="listing-add-favourite">
-                    <input
-                      name="listingID"
-                      value="<%= products[value].id%>"
-                      style="visibility: hidden;"
-                    />
-                    Empty heart
-                  </button>
-                </form>
-                <form method="GET" action="/messages" class="contact-seller">
-                  <button type="submit" class="contact-button">
-                    Contact the seller
-                  </button>
-                </form>
-              </div>
-            </div>
-            <% } %>
-          </div>
-        </div>
+        <form method="POST" action="/new_listing">
+          <label>
+            Add a new listing
+          </label>
+          <span>Title</span>
+          <input type="title"
+            name="title"
+            placeholder="Please enter the title..."
+          />
+          <span>Description</span>
+          <input type="description"
+            name="description"
+            placeholder="Please enter the description..."
+          />
+          <span>Price</span>
+          <input
+            type="price"
+            name="price"
+            placeholder="Please enter the price..."
+          />
+          <span>Image</span>
+          <input type="image_url"
+            name="image_url"
+            placeholder="Please enter the image URL..."
+          />
+          <button type="submit" id="submit-button">
+            Submit
+          </button>
+        </form>
       </section>
     </main>
 
