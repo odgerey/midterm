@@ -36,7 +36,9 @@ module.exports = (db) => {
     db.query(queryString)
       .then((data) => {
         const products = data.rows;
-        const templateVars = { products };
+        const username = req.session.email;
+        const templateVars = { products, username };
+        console.log(templateVars);
         console.log("GET request for index page");
         res.render("listings", templateVars);
       })
