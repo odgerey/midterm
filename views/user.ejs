@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="/styles/user.css" type="text/css" />
 
     <!-- Custom fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Global layout CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
@@ -81,20 +84,20 @@
           </form>
 
           <div id="all-listings">
-            <% for(value in products) { %>
+            <% for(value in favorites) { %>
             <div class="one-listing">
               <div>
                 <img href="" />
                 <div>
                   <div class="listing-parameters">
-                    <h3><%= products[value].title%></h3>
+                    <h3><%= favorites[value].title%></h3>
                     <div>
-                      <span>CAD <%= products[value].price%></span>
-                      <span>Posted on: <%= products[value].date%></span>
+                      <span>CAD <%= favorites[value].price%></span>
+                      <span>Posted on: <%= favorites[value].date%></span>
                     </div>
                   </div>
                   <article class="listing-description">
-                    <%= products[value].description %>
+                    <%= favorites[value].description %>
                   </article>
                 </div>
               </div>
@@ -136,20 +139,20 @@
           </form>
 
           <div id="all-listings">
-            <% for(value in products) { %>
+            <% for(value in listings) { %>
             <div class="one-listing">
               <div>
                 <img href="" />
                 <div>
                   <div class="listing-parameters">
-                    <h3><%= products[value].title%></h3>
+                    <h3><%= listings[value].title%></h3>
                     <div>
-                      <span>CAD <%= products[value].price%></span>
-                      <span>Posted on: <%= products[value].date%></span>
+                      <span>CAD <%= listings[value].price%></span>
+                      <span>Posted on: <%= listings[value].date%></span>
                     </div>
                   </div>
                   <article class="listing-description">
-                    <%= products[value].description %>
+                    <%= listings[value].description %>
                   </article>
                 </div>
               </div>
