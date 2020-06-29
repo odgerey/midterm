@@ -82,12 +82,18 @@
                 </article>
               </div>
               <div class="listing-buttons">
-                <form method="POST" action="/add_favorite/<%=products[value].id%>">
+                <form
+                  method="POST"
+                  action="/add_favorite/<%=products[value].id%>"
+                >
                   <button type="submit" class="button-favorite">
                     <i class="far fa-heart"></i>
                   </button>
                 </form>
-                <form method="POST" action="/remove_favorite/<%=products[value].id%>">
+                <form
+                  method="POST"
+                  action="/remove_favorite/<%=products[value].id%>"
+                >
                   <button type="submit" class="button-favorite">
                     <i class="fas fa-heart"></i>
                   </button>
