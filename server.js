@@ -33,6 +33,13 @@ app.use(
     outputStyle: "expanded",
   })
 );
+//Cookie-session
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["email"],
+  })
+);
 app.use(express.static("public"));
 
 // Separated Routes for each Resource
@@ -45,17 +52,6 @@ const widgetsRoutes = require("./routes/widgets");
 app.use("/", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
-
-//bcrypt
-const saltRounds = 10;
-
-//Cookie-session
-app.use(
-  cookieSession({
-    name: "session",
-    keys: ["email", "buyer_id"],
-  })
-);
 
 app.use(function (req, res) {
   req.session.email = "test";
