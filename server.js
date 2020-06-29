@@ -88,15 +88,15 @@ app.use(function (req, res) {
 //   console.log("GET request for the specific listing page");
 // });
 
-app.get("/listings/new", (req, res) => {
+app.post("/listings/new", (req, res) => {
   res.render("new_listing.ejs");
   console.log("GET request for a new listing page");
 });
 
-app.get("/new_message", (req, res) => {
-  res.render("new_message.ejs");
-  console.log("GET request for a page to send a new message to the seller");
-});
+// app.get("/new_message", (req, res) => {
+//   res.render("new_message.ejs");
+//   console.log("GET request for a page to send a new message to the seller");
+// });
 
 // app.post("/login", (req, res) => {
 //   console.log("POST request for Login");
