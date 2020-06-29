@@ -166,16 +166,23 @@ module.exports = (db) => {
     const email = req.session.email;
     const values = email;
     const username = email;
-    db.query(queryString, [values])
-      .then((data) => {
-        const products = data.rows;
-        const templateVars = { products, username };
-        console.log("Get request for buyer page");
-        res.render("user", templateVars);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+    const promises = [
+      db.query(favoritesQuery, [email]),
+      db.query(listingsQuery, [req.session.buyer_id]),
+    ];
+
+    Promise.all(promises).then(([favoritesResults, listingResults]) => {
+      const favorites = favoritesResults.rows;
+      const listings = listingResults.rows;
+
+      const templateVars = { favorites, listings, username };
+      console.log(listings);
+      console.log("Get request for buyer page");
+      res.render("user", templateVars);
+    });
+    // .catch((err) => {
+    //   res.status(500).json({ error: err.message });
+    // });
   });
 
   //POST route to add favourite
