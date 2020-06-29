@@ -245,33 +245,27 @@ module.exports = (db) => {
       });
   });
 
-  //POST route to delete listings
-  router.post("/new_listing", (req, res) => {
-    const queryString = `
+  // //POST route to delete listings
+  // router.post("/new_listing/delete", (req, res) => {
+  //   const listingID = req.params.listingID;
 
-      INSERT INTO listings
-      (title, description, cover_photo_url, price, for_sale, seller_id)
-      VALUES ($1, $2, $3, $4, $5, $6)
-      RETURNING *;
+  //   const queryString = `
 
-      `;
+  //   DELETE FROM listings
+  //   WHERE seller_id = $1
+  //   AND listing_id = $2
 
-    const values = [
-      req.body.title,
-      req.body.description,
-      req.body.image_url,
-      req.body.price,
-      true,
-      req.session.buyer_id,
-    ];
-    db.query(queryString, values)
-      .then((data) => {
-        console.log("New listing added");
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
+  //     `;
+
+  //   const values = [req.session.buyer_id, listingID];
+  //   db.query(queryString, values)
+  //     .then((data) => {
+  //       console.log("New listing added");
+  //     })
+  //     .catch((err) => {
+  //       res.status(500).json({ error: err.message });
+  //     });
+  // });
 
   // GET route for new listings page
   router.get("/listings/:id", (req, res) => {
