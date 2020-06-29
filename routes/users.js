@@ -162,6 +162,12 @@ module.exports = (db) => {
     JOIN buyers ON favorites.buyer_id = buyers.id
     WHERE buyers.email = $1;
     `;
+    const listingsQuery = `
+      SELECT listings.*, sellers.* FROM listings
+      JOIN sellers ON listings.seller_id = listings.id
+      JOIN buyers ON sellers.buyer_id = buyers.id
+      WHERE buyer_id = $1;`;
+
     // const email = req.session.email;
     const email = req.session.email;
     const values = email;
@@ -224,20 +230,39 @@ module.exports = (db) => {
       });
   });
 
-  //GET route to view seller's listings
-  router.get("/listings:user", (req, res) => {
-    const queryString = ` SELECT  `;
-    db.query(queryString)
+  //POST route to add new vistings
+  router.post("/new_listing", (req, res) => {
+    const queryString = `
+
+    INSERT INTO listings
+    (title, description, cover_photo_url, price, for_sale)
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *;
+
+    `;
+    const values = [
+      req.body.title,
+      req.body.description,
+      req.body.image_url,
+      req.body.price,
+      true,
+    ];
+    console.log(values);
+    db.query(queryString, values)
       .then((data) => {
-        const products = data.rows;
-        const templateVars = {};
-        console.log(products);
-        console.log("GET request to view seller's listings");
-        res.render("user", templateVars);
+        console.log("New listing added");
+        // res.render("user-listings");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
+  });
+
+  // GET route for new listings page
+  router.get("/listings/:id", (req, res) => {
+    const username = req.session.email;
+    templateVars = { username };
+    res.render("new_listing", templateVars);
   });
 
   //POST route to edit seller's listings
