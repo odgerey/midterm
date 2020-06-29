@@ -22,6 +22,12 @@
     <!-- Footer CSS -->
     <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
 
+    <!-- Fontawesome custom icons -->
+    <script
+      src="https://kit.fontawesome.com/f0b575b405.js"
+      crossorigin="anonymous"
+    ></script>
+
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
 
@@ -49,27 +55,23 @@
         </div>
       </section>
 
-      <!-- </hr> -->
-
       <section id="section-favorites">
         <div>
           <h1>
             My favorites
           </h1>
-          <form method="GET" action="/listings/new">
-            <button type="submit" id="new-listing-button">
-              Add a new listing
-            </button>
-          </form>
+          <button id="show-favorites-button">
+            Show favorites
+          </button>
         </div>
 
-        <div id="listings-container">
-          <form method="POST" action="/listings" id="filter">
+        <div id="favorites-container">
+          <form method="POST" action="/listings" class="filter">
             <label>
               Filter by price
             </label>
             <input placeholder="Please specify..." />
-            <button type="submit" id="filter-button">
+            <button type="submit" class="filter-button">
               Filter
             </button>
           </form>
@@ -92,9 +94,12 @@
                   </article>
                 </div>
               </div>
-              <form method="GET" action="/listings/<%= products[value].id %>">
-                <button type="submit" class="edit-listing-button">
-                  Edit
+              <form
+                method="POST"
+                action="/remove_favorite/<%=products[value].id%>"
+              >
+                <button type="submit" class="button-favorite">
+                  <i class="fas fa-heart"></i>
                 </button>
               </form>
             </div>
@@ -116,12 +121,12 @@
         </div>
 
         <div id="listings-container">
-          <form method="POST" action="/listings" id="filter">
+          <form method="POST" action="/listings" class="filter">
             <label>
               Filter by price
             </label>
             <input placeholder="Please specify..." />
-            <button type="submit" id="filter-button">
+            <button type="submit" class="filter-button">
               Filter
             </button>
           </form>
