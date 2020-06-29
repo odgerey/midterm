@@ -18,9 +18,11 @@ module.exports = (db) => {
   //GET route to view seller's listings
   router.post("/new_message", (req, res) => {
     const queryString = `  `;
+    const username = req.body.email;
+    const templateVars = { username };
     db.query(queryString)
       .then((data) => {
-        res.render("new_message");
+        res.render("new_message", templateVars);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -49,6 +51,7 @@ module.exports = (db) => {
 
   //POST route to filter by price
   router.post("/listings", (req, res) => {
+    const username = req.session.email;
     const queryString = `
     SELECT *
     FROM listings
@@ -57,7 +60,7 @@ module.exports = (db) => {
     db.query(queryString)
       .then((data) => {
         const products = data.rows;
-        const templateVars = { products };
+        const templateVars = { products, username };
         res.render("listings", templateVars);
         console.log("POST request for filter by price");
       })
@@ -258,9 +261,11 @@ module.exports = (db) => {
   //GET route to view seller's listings
   router.post("/listings/new", (req, res) => {
     const queryString = `  `;
+    const username = req.body.email;
+    const templateVars = { username };
     db.query(queryString)
       .then((data) => {
-        res.render("new_listing");
+        res.render("new_listing", templateVars);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
