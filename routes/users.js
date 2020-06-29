@@ -10,7 +10,7 @@ const router = express.Router();
 const { c } = require("tar");
 const { query } = require("express");
 const { user } = require("osenv");
-const { redirect } = require("statuses");
+// const { redirect } = require("statuses");
 
 module.exports = (db) => {
   /*  Index Routes  */
@@ -44,7 +44,6 @@ module.exports = (db) => {
       .then((data) => {
         const products = data.rows;
         const templateVars = { products };
-        console.log(products);
         res.render("listings", templateVars);
         console.log("POST request for filter by price");
       })
@@ -81,7 +80,6 @@ module.exports = (db) => {
     db.query(queryString, [email])
       .then((data) => {
         if (!data.rows[0]) {
-          loginAlert(email);
           console.log("User does not exist");
           res.status(403).json({ message: "User does not exist" });
         }
@@ -90,7 +88,11 @@ module.exports = (db) => {
           userCookieEmail = database[key].email;
           userCookieBuyerID = database[key].id;
         }
+        console.log(`Login successful.
+        User Cookie ${userCookieEmail} and id is ${userCookieBuyerID}`);
+        res.redirect("/users/:id");
       })
+
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
@@ -119,6 +121,8 @@ module.exports = (db) => {
 
   //GET route for buyer's page. Shows all favourite items.
   router.get("/users/:id", (req, res) => {
+    let userCookieEmail = req.session.email;
+    console.log("Email Cookie is:", userCookieEmail);
     const queryString = `
     SELECT listings.*, favorites.*
     FROM favorites
@@ -127,14 +131,12 @@ module.exports = (db) => {
     WHERE buyers.email = $1;
     `;
     // const email = req.session.email;
-    const email = "john@gmail.com";
+    const email = userCookieEmail;
     const values = email;
     db.query(queryString, [values])
       .then((data) => {
         const products = data.rows;
-        console.log(products);
         const templateVars = { products };
-
         console.log("Get request for buyer page");
         res.render("user", templateVars);
       })
@@ -145,13 +147,14 @@ module.exports = (db) => {
 
   //POST route to add favourite
   router.post("/:add_favorite", (req, res) => {
+    let userCookieBuyerID = req.session.buyer_id;
+    console.log("Email Cookie is:", userCookieEmail);
     const queryString = `
     INSERT INTO favorites (buyer_id, listing_id)
-    VALUES  (3, $1);
+    VALUES  ($1, $2);
     `;
-    // const userIDCookie = req.session.buyer_id
     const listingID = req.body.listingID;
-    const values = listingID;
+    const values = [userCookieBuyerID, listingID];
     console.log(values);
     db.query(queryString, [values])
       .then((data) => {
@@ -164,6 +167,7 @@ module.exports = (db) => {
 
   //POST route to remove favourite
   router.post("/:remove_favorite", (req, res) => {
+    let userCookieBuyerID = req.session.buyer_id;
     const queryString = `
     DELETE FROM favorites
     WHERE buyer_id = $1
@@ -171,7 +175,7 @@ module.exports = (db) => {
       `;
     // const userIDCookie = req.session.buyer_id
     const listingID = req.body.listingIDForRemoval;
-    const values = listingID;
+    const values = [userCookieBuyerID, listingID];
     console.log(listingID);
     db.query(queryString, [values])
       .then((data) => {
