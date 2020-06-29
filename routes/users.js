@@ -155,13 +155,19 @@ module.exports = (db) => {
     FROM favorites
     JOIN listings ON favorites.listing_id = listings.id
     JOIN buyers ON favorites.buyer_id = buyers.id
-    WHERE buyers.email = $1;
+    WHERE buyers.email = 'john@gmail.com';
     `;
     // const email = req.session.email;
+<<<<<<< HEAD
     const email = req.session.email;
     const values = email;
     const username = email;
     db.query(queryString, [values])
+=======
+    // const email = userCookieEmail;
+    // const values = email;
+    db.query(queryString)
+>>>>>>> master
       .then((data) => {
         const products = data.rows;
         const templateVars = { products, username };
@@ -176,6 +182,10 @@ module.exports = (db) => {
   //POST route to add favourite
   router.post("/add_favorite/:listingID", (req, res) => {
     let userCookieBuyerID = req.session.buyer_id;
+<<<<<<< HEAD
+=======
+    console.log("Email Cookie is:", userCookieBuyerID);
+>>>>>>> master
     const queryString = `
     INSERT INTO favorites (buyer_id, listing_id)
     VALUES  ($1, $2);
