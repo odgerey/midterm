@@ -6,15 +6,11 @@
  */
 
 const express = require("express");
+const router = express.Router();
 const { c } = require("tar");
 const { query } = require("express");
-const router = express.Router();
-const cookieSession = require("cookie-session");
-
-// const bcrypt = require("bcrypt");
-// const { user } = require("osenv");
-// const { redirect } = require("statuses");
-// const { query } = require("express");
+const { user } = require("osenv");
+const { redirect } = require("statuses");
 
 module.exports = (db) => {
   /*  Index Routes  */
@@ -29,8 +25,6 @@ module.exports = (db) => {
       .then((data) => {
         const products = data.rows;
         const templateVars = { products };
-        console.log(products);
-
         console.log("GET request for index page");
         res.render("listings", templateVars);
       })
@@ -82,6 +76,8 @@ module.exports = (db) => {
 
   //POST route for login page
   router.post("/login", (req, res) => {
+    let userCookieEmail = req.session.email;
+    let userCookieBuyerID = req.session.buyer_id;
     const email = req.body.email;
     console.log("Req Body:", email);
     const queryString = `
@@ -93,13 +89,11 @@ module.exports = (db) => {
 
     db.query(queryString, [email])
       .then((data) => {
-        const emailFromDatabase = data.rows;
-        console.log(emailFromDatabase[0]);
-        //Need to pull email from object and store it in req.session.email
-        //Need to pull ID from object and store it in req.session.buyer_ID
-
-        // req.session.email =
-        // console.log("Cookie", req.session.email);
+        const database = data.rows;
+        for (let key in database) {
+          userCookieEmail = database[key].email;
+          userCookieBuyerID = database[key].id;
+        }
       })
       .catch((err) => {
         console.log("Catch");
@@ -109,8 +103,12 @@ module.exports = (db) => {
 
   // POST route to logout. Sets cookie to NULL
   router.post("/logout", (req, res) => {
-    const userCookie = req.session.email;
-    userCookie = null;
+    console.log("POST request to logout");
+    req.session.email = null;
+    req.session.buyer_id = null;
+    // let userCookie = req.session.email;
+    // userCookie = null;
+    console.log(req.session.email, req.session.buyer_id);
     res.redirect("/login");
   });
 
@@ -156,6 +154,7 @@ module.exports = (db) => {
     // const userIDCookie = req.session.buyer_id
     const listingID = req.body.listingID;
     const values = listingID;
+    console.log(values);
     db.query(queryString, [values])
       .then((data) => {
         console.log("POST request to add favourite");
