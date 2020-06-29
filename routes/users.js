@@ -128,12 +128,12 @@ module.exports = (db) => {
     FROM favorites
     JOIN listings ON favorites.listing_id = listings.id
     JOIN buyers ON favorites.buyer_id = buyers.id
-    WHERE buyers.email = $1;
+    WHERE buyers.email = 'john@gmail.com';
     `;
     // const email = req.session.email;
-    const email = userCookieEmail;
-    const values = email;
-    db.query(queryString, [values])
+    // const email = userCookieEmail;
+    // const values = email;
+    db.query(queryString)
       .then((data) => {
         const products = data.rows;
         const templateVars = { products };
@@ -148,7 +148,7 @@ module.exports = (db) => {
   //POST route to add favourite
   router.post("/:add_favorite", (req, res) => {
     let userCookieBuyerID = req.session.buyer_id;
-    console.log("Email Cookie is:", userCookieEmail);
+    console.log("Email Cookie is:", userCookieBuyerID);
     const queryString = `
     INSERT INTO favorites (buyer_id, listing_id)
     VALUES  ($1, $2);

@@ -56,6 +56,8 @@ section > div {
 
 #filter {
   padding: 2em 2em;
+  border: 1px solid rgb(22, 3, 15);
+  margin: 1em 0 0 0;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -78,7 +80,7 @@ section > div {
   display: flex;
   flex-direction: column;
   width: 75%;
-  margin: 1em 0 0 3em;
+  margin: 1em 0 0 2em;
 }
 
 .one-listing {
@@ -126,7 +128,8 @@ img {
 
   form {
     input {
-      visibility: hidden;
+      // visibility: hidden;
+      display: none;
     }
   }
 }
