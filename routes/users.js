@@ -74,7 +74,9 @@ module.exports = (db) => {
 
   // GET route for login page
   router.get("/login", (req, res) => {
-    res.render("login");
+    const username = req.session.email;
+    templateVars = { username };
+    res.render("login", templateVars);
     console.log("Get request for login page");
   });
 
@@ -155,10 +157,11 @@ module.exports = (db) => {
     // const email = req.session.email;
     const email = req.session.email;
     const values = email;
+    const username = email;
     db.query(queryString, [values])
       .then((data) => {
         const products = data.rows;
-        const templateVars = { products };
+        const templateVars = { products, username };
         console.log("Get request for buyer page");
         res.render("user", templateVars);
       })
