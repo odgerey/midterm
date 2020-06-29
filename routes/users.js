@@ -65,15 +65,6 @@ module.exports = (db) => {
     console.log("Get request for login page");
   });
 
-  // Helper function to check username
-  const loginVerification = function (email) {
-    const emailFromDatabase = "";
-    if (email === emailFromDatabase) {
-      return true;
-    }
-    return false;
-  };
-
   //POST route for login page
   router.post("/login", (req, res) => {
     let userCookieEmail = req.session.email;
@@ -89,6 +80,11 @@ module.exports = (db) => {
 
     db.query(queryString, [email])
       .then((data) => {
+        if (!data.rows[0]) {
+          loginAlert(email);
+          console.log("User does not exist");
+          res.status(403).json({ message: "User does not exist" });
+        }
         const database = data.rows;
         for (let key in database) {
           userCookieEmail = database[key].email;
@@ -96,7 +92,6 @@ module.exports = (db) => {
         }
       })
       .catch((err) => {
-        console.log("Catch");
         res.status(500).json({ error: err.message });
       });
   });
@@ -106,9 +101,12 @@ module.exports = (db) => {
     console.log("POST request to logout");
     req.session.email = null;
     req.session.buyer_id = null;
-    // let userCookie = req.session.email;
-    // userCookie = null;
-    console.log(req.session.email, req.session.buyer_id);
+    console.log(
+      "Cookie for email:",
+      req.session.email,
+      "Cookie for buyer id",
+      req.session.buyer_id
+    );
     res.redirect("/login");
   });
 
