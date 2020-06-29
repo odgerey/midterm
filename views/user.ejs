@@ -75,20 +75,20 @@
           </form>
 
           <div id="all-listings">
-            <% for(value in products) { %>
+            <% for(value in favorites) { %>
             <div class="one-listing">
               <div>
                 <img href="" />
                 <div>
                   <div class="listing-parameters">
-                    <h3><%= products[value].title%></h3>
+                    <h3><%= favorites[value].title%></h3>
                     <div>
-                      <span>CAD <%= products[value].price%></span>
-                      <span>Posted on: <%= products[value].date%></span>
+                      <span>CAD <%= favorites[value].price%></span>
+                      <span>Posted on: <%= favorites[value].date%></span>
                     </div>
                   </div>
                   <article class="listing-description">
-                    <%= products[value].description %>
+                    <%= favorites[value].description %>
                   </article>
                 </div>
               </div>
@@ -127,20 +127,20 @@
           </form>
 
           <div id="all-listings">
-            <% for(value in products) { %>
+            <% for(value in listings) { %>
             <div class="one-listing">
               <div>
                 <img href="" />
                 <div>
                   <div class="listing-parameters">
-                    <h3><%= products[value].title%></h3>
+                    <h3><%= listings[value].title%></h3>
                     <div>
-                      <span>CAD <%= products[value].price%></span>
-                      <span>Posted on: <%= products[value].date%></span>
+                      <span>CAD <%= listings[value].price%></span>
+                      <span>Posted on: <%= listings[value].date%></span>
                     </div>
                   </div>
                   <article class="listing-description">
-                    <%= products[value].description %>
+                    <%= listings[value].description %>
                   </article>
                 </div>
               </div>

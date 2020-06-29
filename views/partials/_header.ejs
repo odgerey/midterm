@@ -2,16 +2,21 @@
   <nav>
     <a href="/">Website name</a>
     <div>
-      <span>
-        Logged in as:
+  <% if (username) { %>
+      <span>Logged in as:
         <strong><%= username %></strong>
       </span>
-      <form method="GET" action="/login">
-        <button type="submit">Login</button>
+      <form method="GET" action="/users/:id">
+        <button type="submit">My account</button>
       </form>
       <form method="POST" action="/logout">
         <button type="submit">Logout</button>
       </form>
+  <% } else { %>
+    <!-- <form method="GET" action="/login">
+      <button type="submit">Login</button>
+    </form> -->
+  <% } %>
     </div>
   </nav>
 </header>
