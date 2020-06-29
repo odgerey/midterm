@@ -8,13 +8,11 @@
   h1 {
     margin-left: 0.25em;
   }
-
-  div {
-    display: hidden;
-  }
 }
 
-
+#received-messages {
+  display: none;
+}
 
 #section-listings {
   padding: 0 1em 1em 1em;
