@@ -39,6 +39,7 @@ section > div {
 }
 
 .edit-listing-button {
+  margin: 1em 0 0 1em;
   font-size: 14px;
 }
 
@@ -88,7 +89,12 @@ section > div {
 
 .one-listing > div {
   display: flex;
-  // width: 80%;
+  width: 80%;
+  flex-grow: 100;
+
+  div {
+    flex-grow: 100;
+  }
 }
 
 img {
