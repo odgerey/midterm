@@ -182,7 +182,7 @@ module.exports = (db) => {
       const listings = listingResults.rows;
 
       const templateVars = { favorites, listings, username };
-      console.log(listings);
+      console.log(lislistings);
       console.log("Get request for buyer page");
       res.render("user", templateVars);
     });
