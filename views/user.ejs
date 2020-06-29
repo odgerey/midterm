@@ -35,7 +35,23 @@
     <%- include('partials/_header') %>
 
     <main>
-      <section>
+      <section id="section-messages">
+        <h1>
+          My messages
+        </h1>
+        <button id="show-messages-button">
+          Show messages
+        </button>
+        <div id="received-messages">
+          <table>
+            [message.buyer], [message.title], [message.body], [message.date]
+          </table>
+        </div>
+      </section>
+
+      <!-- </hr> -->
+
+      <section id="section-listings">
         <div>
           <h1>
             My listings

@@ -1,6 +1,4 @@
-section {
-  // display: flex;
-  // justify-content: center;
+#section-messages {
   padding: 0 1em 1em 1em;
   border: rgb(22, 3, 15) solid;
   margin: 4em 0 3em 0;
@@ -12,12 +10,28 @@ section {
   }
 }
 
-section > div {
+#received-messages {
+  display: none;
+}
+
+#section-listings {
+  padding: 0 1em 1em 1em;
+  border: rgb(22, 3, 15) solid;
+  margin: 0 0 3em 0;
+  width: 90%;
+  background-color: white;
+
+  h1 {
+    margin-left: 0.25em;
+  }
+}
+
+#section-listings > div {
   display: flex;
   justify-content: space-between;
 }
 
-#new-listing-button, #filter-button, .edit-listing-button {
+#new-listing-button, #filter-button, .edit-listing-button, #show-messages-button {
   display: inline-block;
   text-align: center;
   text-decoration: none;
@@ -43,7 +57,7 @@ section > div {
   font-size: 14px;
 }
 
-#new-listing-button:hover, #filter-button:hover, .edit-listing-button:hover {
+#new-listing-button:hover, #filter-button:hover, .edit-listing-button:hover, #show-messages-button:hover {
   background-color: rgb(22, 3, 15);
   color: white;
 }
