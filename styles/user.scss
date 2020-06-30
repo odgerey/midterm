@@ -12,8 +12,8 @@
 
 #received-messages {
   margin: 1rem 0 0 0.5rem;
-  // display: none;
   display: flex;
+  // display: none;
   flex-direction: column;
   align-items: center;
 }
@@ -102,11 +102,7 @@
   margin: 0 0 0 0.5em;
 }
 
-.filter-button {
-  font-size: 14px;
-}
-
-.new-message-button {
+.filter-button, .reply-message-button, .new-message-button {
   width: 6rem;
   font-size: 14px;
 }

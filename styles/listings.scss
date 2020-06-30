@@ -30,18 +30,14 @@ section > div {
   cursor: pointer;
 }
 
-#filter-button {
+#filter-button, .new-message-button {
+  width: 6rem;
   font-size: 14px;
 }
 
 #new-listing-button {
   width: 10em;
   margin: 2.5em 1.25em 0 0;
-}
-
-.new-message-button {
-  width: 6rem;
-  font-size: 14px;
 }
 
 #new-listing-button:hover, #filter-button:hover, .new-message-button:hover {
