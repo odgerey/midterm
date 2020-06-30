@@ -212,7 +212,7 @@ module.exports = (db) => {
   //GET route to view seller's listings
   router.get("/listings/new", (req, res) => {
     const queryString = `  `;
-    const username = req.body.email;
+    const username = req.session.email;
     const templateVars = { username };
     db.query(queryString)
       .then((data) => {
