@@ -138,9 +138,12 @@ module.exports = (db) => {
       WHERE seller_id = $1;
       `;
     const messagesQuery = `
-      SELECT *
+      SELECT buyers.id, messages.*
       FROM messages
-      WHERE buyer_id = $1;
+      JOIN listings ON messages.listing_id = listings.id
+      JOIN buyers ON messages.buyer_id = buyers.id
+      WHERE buyers.id = $1;
+
       `;
     const email = req.session.email;
     const username = email;
@@ -325,6 +328,14 @@ module.exports = (db) => {
     res.render("new_message", templateVars);
   });
 
+  // GET route for replies
+  router.get("/reply/:id", (req, res) => {
+    const username = req.session.email;
+    const listingID = req.params.id;
+    templateVars = { username, listingID };
+    res.render("reply", templateVars);
+  });
+
   //Post route to send a new message
   router.post("/new_message/:id", (req, res) => {
     const queryString = `
@@ -348,6 +359,32 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   });
+
+  //Post route to send a new message
+  router.post("/new_message/:id", (req, res) => {
+    const queryString = `
+    INSERT INTO messages (buyer_id, listing_id, seller_id, title, description)
+    VALUES ($1, $2, $3, $4, $5);
+    `;
+    const username = req.session.email;
+    const templateVars = { username };
+    const values = [
+      req.session.buyer_id,
+      req.params.id,
+      5,
+      req.body.subject,
+      req.body.body,
+    ];
+    db.query(queryString, values)
+      .then((data) => {
+        console.log("new message sent");
+        res.redirect("/users/myaccount");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
   // /* End of Routes */
 
   return router;
