@@ -36,7 +36,7 @@
     <script type="text/javascript" src="/scripts/app.js"></script>
 
     <!-- App JS -->
-    <!-- <script type="text/javascript" src="../scripts/client.js"></script> -->
+    <script type="text/javascript" src="/scripts/client.js"></script>
 
     <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
     <meta
@@ -54,7 +54,7 @@
           My messages
         </h1>
         <button id="show-messages-button">
-          Show messages
+          Hide messages
         </button>
         <div id="received-messages">
           <div class="one-message">
@@ -90,18 +90,18 @@
             My favorites
           </h1>
           <button id="show-favorites-button">
-            Show favorites
+            Hide favorites
           </button>
         </div>
 
         <div id="favorites-container">
           <form method="POST" action="/users/:id/favorites_sort" class="filter">
             <label>
-              Filter by price
+              Sort by price
             </label>
-            <input placeholder="Please specify..." />
+            <!-- <input placeholder="Please specify..." /> -->
             <button type="submit" class="filter-button">
-              Filter
+              Sort
             </button>
           </form>
 
@@ -160,11 +160,11 @@
         <div id="listings-container">
           <form method="POST" action="/users/:id/listings_sort" class="filter">
             <label>
-              Filter by price
+              Sort by price
             </label>
-            <input placeholder="Please specify..." />
+            <!-- <input placeholder="Please specify..." /> -->
             <button type="submit" class="filter-button">
-              Filter
+              Sort
             </button>
           </form>
 
