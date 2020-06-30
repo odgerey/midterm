@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
 
     <!-- New listing page CSS -->
-    <link rel="stylesheet" href="/styles/new_listing.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/edit_listing.css" type="text/css" />
 
     <!-- Footer CSS -->
     <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
@@ -40,28 +40,46 @@
 
     <main>
       <section>
-        <form method="POST" action="/edit_listing/<%=product.id%>">
+        <form method="POST" action="/listings/<%= products[value].id%>">
           <label>
-            Edit your listing
+            Edit the listing
+
+          </div>
+        </div>
+        <article class="listing-description">
+          <%= products[value].description %>
+
+
           </label>
           <span>Title</span>
-          <input type="title" name="title" value="<%= product.title %>" />
+          <input type="title"
+            name="title"
+            placeholder="Please enter the new title..."
+          />
           <span>Description</span>
-          <input
-            type="description"
+          <input type="description"
             name="description"
-            value="<%= product.description %>"
+            placeholder="Please enter the new description..."
           />
           <span>Price</span>
-          <input type="price" name="price" value="<%= product.price %>" />
-          <span>Image</span>
+          <span>
+            CAD <%= products[value].price%>
+          </span>
           <input
-            type="image_url"
-            name="image_url"
-            value="<%= product.thumbnail_photo_url %>"
+            type="price"
+            name="price"
+            placeholder="Please enter the new price..."
           />
+          <span>Image</span>
+          <input type="image_url"
+            name="image_url"
+            placeholder="Please enter the new image URL..."
+          />
+          <span>
+            The listing was posted on: <%= products[value].date%>
+          </span>
           <button type="submit" id="submit-button">
-            Submit
+            Edit
           </button>
         </form>
       </section>

@@ -58,7 +58,8 @@
         </button>
         <div id="received-messages">
           <table>
-            [messages.buyer], [messages.title], [messages.body], [messages.date]
+            [messages.buyer], [messages.title], [messages.description],
+            [messages.date]
           </table>
         </div>
       </section>
@@ -74,7 +75,7 @@
         </div>
 
         <div id="favorites-container">
-          <form method="POST" action="/listings" class="filter">
+          <form method="POST" action="/users/:id/favorites_sort" class="filter">
             <label>
               Filter by price
             </label>
@@ -105,7 +106,7 @@
               <div class="listing-buttons">
                 <form
                   method="POST"
-                  action="/remove_favorite/<%=favorites[value].id%>"
+                  action="/remove_favorite/<%=favorites[value].listing_id%>"
                 >
                   <button type="submit" class="button-favorite">
                     <i class="fas fa-heart"></i>
@@ -118,6 +119,7 @@
                 </form>
               </div>
             </div>
+            <hr />
             <% } %>
           </div>
         </div>
@@ -136,7 +138,7 @@
         </div>
 
         <div id="listings-container">
-          <form method="POST" action="/listings" class="filter">
+          <form method="POST" action="/users/:id/listings_sort" class="filter">
             <label>
               Filter by price
             </label>
@@ -180,6 +182,7 @@
                 </form>
               </div>
             </div>
+            <hr />
             <% } %>
           </div>
         </div>
