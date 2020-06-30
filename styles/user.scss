@@ -36,6 +36,10 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+
+  i {
+    color: rgb(121, 0, 80);
+  }
 }
 
 #section-listings {
@@ -126,14 +130,14 @@
   margin: 0.5em 0;
 }
 
-#all-listings {
+.all-listings {
   display: flex;
   flex-direction: column;
   width: 75%;
   margin: 1em 0 0 2em;
 }
 
-// #all-listings:last-child {
+// .all-listings:last-child {
 //   hr {
 //     display: none;
 //   }
