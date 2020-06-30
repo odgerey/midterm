@@ -319,18 +319,12 @@ module.exports = (db) => {
 
   //Post route to send a new message
   router.post("/new_message/:id", (req, res) => {
-    console.log(req.body.subject);
-    console.log(req.body.body);
-
-    console.log(req.params.id);
-
     const queryString = `
     INSERT INTO messages (buyer_id, listing_id, title, description)
     VALUES ($1, $2, $3, $4);
     `;
     const username = req.session.email;
     const templateVars = { username };
-
     const values = [
       req.session.buyer_id,
       req.params.id,
@@ -340,7 +334,7 @@ module.exports = (db) => {
     db.query(queryString, values)
       .then((data) => {
         console.log("new message sent");
-        res.redirect("/user");
+        res.redirect("/users/myaccount");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
