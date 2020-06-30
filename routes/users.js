@@ -311,7 +311,10 @@ module.exports = (db) => {
 
   //POST route to edit seller's listings
   router.post("/listings:user", (req, res) => {
-    const queryString = ` query to edit items`;
+    const queryString = `
+    UPDATE listings
+    SET  title = $1, description = $2, thumbnail_photo_url = $3, price = $4
+    WHERE seller_id = $5; `
     db.query(queryString)
       .then((data) => {
         const products = data.rows;
