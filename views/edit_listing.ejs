@@ -40,33 +40,25 @@
 
     <main>
       <section>
-        <form method="POST" action="/edit_listing">
+        <form method="POST" action="/edit_listing/<%=product.id%>">
           <label>
             Edit your listing
           </label>
           <span>Title</span>
-          <input
-            type="title"
-            name="title"
-            placeholder="Please enter the title..."
-          />
+          <input type="title" name="title" value="<%= product.title %>" />
           <span>Description</span>
           <input
             type="description"
             name="description"
-            placeholder="Please enter the description..."
+            value="<%= product.description %>"
           />
           <span>Price</span>
-          <input
-            type="price"
-            name="price"
-            placeholder="Please enter the price..."
-          />
+          <input type="price" name="price" value="<%= product.price %>" />
           <span>Image</span>
           <input
             type="image_url"
             name="image_url"
-            placeholder="Please enter the image URL..."
+            value="<%= product.thumbnail_photo_url %>"
           />
           <button type="submit" id="submit-button">
             Submit
