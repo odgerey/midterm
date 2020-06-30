@@ -312,33 +312,35 @@ module.exports = (db) => {
   // GET route for new messages
   router.get("/new_message/:id", (req, res) => {
     const username = req.session.email;
-    const sellerID = req.params.id;
-    templateVars = { username, sellerID };
+    const listingID = req.params.id;
+    templateVars = { username, listingID };
     res.render("new_message", templateVars);
   });
 
   //Post route to send a new message
   router.post("/new_message/:id", (req, res) => {
+    console.log(req.body.subject);
+    console.log(req.body.body);
+
+    console.log(req.params.id);
+
     const queryString = `
-    SELECT seller_id, title, description
-    FROM messages
-    WHERE listing_id = $1
-    AND seller_id = $2
-    AND buyer_id = $3;
+    INSERT INTO messages (buyer_id, listing_id, title, description)
+    VALUES ($1, $2, $3, $4);
     `;
-    console.log("REQ PARAMS:", req.params);
     const username = req.session.email;
     const templateVars = { username };
-    console.log(req.params);
+
     const values = [
-      req.params.listing_id,
-      req.params.seller_id,
       req.session.buyer_id,
+      req.params.id,
+      req.body.subject,
+      req.body.body,
     ];
     db.query(queryString, values)
       .then((data) => {
-        // res.render("/listings");
         console.log("new message sent");
+        res.redirect("/user");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
