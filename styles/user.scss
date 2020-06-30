@@ -16,6 +16,12 @@
   // display: none;
   flex-direction: column;
   align-items: center;
+
+  hr {
+    width: 75%;
+    margin: 1rem 0 1rem 0;
+    color: rgb(22, 3, 15) solid;
+  }
 }
 
 .one-message {
@@ -107,6 +113,10 @@
   font-size: 14px;
 }
 
+.reply-message-button {
+  margin: 0 0 0 0.5rem;
+}
+
 #new-listing-button {
   width: 10em;
   margin: 2.5em 1.25em 0 0;
@@ -156,6 +166,12 @@
   flex-direction: column;
   width: 75%;
   margin: 1em 0 0 2em;
+
+  hr {
+    width: 100%;
+    margin: 0 0 1rem 0;
+    color: rgb(22, 3, 15) solid;
+  }
 }
 
 // .all-listings:last-child {
@@ -215,12 +231,6 @@ img {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-}
-
-hr {
-  width: 100%;
-  margin: 0 0 1rem 0;
-  color: rgb(22, 3, 15) solid;
 }
 
 // @media only screen and (min-width: 768px) {

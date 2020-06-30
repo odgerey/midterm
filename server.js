@@ -103,6 +103,11 @@ app.use(function (req, res) {
 //   console.log("GET request for a page to send a new message to the seller");
 // });
 
+// app.get("/error", (req, res) => {
+//   res.render("error.ejs");
+//   console.log("GET request for a page with the error description");
+// });
+
 // app.post("/login", (req, res) => {
 //   console.log("POST request for Login");
 // });
