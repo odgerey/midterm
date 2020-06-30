@@ -15,20 +15,6 @@ const { user } = require("osenv");
 module.exports = (db) => {
   /*  Index Routes  */
 
-  //GET route to view seller's listings
-  router.post("/new_message", (req, res) => {
-    const queryString = `  `;
-    const username = req.session.email;
-    const templateVars = { username };
-    db.query(queryString)
-      .then((data) => {
-        res.render("new_message", templateVars);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
-
   //GET route to show index. Index displays all listings.
   router.get("/", (req, res) => {
     const queryString = `
@@ -321,13 +307,42 @@ module.exports = (db) => {
       });
   });
 
+  /* Messages */
+
   // GET route for new messages
   router.get("/new_message/:id", (req, res) => {
     const username = req.session.email;
     const sellerID = req.params.id;
-    console.log(sellerID);
     templateVars = { username, sellerID };
     res.render("new_message", templateVars);
+  });
+
+  //Post route to send a new message
+  router.post("/new_message/:id", (req, res) => {
+    const queryString = `
+    SELECT seller_id, title, description
+    FROM messages
+    WHERE listing_id = $1
+    AND seller_id = $2
+    AND buyer_id = $3;
+    `;
+    console.log("REQ PARAMS:", req.params);
+    const username = req.session.email;
+    const templateVars = { username };
+    console.log(req.params);
+    const values = [
+      req.params.listing_id,
+      req.params.seller_id,
+      req.session.buyer_id,
+    ];
+    db.query(queryString, values)
+      .then((data) => {
+        // res.render("/listings");
+        console.log("new message sent");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
   });
 
   // /* End of Routes */
