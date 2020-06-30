@@ -12,6 +12,10 @@ const { query } = require("express");
 const { user } = require("osenv");
 // const { redirect } = require("statuses");
 
+// const loginCheck = function () {
+//   if
+// }
+
 module.exports = (db) => {
   /*  Index Routes  */
 
@@ -31,24 +35,7 @@ module.exports = (db) => {
 
   //GET route to show index. Index displays all listings.
   router.get("/", (req, res) => {
-    const queryString = `
-    SELECT *
-    FROM listings;
-    `;
-    db.query(queryString)
-      .then((data) => {
-        if (req.session.email === null) {
-          res.redirect("login");
-        }
-        const products = data.rows;
-        const username = req.session.email;
-        const templateVars = { products, username };
-        console.log(products);
-        res.render("listings", templateVars);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+    res.redirect("listings");
   });
 
   //Get request to load listings
