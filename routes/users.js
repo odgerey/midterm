@@ -18,7 +18,7 @@ module.exports = (db) => {
   //GET route to view seller's listings
   router.post("/new_message", (req, res) => {
     const queryString = `  `;
-    const username = req.body.email;
+    const username = req.session.email;
     const templateVars = { username };
     db.query(queryString)
       .then((data) => {
@@ -106,6 +106,7 @@ module.exports = (db) => {
     SELECT email, id
     FROM buyers
     WHERE buyers.email = $1;
+
     `;
 
     db.query(queryString, [email])
