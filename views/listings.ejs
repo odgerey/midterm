@@ -53,6 +53,7 @@
           margin-top: 75px;
         "
       >
+        <!-- Div for left side of the page. Contains the current listings and the filter -->
         <div
           style="
             width: 25%;
@@ -76,8 +77,10 @@
             </button>
           </form>
         </div>
+        <!-- End of left side div -->
 
         <div id="listings-container">
+          <!-- div for add a new listing button -->
           <div
             class="new-listing"
             style="display: flex; justify-content: flex-end;"
@@ -88,6 +91,7 @@
               </button>
             </form>
           </div>
+          <!-- end of div for add a new listing -->
 
           <div id="all-listings">
             <% for(value in products) { %>
@@ -99,12 +103,15 @@
                 width: 100%;
               "
             >
+              <!-- div for thumbnail  image only -->
               <div class="thumbnail" style="width: 250px;">
                 <img
                   src="<%= products[value].thumbnail_photo_url%>"
                   style="height: 250px; width: 250px;"
                 />
               </div>
+              <!-- end of thumbnail div -->
+
               <div style="width: 30%;">
                 <div class="listing-parameters">
                   <h3>
