@@ -57,9 +57,28 @@
           Show messages
         </button>
         <div id="received-messages">
-          <table>
-            [messages.buyer], [messages.title], [messages.description], [messages.date]
-          </table>
+          <div class="one-message">
+            <div class="message-text">
+              <h4>
+                [messages.title]
+              </h4>
+              <article>
+                [messages.description]
+              </article>
+            </div>
+            <div class="message-parameters">
+              <span>
+                [messages.buyer]
+              </span>
+              <span>
+                [messages.date]
+              </span>
+            </div>
+            <button class="reply-message-button">
+              Reply
+            </button>
+          </div>
+          <table></table>
         </div>
       </section>
 
