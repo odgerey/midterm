@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>All the listings</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
+
+    <!-- Custom fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Global layout CSS -->
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+    <!-- Header CSS -->
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+
+    <!-- New listing page CSS -->
+    <link rel="stylesheet" href="/styles/edit_listing.css" type="text/css" />
+
+    <!-- Footer CSS -->
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+  </head>
+
+  <body>
+    <%- include('partials/_header') %>
+
+    <main>
+      <section>
+        <form method="POST" action="/listings/<%= products[value].id%>">
+          <label>
+            Edit the listing
+
+          </div>
+        </div>
+        <article class="listing-description">
+          <%= products[value].description %>
+
+
+          </label>
+          <span>Title</span>
+          <input type="title"
+            name="title"
+            placeholder="Please enter the new title..."
+          />
+          <span>Description</span>
+          <input type="description"
+            name="description"
+            placeholder="Please enter the new description..."
+          />
+          <span>Price</span>
+          <span>
+            CAD <%= products[value].price%>
+          </span>
+          <input
+            type="price"
+            name="price"
+            placeholder="Please enter the new price..."
+          />
+          <span>Image</span>
+          <input type="image_url"
+            name="image_url"
+            placeholder="Please enter the new image URL..."
+          />
+          <span>
+            The listing was posted on: <%= products[value].date%>
+          </span>
+          <button type="submit" id="submit-button">
+            Edit
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <%- include('partials/_footer') %>
+  </body>
+</html>
