@@ -43,6 +43,7 @@ module.exports = (db) => {
         const products = data.rows;
         const username = req.session.email;
         const templateVars = { products, username };
+        console.log(products);
         res.render("listings", templateVars);
       })
       .catch((err) => {
@@ -196,7 +197,7 @@ module.exports = (db) => {
     WHERE buyer_id = $1
     AND listing_id = $2;
       `;
-    const listingID = req.params.listingID;
+    const listingID = req.params.id;
     const values = [req.session.buyer_id, listingID];
     db.query(queryString, values)
       .then((data) => {
@@ -309,7 +310,7 @@ module.exports = (db) => {
       req.body.image_url,
       req.body.price,
       req.session.buyer_id,
-      req.params.id
+      req.params.id,
     ];
 
     db.query(queryString, values)
