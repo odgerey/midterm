@@ -7,9 +7,9 @@
 
 const express = require("express");
 const router = express.Router();
-// const { c } = require("tar");
-// const { query } = require("express");
-// const { user } = require("osenv");
+const { c } = require("tar");
+const { query } = require("express");
+const { user } = require("osenv");
 // const { redirect } = require("statuses");
 
 const loginCheck = function () {
@@ -66,9 +66,7 @@ module.exports = (db) => {
       });
   });
 
-  /*
-  Login Routes
-  */
+  /* Login Routes  */
 
   // GET route for login page
   router.get("/login", (req, res) => {
@@ -80,12 +78,12 @@ module.exports = (db) => {
   //POST route for login page
   router.post("/login", (req, res) => {
     const email = req.body.email;
-    console.log("Email:",email)
     const queryString = `
     SELECT email, id
     FROM buyers
     WHERE buyers.email = $1;
     `;
+
     db.query(queryString, [email])
       .then((data) => {
         if (!data.rows[0]) {
@@ -94,14 +92,9 @@ module.exports = (db) => {
         const userData = data.rows[0];
         req.session.email = userData.email;
         req.session.buyer_id = userData.id;
-        console.log(
-          `User Cookie ${req.session.email} and id is ${req.session.buyer_id}`
-        );
-        // }
         console.log(`Login successful.
         // User Cookie ${req.session.email} and id is ${req.session.buyer_id}`);
-        // res.redirect(`/users/${req.session.buyer_id}`);
-        res.redirect("/users")
+        res.redirect(`/users/myaccount`);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -110,18 +103,16 @@ module.exports = (db) => {
 
   // POST route to logout. Sets cookie to NULL
   router.post("/logout", (req, res) => {
+    console.log("POST request to logout");
     req.session.email = null;
     req.session.buyer_id = null;
     res.redirect("/login");
   });
 
-  /*
-  User Specific Routes
-  */
+  /*  User Specific Routes  */
 
   //GET route for buyer's page. Shows all favourite items.
   router.get("/users/myaccount", (req, res) => {
-    console.log("Email Cookie is:", req.session.email);
     const favoritesQuery = `
     SELECT listings.*, favorites.*
     FROM favorites
@@ -134,7 +125,6 @@ module.exports = (db) => {
       FROM listings
       WHERE seller_id = $1;
       `;
-
     const email = req.session.email;
     const username = email;
     const promises = [
@@ -160,8 +150,8 @@ module.exports = (db) => {
   //POST route to add favourite
   router.post("/add_favorite/:listingID", (req, res) => {
     const queryString = `
-      INSERT INTO favorites (buyer_id, listing_id)
-      VALUES  ($1, $2);
+    INSERT INTO favorites (buyer_id, listing_id)
+    VALUES  ($1, $2);
     `;
     const listingID = req.params.listingID;
     const values = [req.session.buyer_id, listingID];
@@ -218,9 +208,7 @@ module.exports = (db) => {
     (title, description, cover_photo_url, price, for_sale, seller_id)
     VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *;
-
     `;
-
     const values = [
       req.body.title,
       req.body.description,
@@ -234,7 +222,7 @@ module.exports = (db) => {
     db.query(queryString, values)
       .then((data) => {
         console.log(`Listing added
-        ${values}`);
+         ${values}`);
 
         res.redirect("/listings");
       })
@@ -253,8 +241,8 @@ module.exports = (db) => {
     const values = [req.session.buyer_id, req.params.id];
     db.query(queryString, values)
       .then((data) => {
-        console.log("Listing deleted");
-        res.redirect("/users/:id");
+        console.log(`Listing #${req.params.id} deleted`);
+        res.redirect("/users/myaccount");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -297,17 +285,12 @@ module.exports = (db) => {
       req.body.description,
       req.body.image_url,
       req.body.price,
-      true,
       req.session.buyer_id,
       req.params.id,
     ];
-    const templateVars = { username };
 
     db.query(queryString, values)
       .then((data) => {
-        console.log(`Listing added
-        ${values}`);
-
         res.redirect("/listings");
       })
       .catch((err) => {
@@ -333,4 +316,3 @@ module.exports = (db) => {
 
   return router;
 };
-//
