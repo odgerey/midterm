@@ -19,7 +19,6 @@ VALUES (1),
 (2),
 (4);
 
-
 INSERT INTO listings(title, description, thumbnail_photo_url, cover_photo_url,price, for_sale, seller_id)
 VALUES ('Norman Guiter', 'Brand new, barely used','https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 300, true, 1 ),
 ('Glitter Box', 'Crazy lady selling box of glitter','https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 45,true, 2 ),
@@ -31,14 +30,12 @@ VALUES ('Norman Guiter', 'Brand new, barely used','https://images.pexels.com/pho
 ('Pumpkin', 'Just a pumpkin','https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg',10,true, 8),
 ('Rayban sunglasses 1995', 'Brand new, barely used','https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 225, true, 9 );
 
-
-
 INSERT INTO favorites (buyer_id, listing_id)
 VALUES (5, 6),
 (3, 5),
 (4, 9),
 (3, 8);
 
-INSERT INTO messages (buyer_id, seller_id, listing_id, title, description)
-VALUES (8, 1, 1, 'INTERESTED', 'Hey, man I really want that'),
-(5, 1, 1, 'Call me', 'Can you accept 100?');
+INSERT INTO messages (buyer_id, listing_id, title, description)
+VALUES (8, 1, 'INTERESTED', 'Hey, man I really want that'),
+(5, 1, 'Call me', 'Can you accept 100?');
