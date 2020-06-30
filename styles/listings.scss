@@ -35,7 +35,8 @@ section > div {
 }
 
 #new-listing-button {
-  margin: 2em 1.25em 0 0;
+  width: 10em;
+  margin: 2.5em 1.25em 0 0;
 }
 
 .new-message-button {
@@ -86,7 +87,7 @@ section > div {
 .one-listing {
   display: flex;
   justify-content: space-between;
-  margin: 0 0 2em 0;
+  margin: 0 0 1em 0;
 }
 
 img {
@@ -94,12 +95,6 @@ img {
   width: 10em;
   border: rgb(22, 3, 15);
   margin: 0 1em 0 0;
-}
-
-hr {
-  width: 100%;
-  margin: 0 0 1rem 0;
-  color: rgb(22, 3, 15) solid;
 }
 
 .listing-parameters {
@@ -145,6 +140,12 @@ hr {
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+hr {
+  width: 100%;
+  margin: 0 0 1rem 0;
+  color: rgb(22, 3, 15) solid;
 }
 
 // @media only screen and (min-width: 768px) {

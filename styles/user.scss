@@ -77,8 +77,14 @@
   font-size: 14px;
 }
 
+.new-message-button {
+  width: 10rem;
+  font-size: 14px;
+}
+
 #new-listing-button {
-  margin: 2em 1.25em 0 0;
+  width: 10em;
+  margin: 2.5em 1.25em 0 0;
 }
 
 .edit-listing-button {
@@ -127,10 +133,16 @@
   margin: 1em 0 0 2em;
 }
 
+// #all-listings:last-child {
+//   hr {
+//     display: none;
+//   }
+// }
+
 .one-listing {
   display: flex;
   justify-content: space-between;
-  margin: 0 1em 2em 0;
+  margin: 0 1em 1em 0;
 }
 
 .listing-info {
@@ -170,6 +182,12 @@ img {
   align-items: flex-end;
 }
 
+hr {
+  width: 100%;
+  margin: 0 0 1rem 0;
+  color: rgb(22, 3, 15) solid;
+}
+
 // @media only screen and (min-width: 768px) {
 
 //   nav {
@@ -188,6 +206,10 @@ img {
   }
 
   .filter-button {
+    font-size: 16px;
+  }
+
+  .new-message-button {
     font-size: 16px;
   }
 
