@@ -299,20 +299,6 @@ module.exports = (db) => {
       });
   });
 
-  // GET route for new messages
-  router.post("/new_message", (req, res) => {
-    const queryString = `  `;
-    const username = req.body.email;
-    const templateVars = { username };
-    db.query(queryString)
-      .then((data) => {
-        res.render("new_message", templateVars);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
-
   // /* End of Routes */
 
   return router;
