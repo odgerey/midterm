@@ -343,10 +343,11 @@ module.exports = (db) => {
     VALUES ($1, $2, $3, $4);
     `;
     const username = req.session.email;
+    const listingID = req.params.id;
     const templateVars = { username };
     const values = [
       req.session.buyer_id,
-      req.params.id,
+      listingID,
       req.body.subject,
       req.body.body,
     ];
