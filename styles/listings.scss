@@ -30,18 +30,14 @@ section > div {
   cursor: pointer;
 }
 
-#filter-button {
+#filter-button, .new-message-button {
+  width: 6rem;
   font-size: 14px;
 }
 
 #new-listing-button {
   width: 10em;
   margin: 2.5em 1.25em 0 0;
-}
-
-.new-message-button {
-  width: 10em;
-  font-size: 14px;
 }
 
 #new-listing-button:hover, #filter-button:hover, .new-message-button:hover {
@@ -90,6 +86,16 @@ section > div {
   margin: 0 0 1em 0;
 }
 
+.listing-info {
+  display: flex;
+  width: 80%;
+  flex-grow: 100;
+
+  div {
+    flex-grow: 100;
+  }
+}
+
 img {
   height: 10em;
   width: 10em;
@@ -100,15 +106,20 @@ img {
 .listing-parameters {
   display: flex;
   justify-content: space-between;
+  margin: 0 0 1rem 0;
 
-  // h3 {
-  //   overflow-wrap: anywhere;
-  // }
+  h3 {
+    overflow-wrap: anywhere;
+    width: 60%;
+    margin: 0;
+  }
 
   div {
     display: flex;
-    // justify-content: space-between;
+    flex-direction: column;
     justify-content: flex-end;
+    margin: 0 0 0.5rem 0;
+    // font-size: 14px;
 
     span {
       margin: auto 0.5em;
@@ -136,10 +147,14 @@ img {
 }
 
 .button-favorite {
-  margin: 1.25rem 0 0 0;
+  // margin: 1.25rem 0 0 0;
   background-color: transparent;
   border: none;
   cursor: pointer;
+
+  i {
+    color: rgb(121, 0, 80);
+  }
 }
 
 hr {

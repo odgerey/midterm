@@ -36,7 +36,7 @@
     <script type="text/javascript" src="/scripts/app.js"></script>
 
     <!-- App JS -->
-    <!-- <script type="text/javascript" src="/scripts/client.js"></script> -->
+    <!-- <script type="text/javascript" src="../scripts/client.js"></script> -->
 
     <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
     <meta
@@ -57,10 +57,30 @@
           Show messages
         </button>
         <div id="received-messages">
-          <table>
-            [messages.buyer], [messages.title], [messages.description],
-            [messages.date]
-          </table>
+          <div class="one-message">
+            <div class="message-text">
+              <h4>
+                [messages.title]
+              </h4>
+              <article>
+                [messages.description]
+              </article>
+            </div>
+            <div class="message-parameters">
+              <span>
+                [messages.buyer]
+              </span>
+              <span>
+                [messages.date]
+              </span>
+            </div>
+            <form method="GET" action="/new_message">
+              <button type="submit" class="reply-message-button">
+                Reply
+              </button>
+            </form>
+          </div>
+          <!-- <table></table> -->
         </div>
       </section>
 
@@ -85,7 +105,7 @@
             </button>
           </form>
 
-          <div id="all-listings">
+          <div class="all-listings">
             <% for(value in favorites) { %>
             <div class="one-listing">
               <div class="listing-info">
@@ -114,7 +134,7 @@
                 </form>
                 <form method="GET" action="/new_message">
                   <button type="submit" class="new-message-button">
-                    Contact the seller
+                    Contact
                   </button>
                 </form>
               </div>
@@ -148,7 +168,7 @@
             </button>
           </form>
 
-          <div id="all-listings">
+          <div class="all-listings">
             <% for(value in listings) { %>
             <div class="one-listing">
               <div class="listing-info">

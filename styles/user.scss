@@ -12,7 +12,32 @@
 
 #received-messages {
   margin: 1rem 0 0 0.5rem;
+  display: flex;
   // display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+.one-message {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.message-text {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+
+  h4 {
+    margin: 0;
+  }
+}
+
+.message-parameters {
+  display: flex;
+  flex-direction: column;
 }
 
 #section-favorites {
@@ -32,10 +57,14 @@
 // }
 
 .button-favorite {
-  margin: 1.5rem 0 0 0;
+  // margin: 1.5rem 0 0 0;
   background-color: transparent;
   border: none;
   cursor: pointer;
+
+  i {
+    color: rgb(121, 0, 80);
+  }
 }
 
 #section-listings {
@@ -55,7 +84,7 @@
   justify-content: space-between;
 }
 
-#new-listing-button, .filter-button, .new-message-button, .edit-listing-button, #show-messages-button, #show-favorites-button {
+#new-listing-button, .filter-button, .new-message-button, .edit-listing-button, #show-messages-button, #show-favorites-button, .reply-message-button {
   display: inline-block;
   text-align: center;
   text-decoration: none;
@@ -73,12 +102,8 @@
   margin: 0 0 0 0.5em;
 }
 
-.filter-button {
-  font-size: 14px;
-}
-
-.new-message-button {
-  width: 10rem;
+.filter-button, .reply-message-button, .new-message-button {
+  width: 6rem;
   font-size: 14px;
 }
 
@@ -88,12 +113,12 @@
 }
 
 .edit-listing-button {
-  width: 5rem;
-  margin: 1em 0 0 1em;
+  width: 6rem;
+  margin: 0 0 0 1em;
   font-size: 14px;
 }
 
-#new-listing-button:hover, .filter-button:hover, .new-message-button:hover, .edit-listing-button:hover, #show-messages-button:hover, #show-favorites-button:hover {
+#new-listing-button:hover, .filter-button:hover, .new-message-button:hover, .edit-listing-button:hover, #show-messages-button:hover, #show-favorites-button:hover, .reply-message-button:hover {
   background-color: rgb(22, 3, 15);
   color: white;
 }
@@ -126,14 +151,14 @@
   margin: 0.5em 0;
 }
 
-#all-listings {
+.all-listings {
   display: flex;
   flex-direction: column;
   width: 75%;
   margin: 1em 0 0 2em;
 }
 
-// #all-listings:last-child {
+// .all-listings:last-child {
 //   hr {
 //     display: none;
 //   }
@@ -165,10 +190,20 @@ img {
 .listing-parameters {
   display: flex;
   justify-content: space-between;
+  margin: 0 0 1rem 0;
+
+  h3 {
+    width: 60%;
+    margin: 0;
+  }
 
   div {
     display: flex;
+    flex-direction: column;
     justify-content: flex-end;
+    margin: 0 0 0.5rem 0;
+    // font-size: 14px;
+
     span {
       margin: auto 0.5em;
     }

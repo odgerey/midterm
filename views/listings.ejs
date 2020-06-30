@@ -71,20 +71,22 @@
           <div id="all-listings">
             <% for(value in products) { %>
             <div class="one-listing">
-              <img src="<%= products[value].thumbnail_photo_url%>"/>
-              <div>
-                <div class="listing-parameters">
-                  <h3>
-                    <%= products[value].title%>
-                  </h3>
-                  <div>
-                    <span>CAD <%= products[value].price%></span>
-                    <span>Posted on: <%= products[value].date%></span>
+              <div class="listing-info">
+                <img src="<%= products[value].thumbnail_photo_url%>"/>
+                <div>
+                  <div class="listing-parameters">
+                    <h3>
+                      <%= products[value].title%>
+                    </h3>
+                    <div>
+                      <span>CAD <%= products[value].price%></span>
+                      <span>Posted on: <%= products[value].date%></span>
+                    </div>
                   </div>
+                  <article class="listing-description">
+                    <%= products[value].description %>
+                  </article>
                 </div>
-                <article class="listing-description">
-                  <%= products[value].description %>
-                </article>
               </div>
               <div class="listing-buttons">
                 <form
@@ -105,7 +107,7 @@
                 </form> -->
                 <form method="GET" action="/new_message">
                   <button type="submit" class="new-message-button">
-                    Contact the seller
+                    Contact
                   </button>
                 </form>
               </div>
