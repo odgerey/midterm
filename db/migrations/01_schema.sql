@@ -22,7 +22,7 @@ CREATE TABLE  listings (
   description TEXT,
   thumbnail_photo_url VARCHAR(255),
   cover_photo_url VARCHAR(255),
-  date TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   price INTEGER NOT NULL DEFAULT 0,
   for_sale BOOLEAN NOT NULL DEFAULT TRUE,
   seller_id INTEGER NOT NULL
@@ -40,6 +40,7 @@ CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
   buyer_id INTEGER REFERENCES buyers(id) ON DELETE CASCADE,
   seller_id INTEGER REFERENCES sellers(id) ON DELETE CASCADE,
+  listing_id INTEGER REFERENCES listings(id) ON DELETE CASCADE,
   title VARCHAR (255) NOT NULL,
   description text
 );

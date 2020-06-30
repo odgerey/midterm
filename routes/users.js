@@ -106,7 +106,6 @@ module.exports = (db) => {
     SELECT email, id
     FROM buyers
     WHERE buyers.email = $1;
-
     `;
 
     db.query(queryString, [email])

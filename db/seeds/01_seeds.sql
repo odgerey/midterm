@@ -20,10 +20,10 @@ VALUES (1),
 (4);
 
 
-INSERT INTO listings(title, description, thumbnail_photo_url, cover_photo_url, price, for_sale, seller_id)
+INSERT INTO listings(title, description, thumbnail_photo_url, cover_photo_url,price, for_sale, seller_id)
 VALUES ('Norman Guiter', 'Brand new, barely used','https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 300, true, 1 ),
 ('Glitter Box', 'Crazy lady selling box of glitter','https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 45,true, 2 ),
-('The Cranberries RARE autographed copy', 'CD signed by Dolores O Riodan, collectors item','https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 80, false, 3),
+('The Cranberries RARE autographed copy', 'CD signed by Dolores O Riodan, collectors item','https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg',80, false, 3),
 ('Seinfeld Seasons 1-6', 'Mint condition','https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 98, true, 4 ),
 ('Sofa to give away', 'Pick it up and it is yours','https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 0,true, 5 ),
 ('Marathon gear', 'A little sweaty, nothing a little cleaning can fix','https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 100,true, 6 ),
@@ -39,6 +39,6 @@ VALUES (5, 6),
 (4, 9),
 (3, 8);
 
-INSERT INTO messages (buyer_id, seller_id, title, description)
-VALUES (8, 1, 'INTERESTED', 'Hey, man I really want that'),
-(5, 1, 'Call me', 'Can you accept 100?');
+INSERT INTO messages (buyer_id, seller_id, listing_id, title, description)
+VALUES (8, 1, 1, 'INTERESTED', 'Hey, man I really want that'),
+(5, 1, 1, 'Call me', 'Can you accept 100?');
