@@ -12,26 +12,14 @@ const { query } = require("express");
 const { user } = require("osenv");
 // const { redirect } = require("statuses");
 
-// const loginCheck = function () {
-//   if
-// }
+const loginCheck = function () {
+  if (req.session.email === null) {
+    res.redirect("login");
+  }
+};
 
 module.exports = (db) => {
   /*  Index Routes  */
-
-  //GET route to view seller's listings
-  router.post("/new_message", (req, res) => {
-    const queryString = `  `;
-    const username = req.body.email;
-    const templateVars = { username };
-    db.query(queryString)
-      .then((data) => {
-        res.render("new_message", templateVars);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
 
   //GET route to show index. Index displays all listings.
   router.get("/", (req, res) => {
@@ -100,7 +88,6 @@ module.exports = (db) => {
     db.query(queryString, [email])
       .then((data) => {
         if (!data.rows[0]) {
-          console.log("User does not exist");
           res.status(403).json({ message: "User does not exist" });
         }
         const userData = data.rows[0];
@@ -148,6 +135,9 @@ module.exports = (db) => {
 
     Promise.all(promises)
       .then(([favoritesResults, listingResults]) => {
+        if (req.session.email === null) {
+          res.redirect("/login");
+        }
         const favorites = favoritesResults.rows;
         const listings = listingResults.rows;
         const templateVars = { favorites, listings, username };
@@ -310,10 +300,17 @@ module.exports = (db) => {
   });
 
   // GET route for new messages
-  router.get("/new_message", (req, res) => {
-    const username = req.session.email;
-    templateVars = { username };
-    res.render("new_message", templateVars);
+  router.post("/new_message", (req, res) => {
+    const queryString = `  `;
+    const username = req.body.email;
+    const templateVars = { username };
+    db.query(queryString)
+      .then((data) => {
+        res.render("new_message", templateVars);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
   });
 
   // /* End of Routes */
