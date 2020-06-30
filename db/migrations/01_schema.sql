@@ -11,22 +11,23 @@ CREATE TABLE buyers (
   password VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE sellers (
+  id SERIAL PRIMARY KEY NOT NULL,
+  buyer_id INTEGER REFERENCES buyers(id) ON DELETE CASCADE
+);
+
 CREATE TABLE  listings (
   id SERIAL PRIMARY KEY NOT NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT,
-  thumbnail_photo_url VARCHAR(255) NOT NULL,
-  cover_photo_url VARCHAR(255) NOT NULL,
+  thumbnail_photo_url VARCHAR(255),
+  cover_photo_url VARCHAR(255),
   date TIMESTAMP,
   price INTEGER NOT NULL DEFAULT 0,
-  for_sale BOOLEAN NOT NULL DEFAULT TRUE
+  for_sale BOOLEAN NOT NULL DEFAULT TRUE,
+  seller_id INTEGER NOT NULL
 );
 
-CREATE TABLE sellers (
-  id SERIAL PRIMARY KEY NOT NULL,
-  buyer_id INTEGER REFERENCES buyers(id) ON DELETE CASCADE,
-  listing_id INTEGER REFERENCES listings(id) ON DELETE CASCADE
-);
 
 
 CREATE TABLE favorites (
@@ -43,3 +44,17 @@ CREATE TABLE messages (
   description text
 );
 
+ALTER TABLE buyers
+OWNER TO labber;
+
+ALTER TABLE listings
+OWNER TO labber;
+
+ALTER TABLE sellers
+OWNER TO labber;
+
+ALTER TABLE favorites
+OWNER TO labber;
+
+ALTER TABLE messages
+OWNER TO labber;

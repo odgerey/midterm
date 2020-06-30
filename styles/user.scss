@@ -1,7 +1,5 @@
-section {
-  // display: flex;
-  // justify-content: center;
-  padding: 0 1em 1em 1em;
+#section-messages {
+  padding: 0 1em 1.5em 1em;
   border: rgb(22, 3, 15) solid;
   margin: 4em 0 3em 0;
   width: 90%;
@@ -12,12 +10,52 @@ section {
   }
 }
 
-section > div {
+#received-messages {
+  margin: 1rem 0 0 0.5rem;
+  // display: none;
+}
+
+#section-favorites {
+  padding: 0 1em 1.5em 1em;
+  border: rgb(22, 3, 15) solid;
+  margin: 0 0 3em 0;
+  width: 90%;
+  background-color: white;
+
+  h1 {
+    margin-left: 0.25em;
+  }
+}
+
+// #favorites-container {
+//   display: none;
+// }
+
+.button-favorite {
+  margin: 1.5rem 0 0 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+#section-listings {
+  padding: 0 1em 1.5em 1em;
+  border: rgb(22, 3, 15) solid;
+  margin: 0 0 3em 0;
+  width: 90%;
+  background-color: white;
+
+  h1 {
+    margin-left: 0.25em;
+  }
+}
+
+#section-listings > div {
   display: flex;
   justify-content: space-between;
 }
 
-#new-listing-button, #filter-button, .new-message-button {
+#new-listing-button, .filter-button, .new-message-button, .edit-listing-button, #show-messages-button, #show-favorites-button {
   display: inline-block;
   text-align: center;
   text-decoration: none;
@@ -30,7 +68,17 @@ section > div {
   cursor: pointer;
 }
 
-#filter-button {
+#show-messages-button, #show-favorites-button {
+  width: 9rem;
+  margin: 0 0 0 0.5em;
+}
+
+.filter-button {
+  font-size: 14px;
+}
+
+.new-message-button {
+  width: 10rem;
   font-size: 14px;
 }
 
@@ -39,26 +87,27 @@ section > div {
   margin: 2.5em 1.25em 0 0;
 }
 
-.new-message-button {
-  width: 10em;
+.edit-listing-button {
+  width: 5rem;
+  margin: 1em 0 0 1em;
   font-size: 14px;
 }
 
-#new-listing-button:hover, #filter-button:hover, .new-message-button:hover {
+#new-listing-button:hover, .filter-button:hover, .new-message-button:hover, .edit-listing-button:hover, #show-messages-button:hover, #show-favorites-button:hover {
   background-color: rgb(22, 3, 15);
   color: white;
 }
 
-#listings-container {
+#listings-container, #favorites-container {
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
 }
 
-#filter {
+.filter {
   padding: 2em 2em;
   border: 1px solid rgb(22, 3, 15);
-  margin: 1em 0 0 0;
+  margin: 1em 0 0 0.5em;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -73,7 +122,7 @@ section > div {
   }
 }
 
-#filter > * {
+.filter > * {
   margin: 0.5em 0;
 }
 
@@ -84,10 +133,26 @@ section > div {
   margin: 1em 0 0 2em;
 }
 
+// #all-listings:last-child {
+//   hr {
+//     display: none;
+//   }
+// }
+
 .one-listing {
   display: flex;
   justify-content: space-between;
-  margin: 0 0 1em 0;
+  margin: 0 1em 1em 0;
+}
+
+.listing-info {
+  display: flex;
+  width: 80%;
+  flex-grow: 100;
+
+  div {
+    flex-grow: 100;
+  }
 }
 
 img {
@@ -101,23 +166,13 @@ img {
   display: flex;
   justify-content: space-between;
 
-  // h3 {
-  //   overflow-wrap: anywhere;
-  // }
-
   div {
     display: flex;
-    // justify-content: space-between;
     justify-content: flex-end;
-
     span {
       margin: auto 0.5em;
     }
   }
-}
-
-.listing-id {
-  display: hidden;
 }
 
 .listing-buttons {
@@ -125,21 +180,6 @@ img {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 0 1em;
-
-  form {
-    input {
-      // visibility: hidden;
-      display: none;
-    }
-  }
-}
-
-.button-favorite {
-  margin: 1.25rem 0 0 0;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
 }
 
 hr {
@@ -159,17 +199,21 @@ hr {
 
 @media only screen and (min-width: 1024px) {
 
-  #filter {
+  .filter {
     input {
       font-size: 16px;
     }
   }
 
-  #filter-button {
+  .filter-button {
     font-size: 16px;
   }
 
   .new-message-button {
+    font-size: 16px;
+  }
+
+  .edit-listing-button {
     font-size: 16px;
   }
 

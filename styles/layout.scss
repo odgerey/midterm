@@ -14,14 +14,18 @@ body {
 
 main {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100%;
-  margin-top: 6em;
+  margin-top: 5em;
   // margin: auto;
   background: fixed;
-  // background-image: url("https://unsplash.com/photos/WiONHd_zYI4.jpg");
-  background-image: url("../../assets/tim-gouw-FhMdnXonEiU-unsplash.jpg");
-  // background-image: url("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  // background-image: url("../../assets/tim-gouw-FhMdnXonEiU-unsplash.jpg");
+  // background-image: url("https://images.unsplash.com/photo-1567568925519-59cf57371151?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1868&q=80");
+  background-image: url("https://images.unsplash.com/photo-1593161434216-dbcd47887482?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1900&q=80");
 }
 
 // @media only screen and (min-width: 768px) {

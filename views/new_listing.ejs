@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Login</title>
+    <title>All the listings</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
 
     <!-- Custom fonts -->
     <link
@@ -18,8 +19,8 @@
     <!-- Header CSS -->
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
 
-    <!-- Login page CSS -->
-    <link rel="stylesheet" href="/styles/login.css" type="text/css" />
+    <!-- New listing page CSS -->
+    <link rel="stylesheet" href="/styles/new_listing.css" type="text/css" />
 
     <!-- Footer CSS -->
     <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
@@ -39,21 +40,33 @@
 
     <main>
       <section>
-        <form method="POST" action="/login">
+        <form method="POST" action="/new_listing">
           <label>
-            Login form
+            Add a new listing
           </label>
-          <input type="email"
-            name="email"
-            placeholder="Your email here..."
+          <span>Title</span>
+          <input type="title"
+            name="title"
+            placeholder="Please enter the title..."
           />
+          <span>Description</span>
+          <input type="description"
+            name="description"
+            placeholder="Please enter the description..."
+          />
+          <span>Price</span>
           <input
-            type="password"
-            name="password"
-            placeholder="Your password here..."
+            type="price"
+            name="price"
+            placeholder="Please enter the price..."
           />
-          <button type="submit" id="login-button">
-            Login
+          <span>Image</span>
+          <input type="image_url"
+            name="image_url"
+            placeholder="Please enter the image URL..."
+          />
+          <button type="submit" id="submit-button">
+            Submit
           </button>
         </form>
       </section>

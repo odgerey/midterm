@@ -1,51 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>My listings</title>
+    <title>My account</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/user.css" type="text/css" />
 
+    <!-- Custom fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Global layout CSS -->
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+    <!-- Header CSS -->
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+
+    <!-- User page CSS -->
+    <link rel="stylesheet" href="/styles/user.css" type="text/css" />
+
+    <!-- Footer CSS -->
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+
+    <!-- Fontawesome custom icons -->
+    <script
+      src="https://kit.fontawesome.com/f0b575b405.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <!-- App JS -->
+    <!-- <script type="text/javascript" src="/scripts/client.js"></script> -->
+
+    <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
   </head>
 
   <body>
-    <header>
-      <nav>
-        <a href="/listings">Website name</a>
-        <div>Logged in as: </div>
-        <form method="POST" action="/logout">
-          <button type="submit">Logout</button>
-        </form>
-      </nav>
-    </header>
+    <%- include('partials/_header') %>
 
     <main>
-      <section>
+      <section id="section-messages">
         <h1>
-          My listings
+          My messages
         </h1>
-        <!-- <form method="POST" action="/listings">
-          <label>
-            Filter by
-          </label>
-          <input placeholder="Please specify...">
-          <button type="submit">
-            Filter
-          </button>
-        </form> -->
+        <button id="show-messages-button">
+          Show messages
+        </button>
+        <div id="received-messages">
+          <table>
+            [messages.buyer], [messages.title], [messages.description],
+            [messages.date]
+          </table>
+        </div>
+      </section>
 
-        <div class = "listing-container">
-          <img href="">
-          <h3 class = "listing-title"><%= listings.title %></h3>
-          <article class = "listing-description"><%= listings.description %></article>
-          <h4><%= listings.price %></h4>
-          <h5><%= listings.date %></h5>
-          <form method="GET" action="/listings/<%= listings.id %>">
-            <button type="submit">Edit</button>
+      <section id="section-favorites">
+        <div>
+          <h1>
+            My favorites
+          </h1>
+          <button id="show-favorites-button">
+            Show favorites
+          </button>
+        </div>
+
+        <div id="favorites-container">
+          <form method="POST" action="/users/:id/favorites_sort" class="filter">
+            <label>
+              Filter by price
+            </label>
+            <input placeholder="Please specify..." />
+            <button type="submit" class="filter-button">
+              Filter
+            </button>
           </form>
+
+          <div id="all-listings">
+            <% for(value in favorites) { %>
+            <div class="one-listing">
+              <div class="listing-info">
+                <img src="<%= favorites[value].thumbnail_photo_url%>" />
+                <div>
+                  <div class="listing-parameters">
+                    <h3><%= favorites[value].title%></h3>
+                    <div>
+                      <span>CAD <%= favorites[value].price%></span>
+                      <span>Posted on: <%= favorites[value].date%></span>
+                    </div>
+                  </div>
+                  <article class="listing-description">
+                    <%= favorites[value].description %>
+                  </article>
+                </div>
+              </div>
+              <div class="listing-buttons">
+                <form
+                  method="POST"
+                  action="/remove_favorite/<%=favorites[value].listing_id%>"
+                >
+                  <button type="submit" class="button-favorite">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </form>
+                <form method="GET" action="/new_message">
+                  <button type="submit" class="new-message-button">
+                    Contact the seller
+                  </button>
+                </form>
+              </div>
+            </div>
+            <hr />
+            <% } %>
+          </div>
+        </div>
+      </section>
+
+      <section id="section-listings">
+        <div>
+          <h1>
+            My listings
+          </h1>
+          <form method="GET" action="/listings/new">
+            <button type="submit" id="new-listing-button">
+              Add a new listing
+            </button>
+          </form>
+        </div>
+
+        <div id="listings-container">
+          <form method="POST" action="/users/:id/listings_sort" class="filter">
+            <label>
+              Filter by price
+            </label>
+            <input placeholder="Please specify..." />
+            <button type="submit" class="filter-button">
+              Filter
+            </button>
+          </form>
+
+          <div id="all-listings">
+            <% for(value in listings) { %>
+            <div class="one-listing">
+              <div class="listing-info">
+                <img src="<%= listings[value].thumbnail_photo_url%>" />
+                <div>
+                  <div class="listing-parameters">
+                    <h3><%= listings[value].title%></h3>
+                    <div>
+                      <span>CAD <%= listings[value].price%></span>
+                      <span>Posted on: <%= listings[value].date%></span>
+                    </div>
+                  </div>
+                  <article class="listing-description">
+                    <%= listings[value].description %>
+                  </article>
+                </div>
+              </div>
+              <div class="listing-buttons">
+                <form method="GET" action="/listings/<%= listings[value].id %>">
+                  <button type="submit" class="edit-listing-button">
+                    Edit
+                  </button>
+                </form>
+                <form
+                  method="POST"
+                  action="/listings/<%= listings[value].id %>/delete"
+                >
+                  <button type="submit" class="edit-listing-button">
+                    Delete
+                  </button>
+                </form>
+              </div>
+            </div>
+            <hr />
+            <% } %>
+          </div>
         </div>
       </section>
     </main>

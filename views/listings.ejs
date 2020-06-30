@@ -7,48 +7,112 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
 
+    <!-- Custom fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Global layout CSS -->
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+    <!-- Header CSS -->
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+
+    <!-- Listings page CSS -->
+    <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
+
+    <!-- Footer CSS -->
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+
+    <!-- Fontawesome custom icons -->
+    <script
+      src="https://kit.fontawesome.com/f0b575b405.js"
+      crossorigin="anonymous"
+    ></script>
+
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
   </head>
 
   <body>
-    <header>
-      <nav>
-        <a href="/listings">Website name</a>
-        <div>Logged in as: </div>
-        <form method="POST" action="/logout">
-          <button type="submit">Logout</button>
-        </form>
-      </nav>
-    </header>
+    <%- include('partials/_header') %>
 
     <main>
       <section>
-        <h1>
-          Current listings
-        </h1>
-        <form method="POST" action="/listings">
-          <label>
-            Filter by
-          </label>
-          <input placeholder="Please specify...">
-          <button type="submit">
-            Filter
-          </button>
-        </form>
-
-        <div class = "listing-container">
-          <img href="">
-          <h3 class = "listing-title"><%= listings.title %></h3>
-          <article class = "listing-description"><%= listings.description %></article>
-          <h4><%= listings.price %></h4>
-          <h5><%= listings.date %></h5>
-          <button type="submit" class = "listing-add-favourite"></button>
-          <form method="GET" action="/messages">
-            <button type="submit">
-              Contact the seller
+        <div>
+          <h1>
+            Current listings
+          </h1>
+          <form method="GET" action="/listings/new">
+            <button type="submit" id="new-listing-button">
+              Add a new listing
             </button>
           </form>
+        </div>
+
+        <div id="listings-container">
+          <form method="POST" action="/listings" id="filter">
+            <label>
+              Filter by price
+            </label>
+            <input placeholder="Please specify..." />
+            <button type="submit" id="filter-button">
+              Filter
+            </button>
+          </form>
+
+          <div id="all-listings">
+            <% for(value in products) { %>
+            <div class="one-listing">
+              <img src="<%= products[value].thumbnail_photo_url%>"/>
+              <div>
+                <div class="listing-parameters">
+                  <h3>
+                    <%= products[value].title%>
+                  </h3>
+                  <div>
+                    <span>CAD <%= products[value].price%></span>
+                    <span>Posted on: <%= products[value].date%></span>
+                  </div>
+                </div>
+                <article class="listing-description">
+                  <%= products[value].description %>
+                </article>
+              </div>
+              <div class="listing-buttons">
+                <form
+                  method="POST"
+                  action="/add_favorite/<%=products[value].id%>"
+                >
+                  <button type="submit" class="button-favorite">
+                    <i class="far fa-heart"></i>
+                  </button>
+                </form>
+                <!-- <form
+                  method="POST"
+                  action="/remove_favorite/<%=products[value].id%>"
+                >
+                  <button type="submit" class="button-favorite">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </form> -->
+                <form method="GET" action="/new_message">
+                  <button type="submit" class="new-message-button">
+                    Contact the seller
+                  </button>
+                </form>
+              </div>
+            </div>
+            <hr>
+            <% } %>
+          </div>
         </div>
       </section>
     </main>

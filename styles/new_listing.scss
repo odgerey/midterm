@@ -1,5 +1,5 @@
 section {
-  height: 18em;
+  // height: 18em;
   display: flex;
   justify-content: center;
   border: rgb(22, 3, 15) solid;
@@ -18,27 +18,36 @@ form {
   label {
     font-size: 18px;
     font-weight: 700;
+    // margin: 0 0 0.5em 0;
+  }
+
+  span {
+    display: block;
+    margin: 1em 0 0.5em 0;
+    font-weight: 700;
   }
 
   input {
     font-size: 14px;
+    // margin: 0.5em 0;
   }
 }
 
-#login-button {
+#submit-button {
   display: inline-block;
   text-align: center;
   text-decoration: none;
   padding: 10px 15px;
   border: 2px solid rgb(22, 3, 15);
   border-radius: 5px;
+  margin: 1.5em 0 0 0;
   font-size: 14px;
   background-color: white;
   transition-duration: 0.4s;
   cursor: pointer;
 }
 
-#login-button:hover {
+#submit-button:hover {
   background-color: rgb(22, 3, 15);
   color: white;
 }
@@ -59,12 +68,16 @@ form {
       font-size: 28px;
     }
 
+    span {
+      font-size: 20px;
+    }
+
     input {
       font-size: 16px;
     }
   }
 
-  #login-button {
+  #submit-button {
     font-size: 16px;
   }
 }

@@ -18,10 +18,33 @@ nav {
     font-weight: 700;
   }
 
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 1.5em 0 0;
+  }
+
+  form {
+    margin-left: 1em;
+  }
+
   button {
-    border: none;
-    color: inherit;
-    background-color: inherit;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 2px solid rgb(22, 3, 15);
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: white;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: rgb(22, 3, 15);
+    color: white;
   }
 }
 
@@ -29,6 +52,9 @@ nav {
 
   nav {
     font-size: 26px;
+    button {
+      font-size: 20px;
+    }
   }
 
 }
