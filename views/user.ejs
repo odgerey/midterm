@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>My listings</title>
+    <title>My account</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -25,8 +25,18 @@
     <!-- Footer CSS -->
     <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
 
+    <!-- Fontawesome custom icons -->
+    <script
+      src="https://kit.fontawesome.com/f0b575b405.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <!-- App JS -->
+    <!-- <script type="text/javascript" src="/scripts/client.js"></script> -->
 
     <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
     <meta
@@ -53,27 +63,23 @@
         </div>
       </section>
 
-      <!-- </hr> -->
-
       <section id="section-favorites">
         <div>
           <h1>
             My favorites
           </h1>
-          <form method="GET" action="/listings/new">
-            <button type="submit" id="new-listing-button">
-              Add a new listing
-            </button>
-          </form>
+          <button id="show-favorites-button">
+            Show favorites
+          </button>
         </div>
 
-        <div id="listings-container">
-          <form method="POST" action="/listings" id="filter">
+        <div id="favorites-container">
+          <form method="POST" action="/listings" class="filter">
             <label>
               Filter by price
             </label>
             <input placeholder="Please specify..." />
-            <button type="submit" id="filter-button">
+            <button type="submit" class="filter-button">
               Filter
             </button>
           </form>
@@ -81,8 +87,8 @@
           <div id="all-listings">
             <% for(value in favorites) { %>
             <div class="one-listing">
-              <div>
-                <img href="" />
+              <div class="listing-info">
+                <img src="<%= favorites[value].thumbnail_photo_url%>"/>
                 <div>
                   <div class="listing-parameters">
                     <h3><%= favorites[value].title%></h3>
@@ -96,11 +102,21 @@
                   </article>
                 </div>
               </div>
-              <form method="GET" action="/listings/<%= favorites[value].id %>">
-                <button type="submit" class="edit-listing-button">
-                  Edit
-                </button>
-              </form>
+              <div class="listing-buttons">
+                <form
+                  method="POST"
+                  action="/remove_favorite/<%=favorites[value].id%>"
+                >
+                  <button type="submit" class="button-favorite">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </form>
+                <form method="GET" action="/new_message">
+                  <button type="submit" class="new-message-button">
+                    Contact the seller
+                  </button>
+                </form>
+              </div>
             </div>
             <% } %>
           </div>
@@ -120,12 +136,12 @@
         </div>
 
         <div id="listings-container">
-          <form method="POST" action="/listings" id="filter">
+          <form method="POST" action="/listings" class="filter">
             <label>
               Filter by price
             </label>
             <input placeholder="Please specify..." />
-            <button type="submit" id="filter-button">
+            <button type="submit" class="filter-button">
               Filter
             </button>
           </form>
@@ -133,8 +149,8 @@
           <div id="all-listings">
             <% for(value in listings) { %>
             <div class="one-listing">
-              <div>
-                <img href="" />
+              <div class="listing-info">
+                <img src="<%= listings[value].thumbnail_photo_url%>"/>
                 <div>
                   <div class="listing-parameters">
                     <h3><%= listings[value].title%></h3>
@@ -148,11 +164,18 @@
                   </article>
                 </div>
               </div>
-              <form method="GET" action="/listings/<%= listings[value].id %>">
-                <button type="submit" class="edit-listing-button">
-                  Edit
-                </button>
-              </form>
+              <div class="listing-buttons">
+                <form method="GET" action="/listings/<%= listings[value].id %>">
+                  <button type="submit" class="edit-listing-button">
+                    Edit
+                  </button>
+                </form>
+                <form method="POST" action="/listings/<%= listings[value].id %>/delete">
+                  <button type="submit" class="edit-listing-button">
+                    Delete
+                  </button>
+                </form>
+              </div>
             </div>
             <% } %>
           </div>

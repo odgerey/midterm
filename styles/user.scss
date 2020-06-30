@@ -1,5 +1,5 @@
 #section-messages {
-  padding: 0 1em 1em 1em;
+  padding: 0 1em 1.5em 1em;
   border: rgb(22, 3, 15) solid;
   margin: 4em 0 3em 0;
   width: 90%;
@@ -11,11 +11,12 @@
 }
 
 #received-messages {
-  display: none;
+  margin: 1rem 0 0 0.5rem;
+  // display: none;
 }
 
 #section-favorites {
-  padding: 0 1em 1em 1em;
+  padding: 0 1em 1.5em 1em;
   border: rgb(22, 3, 15) solid;
   margin: 0 0 3em 0;
   width: 90%;
@@ -26,13 +27,19 @@
   }
 }
 
-#section-favorites > div {
-  display: flex;
-  justify-content: space-between;
+// #favorites-container {
+//   display: none;
+// }
+
+.button-favorite {
+  margin: 1.5rem 0 0 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 #section-listings {
-  padding: 0 1em 1em 1em;
+  padding: 0 1em 1.5em 1em;
   border: rgb(22, 3, 15) solid;
   margin: 0 0 3em 0;
   width: 90%;
@@ -48,7 +55,7 @@
   justify-content: space-between;
 }
 
-#new-listing-button, #filter-button, .edit-listing-button, #show-messages-button {
+#new-listing-button, .filter-button, .new-message-button, .edit-listing-button, #show-messages-button, #show-favorites-button {
   display: inline-block;
   text-align: center;
   text-decoration: none;
@@ -61,35 +68,37 @@
   cursor: pointer;
 }
 
-#show-messages-button {
+#show-messages-button, #show-favorites-button {
+  width: 9rem;
   margin: 0 0 0 0.5em;
 }
 
-#filter-button {
+.filter-button {
   font-size: 14px;
 }
 
 #new-listing-button {
-  margin: 2em 1em 0 0;
+  margin: 2em 1.25em 0 0;
 }
 
 .edit-listing-button {
+  width: 5rem;
   margin: 1em 0 0 1em;
   font-size: 14px;
 }
 
-#new-listing-button:hover, #filter-button:hover, .edit-listing-button:hover, #show-messages-button:hover {
+#new-listing-button:hover, .filter-button:hover, .new-message-button:hover, .edit-listing-button:hover, #show-messages-button:hover, #show-favorites-button:hover {
   background-color: rgb(22, 3, 15);
   color: white;
 }
 
-#listings-container {
+#listings-container, #favorites-container {
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
 }
 
-#filter {
+.filter {
   padding: 2em 2em;
   border: 1px solid rgb(22, 3, 15);
   margin: 1em 0 0 0.5em;
@@ -107,7 +116,7 @@
   }
 }
 
-#filter > * {
+.filter > * {
   margin: 0.5em 0;
 }
 
@@ -124,7 +133,7 @@
   margin: 0 1em 2em 0;
 }
 
-.one-listing > div {
+.listing-info {
   display: flex;
   width: 80%;
   flex-grow: 100;
@@ -154,6 +163,13 @@ img {
   }
 }
 
+.listing-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
 // @media only screen and (min-width: 768px) {
 
 //   nav {
@@ -165,13 +181,13 @@ img {
 
 @media only screen and (min-width: 1024px) {
 
-  #filter {
+  .filter {
     input {
       font-size: 16px;
     }
   }
 
-  #filter-button {
+  .filter-button {
     font-size: 16px;
   }
 

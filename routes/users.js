@@ -37,6 +37,9 @@ module.exports = (db) => {
     `;
     db.query(queryString)
       .then((data) => {
+        if (req.session.email === null){
+        res.redirect("login")
+        }
         const products = data.rows;
         const username = req.session.email;
         const templateVars = { products, username };
@@ -93,6 +96,13 @@ module.exports = (db) => {
         const userData = data.rows[0];
         req.session.email = userData.email;
         req.session.buyer_id = userData.id;
+        console.log(
+          `User Cookie ${req.session.email} and id is ${req.session.buyer_id}`
+        );
+        // }
+        console.log(`Login successful.
+        // User Cookie ${req.session.email} and id is ${req.session.buyer_id}`);
+        res.redirect(`/users/${req.session.buyer_id}`);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -125,7 +135,10 @@ module.exports = (db) => {
       FROM listings
       WHERE seller_id = $1;
       `;
+
+    // const email = req.session.email;
     const email = req.session.email;
+    const username = email;
     const promises = [
       db.query(favoritesQuery, [email]),
       db.query(listingsQuery, [req.session.buyer_id]),
@@ -133,8 +146,8 @@ module.exports = (db) => {
     Promise.all(promises).then(([favoritesResults, listingResults]) => {
       const favorites = favoritesResults.rows;
       const listings = listingResults.rows;
-      const username = email;
       const templateVars = { favorites, listings, username };
+      console.log("Get request for buyer page");
       res.render("user", templateVars);
     })
     .catch((err) => {
@@ -182,11 +195,14 @@ module.exports = (db) => {
   //POST route to add new listings
   router.post("/new_listing", (req, res) => {
     const queryString = `
-      INSERT INTO listings
-      (title, description, cover_photo_url, price, for_sale, seller_id)
-      VALUES ($1, $2, $3, $4, $5, $6)
-      RETURNING *;
+
+    INSERT INTO listings
+    (title, description, cover_photo_url, price, for_sale, seller_id)
+    VALUES ($1, $2, $3, $4, $5, $6)
+    RETURNING *;
+
     `;
+
     const values = [
       req.body.title,
       req.body.description,
@@ -197,9 +213,7 @@ module.exports = (db) => {
     ];
     db.query(queryString, values)
       .then((data) => {
-        console.log(`New Listing Added:
-        ${values}`);
-        res.redirect("/listings");
+        console.log("New listing added");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -257,23 +271,44 @@ module.exports = (db) => {
       });
   });
 
-    // //GET route to view seller's listings
-    // router.get("/listings/new", (req, res) => {
-    //   const queryString = `  `;
-    //   const username = req.body.email;
-    //   const templateVars = { username };
-    //   db.query(queryString)
-    //     .then((data) => {
-    //       res.render("new_listing", templateVars);
-    //     })
-    //     .catch((err) => {
-    //       res.status(500).json({ error: err.message });
-    //     });
-    // });
+    //GET route to view seller's listings
+    router.get("/listings/new", (req, res) => {
+      const queryString = `  `;
+      const username = req.body.email;
+      const templateVars = { username };
+      db.query(queryString)
+        .then((data) => {
+          res.render("new_listing", templateVars);
+        })
+        .catch((err) => {
+          res.status(500).json({ error: err.message });
+        });
+    });
 
 
+    // GET route for new messages
+    router.get("/new_message", (req, res) => {
+      const username = req.session.email;
+      templateVars = { username };
+      res.render("new_message", templateVars);
+    });
+
+  //GET route to view seller's listings
+  router.get("/listings/new", (req, res) => {
+    const queryString = `  `;
+    const username = req.body.email;
+    const templateVars = { username };
+    db.query(queryString)
+      .then((data) => {
+        res.render("new_listing", templateVars);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
 
   // /* End of Routes */
 
   return router;
 };
+//

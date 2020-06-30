@@ -71,7 +71,7 @@
           <div id="all-listings">
             <% for(value in products) { %>
             <div class="one-listing">
-              <img href="" />
+              <img src="<%= products[value].thumbnail_photo_url%>"/>
               <div>
                 <div class="listing-parameters">
                   <h3><%= products[value].title%></h3>
@@ -93,14 +93,14 @@
                     <i class="far fa-heart"></i>
                   </button>
                 </form>
-                <form
+                <!-- <form
                   method="POST"
                   action="/remove_favorite/<%=products[value].id%>"
                 >
                   <button type="submit" class="button-favorite">
                     <i class="fas fa-heart"></i>
                   </button>
-                </form>
+                </form> -->
                 <form method="GET" action="/new_message">
                   <button type="submit" class="new-message-button">
                     Contact the seller
