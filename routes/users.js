@@ -111,7 +111,7 @@ module.exports = (db) => {
         // }
         console.log(`Login successful.
         // User Cookie ${req.session.email} and id is ${req.session.buyer_id}`);
-        res.redirect(`/users/${req.session.buyer_id}`);
+        res.redirect(`/users/myaccount`);
       })
 
       .catch((err) => {
@@ -280,36 +280,7 @@ module.exports = (db) => {
     db.query(queryString, values)
       .then((data) => {
         console.log("Listing deleted");
-        res.redirect("/users/:id");
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
-
-  //POST route to add new listings
-  router.post("/listings/:id", (req, res) => {
-    const username = req.session.email;
-    const queryString = `
-
-    `;
-
-    const values = [
-      req.body.title,
-      req.body.description,
-      req.body.image_url,
-      req.body.price,
-      true,
-      req.session.buyer_id,
-    ];
-    const templateVars = { username };
-
-    db.query(queryString, values)
-      .then((data) => {
-        console.log(`Listing added
-        ${values}`);
-
-        res.redirect("/listings");
+        res.redirect("/users/myaccount");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -320,38 +291,34 @@ module.exports = (db) => {
   router.get("/listings/:id", (req, res) => {
     const username = req.session.email;
     templateVars = { username };
-    res.render("new_listing", templateVars);
+    res.render("edit_listing", templateVars);
   });
 
-  //POST route to edit seller's listings
-  router.post("/listings:user", (req, res) => {
-    const queryString = ` query to edit items`;
-    db.query(queryString)
+  //POST route to add edit listings
+  router.post("/edit_listing", (req, res) => {
+    const queryString = `
+    UPDATE listings
+    SET  title = $1, description = $2, thumbnail_photo_url = $3, price = $4
+    WHERE seller_id = $5
+    AND id = 18;
+    `
+    const values = [
+      req.body.title,
+      req.body.description,
+      req.body.image_url,
+      req.body.price,
+      req.session.buyer_id,
+    ];
+
+    db.query(queryString, values)
       .then((data) => {
-        const products = data.rows;
-        console.log(products);
-        console.log("POST request to edit items");
-        res.render("user-listings");
+        res.redirect("/listings");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
   });
 
-  //POST route to delete seller's listings
-  router.post("/listings:user/delete", (req, res) => {
-    const queryString = ` Query to delete items `;
-    db.query(queryString)
-      .then((data) => {
-        const products = data.rows;
-        console.log(products);
-        console.log("POST request to delete items");
-        res.render("user-listings");
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
 
   // GET route for new messages
   router.get("/new_message", (req, res) => {
