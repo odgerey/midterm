@@ -138,11 +138,10 @@ module.exports = (db) => {
       WHERE seller_id = $1;
       `;
     const messagesQuery = `
-      SELECT buyers.id, messages.*
+      SELECT *
       FROM messages
-      JOIN listings ON messages.listing_id = listings.id
-      JOIN buyers ON messages.buyer_id = buyers.id
-      WHERE buyers.id = $1;
+      WHERE buyer_id = $1
+      OR seller_id = $1;
 
       `;
     const email = req.session.email;
@@ -321,11 +320,38 @@ module.exports = (db) => {
   /* Messages */
 
   // GET route for new messages
-  router.get("/new_message/:id", (req, res) => {
+  router.get("/listings/:id/messages", (req, res) => {
     const username = req.session.email;
-    const listingID = req.params.id;
-    templateVars = { username, listingID };
-    res.render("new_message", templateVars);
+    queryString = `
+    SELECT *
+    FROM listings
+    WHERE id =$1;
+
+    `;
+
+    queryString2 = `
+    SELECT *
+    FROM messages
+    WHERE listing_id = $1
+    AND seller_id = $2
+    AND buyer_id = $3
+    `;
+
+    db.query(queryString, [req.params.id]).then((data) => {
+      console.log("Data:", data.rows[0].seller_id);
+      const queryString2Values = [
+        req.params.id,
+        data.rows[0].seller_id,
+        req.session.buyer_id,
+      ];
+      db.query(queryString2, queryString2Values).then((data) => {
+        const listingID = req.params.id;
+        const listOfMessages = data.rows;
+        templateVars = { username, listingID, listOfMessages };
+        console.log(listOfMessages);
+        res.render("messages", templateVars);
+      });
+    });
   });
 
   // GET route for replies
@@ -337,28 +363,41 @@ module.exports = (db) => {
   });
 
   //Post route to send a new message
-  router.post("/new_message/:id", (req, res) => {
-    const queryString = `
-    INSERT INTO messages (buyer_id, listing_id, title, description)
-    VALUES ($1, $2, $3, $4);
+  router.post("/listings/:id/messages", (req, res) => {
+    queryString = `
+    SELECT *
+    FROM listings
+    WHERE id =$1;
+
     `;
-    const username = req.session.email;
-    const listingID = req.params.id;
-    const templateVars = { username };
-    const values = [
-      req.session.buyer_id,
-      listingID,
-      req.body.subject,
-      req.body.body,
-    ];
-    db.query(queryString, values)
-      .then((data) => {
-        console.log("new message sent");
-        res.redirect("/users/myaccount");
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+
+    db.query(queryString, [req.params.id]).then((data) => {
+      console.log("Data:", data.rows[0].seller_id);
+
+      const queryString2 = `
+      INSERT INTO messages (buyer_id, listing_id, seller_id, title, description)
+      VALUES ($1, $2, $3, $4, $5);
+      `;
+      const username = req.session.email;
+      const listingID = req.params.id;
+      const templateVars = { username };
+      const values = [
+        req.session.buyer_id,
+        listingID,
+        data.rows[0].seller_id,
+        req.body.subject,
+        req.body.body,
+      ];
+
+      db.query(queryString2, values)
+        .then((data) => {
+          console.log("new message sent");
+          res.redirect("/users/myaccount");
+        })
+        .catch((err) => {
+          res.status(500).json({ error: err.message });
+        });
+    });
   });
 
   //Post route to send a new message
