@@ -77,7 +77,7 @@
               </span>
             </div>
 
-            <form method="GET" action="/new_message">
+            <form method="GET" action="/reply/<%=messages[value].listing_id%>">
               <button type="submit" class="reply-message-button">
                 Reply
               </button>
@@ -136,7 +136,10 @@
                     <i class="fas fa-heart"></i>
                   </button>
                 </form>
-                <form method="GET" action="/new_message/newmessage">
+                <form
+                  method="GET"
+                  action="/new_message/<%=favorites[value].listing_id%>"
+                >
                   <button type="submit" class="new-message-button">
                     Contact
                   </button>
