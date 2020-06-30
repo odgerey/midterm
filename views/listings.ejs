@@ -5,7 +5,7 @@
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="/styles/listings.css" type="text/css" /> -->
 
     <!-- Custom fonts -->
     <link
@@ -14,16 +14,16 @@
     />
 
     <!-- Global layout CSS -->
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="/styles/layout.css" type="text/css" /> -->
 
     <!-- Header CSS -->
-    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="/styles/header.css" type="text/css" /> -->
 
     <!-- Listings page CSS -->
-    <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="/styles/listings.css" type="text/css" /> -->
 
     <!-- Footer CSS -->
-    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="/styles/footer.css" type="text/css" /> -->
 
     <!-- Fontawesome custom icons -->
     <script
@@ -70,8 +70,20 @@
 
           <div id="all-listings">
             <% for(value in products) { %>
-            <div class="one-listing">
-              <img src="<%= products[value].thumbnail_photo_url%>"/>
+            <div
+              class="one-listing"
+              style="
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+              "
+            >
+              <div class="thumbnail" style="width: 250px;">
+                <img
+                  src="<%= products[value].thumbnail_photo_url%>"
+                  style="height: 250px; width: 250px;"
+                />
+              </div>
               <div>
                 <div class="listing-parameters">
                   <h3>
@@ -95,14 +107,7 @@
                     <i class="far fa-heart"></i>
                   </button>
                 </form>
-                <!-- <form
-                  method="POST"
-                  action="/remove_favorite/<%=products[value].id%>"
-                >
-                  <button type="submit" class="button-favorite">
-                    <i class="fas fa-heart"></i>
-                  </button>
-                </form> -->
+
                 <form method="GET" action="/new_message">
                   <button type="submit" class="new-message-button">
                     Contact the seller
@@ -110,7 +115,7 @@
                 </form>
               </div>
             </div>
-            <hr>
+            <hr />
             <% } %>
           </div>
         </div>
