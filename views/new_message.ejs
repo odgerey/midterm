@@ -41,17 +41,14 @@
       <section>
         <form method="POST" action="/new_message">
           <label>
-            Send a new message to [seller.username]
+            <%=`Send a new message to ${sellerID}`%>
           </label>
-          <input type="subject"
+          <input
+            type="subject"
             name="subject"
             placeholder="A request about [listing.name]..."
           />
-          <input
-            type="body"
-            name="body"
-            placeholder="Your message here..."
-          />
+          <input type="body" name="body" placeholder="Your message here..." />
           <button type="submit" id="new-message-button">
             Send
           </button>
