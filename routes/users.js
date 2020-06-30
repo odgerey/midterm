@@ -137,18 +137,25 @@ module.exports = (db) => {
       FROM listings
       WHERE seller_id = $1;
       `;
+    const messagesQuery = `
+      SELECT *
+      FROM messages
+      WHERE buyer_id = $1;
+      `;
     const email = req.session.email;
     const username = email;
     const promises = [
       db.query(favoritesQuery, [email]),
       db.query(listingsQuery, [req.session.buyer_id]),
+      db.query(messagesQuery, [req.session.buyer_id]),
     ];
 
     Promise.all(promises)
-      .then(([favoritesResults, listingResults]) => {
+      .then(([favoritesResults, listingResults, messagesResults]) => {
         const favorites = favoritesResults.rows;
         const listings = listingResults.rows;
-        const templateVars = { favorites, listings, username };
+        const messages = messagesResults.rows;
+        const templateVars = { favorites, listings, messages, username };
         res.render("user", templateVars);
       })
       .catch((err) => {
@@ -340,7 +347,6 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   });
-
   // /* End of Routes */
 
   return router;
