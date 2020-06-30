@@ -37,8 +37,8 @@ module.exports = (db) => {
     `;
     db.query(queryString)
       .then((data) => {
-        if (req.session.email === null){
-        res.redirect("login")
+        if (req.session.email === null) {
+          res.redirect("login");
         }
         const products = data.rows;
         const username = req.session.email;
@@ -86,8 +86,6 @@ module.exports = (db) => {
 
   //POST route for login page
   router.post("/login", (req, res) => {
-    // let userCookieEmail = req.session.email;
-    // let userCookieBuyerID = req.session.buyer_id;
     const email = req.body.email;
     console.log("Req Body:", email);
     const queryString = `
@@ -143,8 +141,7 @@ module.exports = (db) => {
   */
 
   //GET route for buyer's page. Shows all favourite items.
-  router.get("/users/:id", (req, res) => {
-    // let userCookieEmail = req.session.email;
+  router.get("/users/myaccount", (req, res) => {
     console.log("Email Cookie is:", req.session.email);
     const favoritesQuery = `
     SELECT listings.*, favorites.*
@@ -159,7 +156,6 @@ module.exports = (db) => {
       WHERE seller_id = $1;
       `;
 
-    // const email = req.session.email;
     const email = req.session.email;
     const username = email;
     const promises = [
@@ -167,16 +163,16 @@ module.exports = (db) => {
       db.query(listingsQuery, [req.session.buyer_id]),
     ];
 
-    Promise.all(promises).then(([favoritesResults, listingResults]) => {
-      const favorites = favoritesResults.rows;
-      const listings = listingResults.rows;
-      const templateVars = { favorites, listings, username };
-      console.log("Get request for buyer page");
-      res.render("user", templateVars);
-    });
-    // .catch((err) => {
-    //   res.status(500).json({ error: err.message });
-    // });
+    Promise.all(promises)
+      .then(([favoritesResults, listingResults]) => {
+        const favorites = favoritesResults.rows;
+        const listings = listingResults.rows;
+        const templateVars = { favorites, listings, username };
+        res.render("user", templateVars);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
   });
 
   //POST route to add favourite
@@ -199,19 +195,40 @@ module.exports = (db) => {
   });
 
   //POST route to remove favourite
-  router.post("/remove_favorite/:listingID", (req, res) => {
-    let userCookieBuyerID = req.session.buyer_id;
+  router.post("/remove_favorite/:id", (req, res) => {
     const queryString = `
     DELETE FROM favorites
     WHERE buyer_id = $1
-    AND listing_id = $2
+    AND listing_id = $2;
       `;
     const listingID = req.params.listingID;
-    const values = [userCookieBuyerID, listingID];
-    console.log(values);
+    const values = [req.session.buyer_id, listingID];
     db.query(queryString, values)
       .then((data) => {
-        console.log("POST request to remove favourite");
+        console.log(
+          `Removed item # ${listingID} from id ${req.session.buyer_id}`
+        );
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  //Get request to load listings
+  router.get("/listings/", (req, res) => {
+    const queryString = `
+    SELECT *
+    FROM listings;
+    `;
+    db.query(queryString)
+      .then((data) => {
+        if (req.session.email === null) {
+          res.redirect("login");
+        }
+        const products = data.rows;
+        const username = req.session.email;
+        const templateVars = { products, username };
+        res.render("listings", templateVars);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -220,6 +237,7 @@ module.exports = (db) => {
 
   //POST route to add new listings
   router.post("/new_listing", (req, res) => {
+    const username = req.session.email;
     const queryString = `
 
     INSERT INTO listings
@@ -237,36 +255,66 @@ module.exports = (db) => {
       true,
       req.session.buyer_id,
     ];
+    const templateVars = { username };
+
     db.query(queryString, values)
       .then((data) => {
-        console.log("New listing added");
+        console.log(`Listing added
+        ${values}`);
+
+        res.redirect("/listings");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
   });
 
-  // //POST route to delete listings
-  // router.post("/new_listing/delete", (req, res) => {
-  //   const listingID = req.params.listingID;
+  //POST route to delete listings
+  router.post("/listings/:id/delete", (req, res) => {
+    const queryString = `
+      DELETE FROM listings
+      WHERE seller_id = $1
+      AND id = $2;
+      `;
+    const values = [req.session.buyer_id, req.params.id];
+    db.query(queryString, values)
+      .then((data) => {
+        console.log("Listing deleted");
+        res.redirect("/users/:id");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
 
-  //   const queryString = `
+  //POST route to add new listings
+  router.post("/listings/:id", (req, res) => {
+    const username = req.session.email;
+    const queryString = `
 
-  //   DELETE FROM listings
-  //   WHERE seller_id = $1
-  //   AND listing_id = $2
+    `;
 
-  //     `;
+    const values = [
+      req.body.title,
+      req.body.description,
+      req.body.image_url,
+      req.body.price,
+      true,
+      req.session.buyer_id,
+    ];
+    const templateVars = { username };
 
-  //   const values = [req.session.buyer_id, listingID];
-  //   db.query(queryString, values)
-  //     .then((data) => {
-  //       console.log("New listing added");
-  //     })
-  //     .catch((err) => {
-  //       res.status(500).json({ error: err.message });
-  //     });
-  // });
+    db.query(queryString, values)
+      .then((data) => {
+        console.log(`Listing added
+        ${values}`);
+
+        res.redirect("/listings");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
 
   // GET route for new listings page
   router.get("/listings/:id", (req, res) => {
@@ -305,12 +353,12 @@ module.exports = (db) => {
       });
   });
 
-    // GET route for new messages
-    router.get("/new_message", (req, res) => {
-      const username = req.session.email;
-      templateVars = { username };
-      res.render("new_message", templateVars);
-    });
+  // GET route for new messages
+  router.get("/new_message", (req, res) => {
+    const username = req.session.email;
+    templateVars = { username };
+    res.render("new_message", templateVars);
+  });
 
   //GET route to view seller's listings
   router.get("/listings/new", (req, res) => {
