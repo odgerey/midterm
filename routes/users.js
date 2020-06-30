@@ -295,12 +295,12 @@ module.exports = (db) => {
   });
 
   //POST route to add edit listings
-  router.post("/edit_listing", (req, res) => {
+  router.post("/edit_listing/:id", (req, res) => {
     const queryString = `
     UPDATE listings
     SET  title = $1, description = $2, thumbnail_photo_url = $3, price = $4
     WHERE seller_id = $5
-    AND id = 18;
+    AND id = $6
     `;
 
     const values = [
@@ -309,6 +309,7 @@ module.exports = (db) => {
       req.body.image_url,
       req.body.price,
       req.session.buyer_id,
+      req.params.id
     ];
 
     db.query(queryString, values)
