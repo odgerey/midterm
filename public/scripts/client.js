@@ -1,14 +1,14 @@
-$('document').ready(function() {
+$(document).ready(function() {
 
   console.log('working');
 
   // Escaping Cross-Site Scripting (XSS)
 
-    // const escape =  function(str) {
-    //   let div = document.createElement('div');
-    //   div.appendChild(document.createTextNode(str));
-    //   return div.innerHTML;
-    // };
+    const escape =  function(str) {
+      let div = document.createElement('div');
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    };
 
   // Showing or hiding the received messages on the user's page
 
@@ -21,7 +21,7 @@ $('document').ready(function() {
   // Showing or hiding the user's favourites on the user's page
 
   $('#show-favorites-button').on('click', function() {
-    $('#show-favorites-button').next('#favorites-container');
+    // $('#show-favorites-button').next('#favorites-container');
     $('#favorites-container').slideToggle('fast');
   });
 
