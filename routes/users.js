@@ -322,9 +322,11 @@ module.exports = (db) => {
   });
 
   // GET route for new messages
-  router.get("/new_message", (req, res) => {
+  router.get("/new_message/:id", (req, res) => {
     const username = req.session.email;
-    templateVars = { username };
+    const sellerID = req.params.id;
+    console.log(sellerID);
+    templateVars = { username, sellerID };
     res.render("new_message", templateVars);
   });
 
