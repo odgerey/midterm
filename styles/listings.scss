@@ -40,7 +40,7 @@ section > div {
 }
 
 .new-message-button {
-  width: 10em;
+  width: 6rem;
   font-size: 14px;
 }
 
@@ -90,6 +90,16 @@ section > div {
   margin: 0 0 1em 0;
 }
 
+.listing-info {
+  display: flex;
+  width: 80%;
+  flex-grow: 100;
+
+  div {
+    flex-grow: 100;
+  }
+}
+
 img {
   height: 10em;
   width: 10em;
@@ -101,14 +111,18 @@ img {
   display: flex;
   justify-content: space-between;
 
-  // h3 {
-  //   overflow-wrap: anywhere;
-  // }
+  h3 {
+    overflow-wrap: anywhere;
+    width: 60%;
+    margin: 0;
+  }
 
   div {
     display: flex;
-    // justify-content: space-between;
+    flex-direction: column;
     justify-content: flex-end;
+    margin: 0 0 0.5rem 0;
+    // font-size: 14px;
 
     span {
       margin: auto 0.5em;
