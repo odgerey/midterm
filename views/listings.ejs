@@ -14,16 +14,16 @@
     />
 
     <!-- Global layout CSS -->
-    <!-- <link rel="stylesheet" href="/styles/layout.css" type="text/css" /> -->
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
     <!-- Header CSS -->
-    <!-- <link rel="stylesheet" href="/styles/header.css" type="text/css" /> -->
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
 
     <!-- Listings page CSS -->
     <!-- <link rel="stylesheet" href="/styles/listings.css" type="text/css" /> -->
 
     <!-- Footer CSS -->
-    <!-- <link rel="stylesheet" href="/styles/footer.css" type="text/css" /> -->
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
 
     <!-- Fontawesome custom icons -->
     <script
@@ -45,19 +45,27 @@
     <%- include('partials/_header') %>
 
     <main>
-      <section>
-        <div>
+      <section
+        style="
+          background-color: white;
+          display: flex;
+          justify-content: space-evenly;
+          margin-top: 75px;
+        "
+      >
+        <div
+          style="
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+          "
+        >
           <h1>
             Current listings
           </h1>
-          <form method="GET" action="/listings/new">
-            <button type="submit" id="new-listing-button">
-              Add a new listing
-            </button>
-          </form>
-        </div>
 
-        <div id="listings-container">
           <form method="POST" action="/listings" id="filter">
             <label>
               Filter by price
@@ -67,6 +75,19 @@
               Filter
             </button>
           </form>
+        </div>
+
+        <div id="listings-container">
+          <div
+            class="new-listing"
+            style="display: flex; justify-content: flex-end;"
+          >
+            <form method="GET" action="/listings/new">
+              <button type="submit" id="new-listing-button">
+                Add a new listing
+              </button>
+            </form>
+          </div>
 
           <div id="all-listings">
             <% for(value in products) { %>
@@ -84,7 +105,7 @@
                   style="height: 250px; width: 250px;"
                 />
               </div>
-              <div>
+              <div style="width: 30%;">
                 <div class="listing-parameters">
                   <h3>
                     <%= products[value].title%>
@@ -98,7 +119,15 @@
                   <%= products[value].description %>
                 </article>
               </div>
-              <div class="listing-buttons">
+              <div
+                class="listing-buttons"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: space-around;
+                "
+              >
                 <form
                   method="POST"
                   action="/add_favorite/<%=products[value].id%>"
