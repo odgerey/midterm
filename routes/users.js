@@ -188,6 +188,20 @@ module.exports = (db) => {
       });
   });
 
+    //GET route to view seller's listings
+    router.get("/listings/new", (req, res) => {
+      const queryString = `  `;
+      const username = req.body.email;
+      const templateVars = { username };
+      db.query(queryString)
+        .then((data) => {
+          res.render("new_listing", templateVars);
+        })
+        .catch((err) => {
+          res.status(500).json({ error: err.message });
+        });
+    });
+
   //Get request to load listings
   router.get("/listings/", (req, res) => {
     const queryString = `
@@ -299,19 +313,7 @@ module.exports = (db) => {
     res.render("new_message", templateVars);
   });
 
-  //GET route to view seller's listings
-  router.get("/listings/new", (req, res) => {
-    const queryString = `  `;
-    const username = req.body.email;
-    const templateVars = { username };
-    db.query(queryString)
-      .then((data) => {
-        res.render("new_listing", templateVars);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
+
 
   // /* End of Routes */
 
