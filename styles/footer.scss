@@ -2,8 +2,6 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  // align-items: center;
-  // position: absolute;
   height: 8em;
   width: 100%;
   padding: 1.5em;
@@ -11,12 +9,22 @@ footer {
   background-image: url("https://www.transparenttextures.com/patterns/light-wool.png");
   color: #FFFFFF;
 
-  h5 {
-    margin: 0;
-
+  span {
+    font-size: 14px;
     a {
       text-decoration: none;
       color: #FFFFFF;
     }
   }
+
+}
+
+@media only screen and (min-width: 1024px) {
+
+  footer {
+    span {
+      font-size: 18px;
+    }
+  }
+
 }
