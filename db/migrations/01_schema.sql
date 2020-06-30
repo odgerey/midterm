@@ -32,11 +32,13 @@ CREATE TABLE favorites (
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
   buyer_id INTEGER REFERENCES buyers(id) ON DELETE CASCADE,
+  seller_id INTEGER REFERENCES sellers(id) ON DELETE CASCADE,
   listing_id INTEGER REFERENCES listings(id) ON DELETE CASCADE,
   title VARCHAR (255) NOT NULL,
   description text,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 ALTER TABLE buyers
 OWNER TO labber;
 ALTER TABLE listings
