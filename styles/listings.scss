@@ -110,6 +110,7 @@ img {
 .listing-parameters {
   display: flex;
   justify-content: space-between;
+  margin: 0 0 1rem 0;
 
   h3 {
     overflow-wrap: anywhere;
@@ -150,7 +151,7 @@ img {
 }
 
 .button-favorite {
-  margin: 1.25rem 0 0 0;
+  // margin: 1.25rem 0 0 0;
   background-color: transparent;
   border: none;
   cursor: pointer;
