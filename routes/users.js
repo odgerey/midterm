@@ -155,6 +155,7 @@ module.exports = (db) => {
         const favorites = favoritesResults.rows;
         const listings = listingResults.rows;
         const messages = messagesResults.rows;
+        console.log(messages.title, messages.description, messages.created_at);
         const templateVars = { favorites, listings, messages, username };
         res.render("user", templateVars);
       })
