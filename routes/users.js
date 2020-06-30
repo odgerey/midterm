@@ -43,6 +43,28 @@ module.exports = (db) => {
         const products = data.rows;
         const username = req.session.email;
         const templateVars = { products, username };
+        console.log(products);
+        res.render("listings", templateVars);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  //Get request to load listings
+  router.get("/listings", (req, res) => {
+    const queryString = `
+    SELECT *
+    FROM listings;
+    `;
+    db.query(queryString)
+      .then((data) => {
+        if (req.session.email === null) {
+          res.redirect("login");
+        }
+        const products = data.rows;
+        const username = req.session.email;
+        const templateVars = { products, username };
         res.render("listings", templateVars);
       })
       .catch((err) => {
@@ -151,17 +173,17 @@ module.exports = (db) => {
 
   //POST route to add favourite
   router.post("/add_favorite/:listingID", (req, res) => {
-    let userCookieBuyerID = req.session.buyer_id;
     const queryString = `
     INSERT INTO favorites (buyer_id, listing_id)
     VALUES  ($1, $2);
     `;
     const listingID = req.params.listingID;
-    const values = [userCookieBuyerID, listingID];
+    const values = [req.session.buyer_id, listingID];
     db.query(queryString, values)
       .then((data) => {
         console.log(
-        `Added item # ${listingID} from id ${req.session.buyer_id}`)
+          `Added item # ${listingID} from id ${req.session.buyer_id}`
+        );
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -175,7 +197,7 @@ module.exports = (db) => {
     WHERE buyer_id = $1
     AND listing_id = $2;
       `;
-    const listingID = req.params.listingID;
+    const listingID = req.params.id;
     const values = [req.session.buyer_id, listingID];
     db.query(queryString, values)
       .then((data) => {
@@ -188,35 +210,14 @@ module.exports = (db) => {
       });
   });
 
-    //GET route to view seller's listings
-    router.get("/listings/new", (req, res) => {
-      const queryString = `  `;
-      const username = req.body.email;
-      const templateVars = { username };
-      db.query(queryString)
-        .then((data) => {
-          res.render("new_listing", templateVars);
-        })
-        .catch((err) => {
-          res.status(500).json({ error: err.message });
-        });
-    });
-
-  //Get request to load listings
-  router.get("/listings/", (req, res) => {
-    const queryString = `
-    SELECT *
-    FROM listings;
-    `;
+  //GET route to view seller's listings
+  router.get("/listings/new", (req, res) => {
+    const queryString = `  `;
+    const username = req.body.email;
+    const templateVars = { username };
     db.query(queryString)
       .then((data) => {
-        if (req.session.email === null) {
-          res.redirect("login");
-        }
-        const products = data.rows;
-        const username = req.session.email;
-        const templateVars = { products, username };
-        res.render("listings", templateVars);
+        res.render("new_listing", templateVars);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -226,8 +227,7 @@ module.exports = (db) => {
   //POST route to add new listings
   router.post("/new_listing", (req, res) => {
     const username = req.session.email;
-    const queryString =
-    `
+    const queryString = `
     INSERT INTO listings
     (title, description, cover_photo_url, price, for_sale, seller_id)
     VALUES ($1, $2, $3, $4, $5, $6)
@@ -275,25 +275,42 @@ module.exports = (db) => {
 
   // GET route for new listings page
   router.get("/listings/:id", (req, res) => {
-    const username = req.session.email;
-    templateVars = { username };
-    res.render("edit_listing", templateVars);
+    listingID = req.params.id;
+    const queryString = `
+    SELECT *
+    FROM listings
+    WHERE seller_id = $1
+    AND id = $2
+    `;
+    const values = [req.session.buyer_id, listingID];
+    db.query(queryString, values)
+      .then((data) => {
+        const product = data.rows[0];
+        const username = req.session.email;
+        templateVars = { username, product };
+        res.render("edit_listing", templateVars);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
   });
 
   //POST route to add edit listings
-  router.post("/edit_listing", (req, res) => {
+  router.post("/edit_listing/:id", (req, res) => {
     const queryString = `
     UPDATE listings
     SET  title = $1, description = $2, thumbnail_photo_url = $3, price = $4
     WHERE seller_id = $5
-    AND id = 18;
-    `
+    AND id = $6
+    `;
+
     const values = [
       req.body.title,
       req.body.description,
       req.body.image_url,
       req.body.price,
       req.session.buyer_id,
+      req.params.id,
     ];
 
     db.query(queryString, values)
@@ -305,15 +322,12 @@ module.exports = (db) => {
       });
   });
 
-
   // GET route for new messages
   router.get("/new_message", (req, res) => {
     const username = req.session.email;
     templateVars = { username };
     res.render("new_message", templateVars);
   });
-
-
 
   // /* End of Routes */
 
