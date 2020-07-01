@@ -2,11 +2,11 @@ $(document).ready(function() {
 
   // Escaping Cross-Site Scripting (XSS)
 
-    const escape =  function(str) {
-      let div = document.createElement('div');
-      div.appendChild(document.createTextNode(str));
-      return div.innerHTML;
-    };
+    // const escape =  function(str) {
+    //   let div = document.createElement('div');
+    //   div.appendChild(document.createTextNode(str));
+    //   return div.innerHTML;
+    // };
 
   // Showing or hiding the received messages on the user's page
 
@@ -40,5 +40,11 @@ $(document).ready(function() {
   //       renderTweets(response);
   //     });
   // };
+
+  // Showing an alert when a message has been sent
+
+  $('#new-message-button').on('click', function() {
+    alert('Your message has been sent!');
+  });
 
 });
