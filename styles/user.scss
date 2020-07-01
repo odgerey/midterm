@@ -28,7 +28,12 @@
   width: 70%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  // align-items: center;
+
+  form {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .message-text {
@@ -124,6 +129,7 @@
 }
 
 .reply-message-button {
+  align-self: center;
   margin: 0 0 0 0.5rem;
 }
 
