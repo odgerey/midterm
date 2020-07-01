@@ -45,21 +45,23 @@
             Edit your listing
           </label>
           <span>Title</span>
-          <input type="title" name="title" value="<%= product.title %>" />
+          <textarea type="title" name="title" value="<%= product.title %>" placeholder="Please enter the new title..."></textarea>
           <span>Description</span>
-          <input
+          <textarea
             type="description"
             name="description"
             value="<%= product.description %>"
-          />
+            placeholder="Please enter the new description..."
+          ></textarea>
           <span>Price</span>
-          <input type="price" name="price" value="<%= product.price %>" />
+          <textarea type="price" name="price" value="<%= product.price %>" placeholder="Please enter the new price..."></textarea>
           <span>Image</span>
-          <input
+          <textarea
             type="image_url"
             name="image_url"
             value="<%= product.thumbnail_photo_url %>"
-          />
+            placeholder="Please enter the new image URL..."
+          ></textarea>
           <button type="submit" id="submit-button">
             Submit
           </button>
