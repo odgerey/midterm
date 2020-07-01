@@ -8,6 +8,11 @@ $(document).ready(function() {
     //   return div.innerHTML;
     // };
 
+  // Showing or hiding the received messages on the messages page
+  $('#show-messages-button').on('click', function() {
+    $('.previous-message').slideToggle('fast');
+  });
+
   // Showing or hiding the received messages on the user's page
 
   $('#show-messages-button').on('click', function() {
@@ -21,30 +26,13 @@ $(document).ready(function() {
     $('#favorites-filter-button').slideToggle('fast');
   });
 
-  // Changing the favourites button after clicking on it
+  // Adding to favourites on clicking the add to favourites icon
 
-  // $('.button-favorite i').on('click', function() {
-  //   $(event.target).toggleClass("fas fa-heart far fa-heart");
-  // });
-
-  // Adding to favourites on clicking the add to favourites button
-
-  // Change to form instead of the button
-  // $('form').on('submit', function(event) {
-  //   event.preventDefault();
-  // });
-
-  $('.button-favorite i').on('click', function() {
-    $(event.target).toggleClass("fas fa-heart far fa-heart");
-    // $(event.target).removeClass("fas fa-heart far fa-heart");
-
-
-    // $.ajax({
-    //   url: '/remove_favorite/:id',
-    //   method: 'POST'
-    // })
-    //   .then(console.log('working'));
-
+  $('.add-favorite-form').on('submit', function(event) {
+    // event.preventDefault();
+    const icon = $(event.target).find('.button-favorite i');
+    $(icon).removeClass("far fa-heart").addClass("fas fa-heart");
+    // $(event.target).toggleClass("fas fa-heart far fa-heart");
 
     $.ajax({
       url: '/listings/add_favorite/:listingID',
@@ -53,7 +41,22 @@ $(document).ready(function() {
       .then(console.log('working'));
   });
 
-  // Showing an alert when a message has been sent
+  // Removing from favourites on clicking the remove from favourites icon
+
+  $('.remove-favorite-form').on('submit', function(event) {
+    // event.preventDefault();
+    const icon = $(event.target).find('.button-favorite i');
+    $(icon).removeClass("fas fa-heart").addClass("far fa-heart");
+    // $(event.target).toggleClass("fas fa-heart far fa-heart");
+
+    $.ajax({
+      url: '/listings/remove_favorite/:listingID',
+      method: 'POST'
+    })
+      .then(console.log('working'));
+  });
+
+  // Showing an alert when a message is sent
 
   $('#new-message-button').on('click', function() {
     alert('Your message has been sent!');
