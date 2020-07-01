@@ -312,13 +312,6 @@ module.exports = (db) => {
     WHERE id = $1;
 
     `;
-
-    // SELECT buyers.id, listings.*
-    // FROM listings
-    // JOIN buyers ON buyers.id = buyers.id
-    // WHERE listings.id =$1
-    // AND buyers.id = $2;
-
     getMessages = `
     SELECT *
     FROM messages
@@ -348,14 +341,6 @@ module.exports = (db) => {
       });
     });
   });
-
-  // GET route for replies
-  // router.get("/reply/:id", (req, res) => {
-  //   const username = req.session.email;
-  //   const listingID = req.params.id;
-  //   templateVars = { username, listingID };
-  //   res.render("reply", templateVars);
-  // });
 
   //Post route to send a new message
   router.post("/listings/:id/messages", (req, res) => {
@@ -398,6 +383,7 @@ module.exports = (db) => {
   // GET route to reply to messages
   router.get("/listings/:id/messages/reply", (req, res) => {
     const username = req.session.email;
+    res.redirect(`/listings/${req.params.id}/messages`);
   });
 
   // /* End of Routes */
