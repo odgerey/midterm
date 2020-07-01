@@ -141,5 +141,24 @@ module.exports = (db) => {
       });
   });
 
+  //POST route to mark as sold
+  router.post("/:id/sold", (req, res) => {
+    console.log("Mark as sold button working");
+    const queryString = `
+        DELETE FROM listings
+        WHERE seller_id = $1
+        AND id = $2;
+        `;
+    const values = [req.session.buyer_id, req.params.id];
+    db.query(queryString, values)
+      .then((data) => {
+        console.log(`Listing #${req.params.id} marked as sold`);
+        res.redirect("/users/myaccount");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
   return router;
 };
