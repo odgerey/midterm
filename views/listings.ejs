@@ -49,28 +49,29 @@
 
     <main>
       <section>
-        <div>
+        <div class="listings-header">
           <h1>
             Current listings
           </h1>
-          <form method="GET" action="/listings/new">
-            <button type="submit" id="new-listing-button">
-              Add a new listing
-            </button>
-          </form>
+          <div>
+            <form method="POST" action="/listings" id="filter">
+              <!-- <label>
+                Sort by price
+              </label> -->
+              <!-- <input placeholder="Please specify..." /> -->
+              <button type="submit" id="filter-button">
+                Sort by price
+              </button>
+            </form>
+            <form method="GET" action="/listings/new">
+              <button type="submit" id="new-listing-button">
+                Add a new listing
+              </button>
+            </form>
+          </div>
         </div>
 
         <div id="listings-container">
-          <form method="POST" action="/listings" id="filter">
-            <label>
-              Sort by price
-            </label>
-            <!-- <input placeholder="Please specify..." /> -->
-            <button type="submit" id="filter-button">
-              Sort
-            </button>
-          </form>
-
           <div id="all-listings">
             <% for(value in products) { %>
             <div class="one-listing">
