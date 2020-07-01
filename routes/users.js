@@ -13,14 +13,6 @@ const { user } = require("osenv");
 // const { redirect } = require("statuses");
 
 module.exports = (db) => {
-  // POST route to logout. Sets cookie to NULL
-  router.post("/logout", (req, res) => {
-    console.log("POST request to logout");
-    req.session.email = null;
-    req.session.buyer_id = null;
-    res.redirect("/login");
-  });
-
   //GET route for buyer's page. Shows all favourite items.
   router.get("/myaccount", (req, res) => {
     const favoritesQuery = `
