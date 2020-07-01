@@ -82,7 +82,7 @@
             </div>
             <form
               method="GET"
-              action="/listings/<%= messages[value].buyer_id  %>/messages/reply"
+              action="/messages/listings/<%= messages[value].buyer_id  %>/messages/reply"
             >
               <button type="submit" class="reply-message-button">
                 Reply
@@ -161,7 +161,7 @@
                 </form>
                 <form
                   method="GET"
-                  action="/new_message/<%=favorites[value].listing_id%>"
+                  action="/messages/new_message/<%=favorites[value].listing_id%>"
                 >
                   <button type="submit" class="new-message-button">
                     Contact
@@ -225,14 +225,6 @@
                 <form method="GET" action="/listings/<%= listings[value].id %>">
                   <button type="submit" class="edit-listing-button">
                     Edit
-                  </button>
-                </form>
-                <form
-                  method="POST"
-                  action="/listings/<%= listings[value].id %>/sold"
-                >
-                  <button type="submit" class="edit-listing-button">
-                    Mark as sold
                   </button>
                 </form>
                 <form
