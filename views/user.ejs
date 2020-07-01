@@ -113,7 +113,11 @@
                 Sort by price
               </label> -->
               <!-- <input placeholder="Please specify..." /> -->
-              <button type="submit" class="filter-button" id="favorites-filter-button">
+              <button
+                type="submit"
+                class="filter-button"
+                id="favorites-filter-button"
+              >
                 Sort by price
               </button>
             </form>
@@ -124,9 +128,8 @@
         </div>
 
         <div id="favorites-container">
-
           <div class="all-listings">
-            <% for(value in favorites) {%>
+            <% for(value in favorites) { %>
             <div class="one-listing" id='<%= favorites[value].listing_id%>'>
               <div class="listing-info">
                 <img src="<%= favorites[value].thumbnail_photo_url%>" />
@@ -193,7 +196,6 @@
         </div>
 
         <div id="listings-container">
-
           <div class="all-listings">
             <% for(value in listings) { %>
             <div class="one-listing">
