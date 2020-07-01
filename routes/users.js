@@ -322,10 +322,10 @@ module.exports = (db) => {
   // GET route for new messages
   router.get("/listings/:id/messages", (req, res) => {
     const username = req.session.email;
-    getSellerID = `
+    getListingInfo = `
     SELECT *
     FROM listings
-    WHERE id =$1;
+    WHERE id = $1;
 
     `;
 
@@ -335,7 +335,7 @@ module.exports = (db) => {
     // WHERE listings.id =$1
     // AND buyers.id = $2;
 
-    showMessages = `
+    getMessages = `
     SELECT *
     FROM messages
     WHERE listing_id = $1
@@ -343,7 +343,7 @@ module.exports = (db) => {
     AND buyer_id = $3;
     `;
 
-    db.query(getSellerID, [req.params.id]).then((data) => {
+    db.query(getListingInfo, [req.params.id]).then((data) => {
       console.log(
         "This all the Data:",
         data.rows[0],
@@ -351,12 +351,12 @@ module.exports = (db) => {
         data.rows[0].seller_id
       );
 
-      const showMessagesValues = [
+      const getMessagesValues = [
         req.params.id,
         data.rows[0].seller_id,
         req.session.buyer_id,
       ];
-      db.query(showMessages, showMessagesValues).then((data) => {
+      db.query(getMessages, getMessagesValues).then((data) => {
         const listingID = req.params.id;
         const listOfMessages = data.rows;
         templateVars = { username, listingID, listOfMessages };
@@ -375,17 +375,17 @@ module.exports = (db) => {
 
   //Post route to send a new message
   router.post("/listings/:id/messages", (req, res) => {
-    queryString = `
+    getListingInfo = `
     SELECT *
     FROM listings
-    WHERE id =$1;
+    WHERE id = $1;
 
     `;
 
-    db.query(queryString, [req.params.id]).then((data) => {
+    db.query(getListingInfo, [req.params.id]).then((data) => {
       console.log("Data:", data.rows[0].seller_id);
 
-      const queryString2 = `
+      const getMessages = `
       INSERT INTO messages (buyer_id, listing_id, seller_id, title, description)
       VALUES ($1, $2, $3, $4, $5);
       `;
@@ -400,7 +400,7 @@ module.exports = (db) => {
         req.body.body,
       ];
 
-      db.query(queryString2, values)
+      db.query(getMessages, values)
         .then((data) => {
           console.log("new message sent");
           res.redirect("/users/myaccount");
@@ -411,51 +411,46 @@ module.exports = (db) => {
     });
   });
 
-  // // GET route to reply to messages
-  // router.get("/listings/:id/messages/reply", (req, res) => {
-  //   const username = req.session.email;
-  //   getSellerID = `
-  //   SELECT *
-  //   FROM listings
-  //   WHERE id =$1;
+  // GET route to reply to messages
+  router.get("/listings/:id/messages/reply", (req, res) => {
+    console.log("hello");
+    const username = req.session.email;
+    getListingInfo = `
+    SELECT *
+    FROM listings
+    WHERE id = $1;
 
-  //   `;
+    `;
 
-  //   // SELECT buyers.id, listings.*
-  //   // FROM listings
-  //   // JOIN buyers ON buyers.id = buyers.id
-  //   // WHERE listings.id =$1
-  //   // AND buyers.id = $2;
+    getMessages = `
+    SELECT *
+    FROM messages
+    WHERE listing_id = $1
+    AND seller_id = $3
+    AND buyer_id = $2;
+    `;
 
-  //   showMessages = `
-  //   SELECT *
-  //   FROM messages
-  //   WHERE listing_id = $1
-  //   AND seller_id = $3
-  //   AND buyer_id = $2;
-  //   `;
+    db.query(getListingInfo, [req.params.id]).then((data) => {
+      console.log(
+        "This all the Data:",
+        data.rows[0],
+        "This is the seller id",
+        data.rows[0].seller_id
+      );
 
-  //   db.query(getSellerID, [req.params.id]).then((data) => {
-  //     console.log(
-  //       "This all the Data:",
-  //       data.rows[0],
-  //       "This is the seller id",
-  //       data.rows[0].seller_id
-  //     );
-
-  //     const showMessagesValues = [
-  //       req.params.id,
-  //       data.rows[0].seller_id,
-  //       req.session.buyer_id,
-  //     ];
-  //     db.query(showMessages, showMessagesValues).then((data) => {
-  //       const listingID = req.params.id;
-  //       const listOfMessages = data.rows;
-  //       templateVars = { username, listingID, listOfMessages };
-  //       res.render("messages", templateVars);
-  //     });
-  //   });
-  // });
+      const getMessagesValues = [
+        req.params.id,
+        data.rows[0].seller_id,
+        req.session.buyer_id,
+      ];
+      db.query(getMessages, getMessagesValues).then((data) => {
+        const listingID = req.params.id;
+        const listOfMessages = data.rows;
+        templateVars = { username, listingID, listOfMessages };
+        res.render("messages", templateVars);
+      });
+    });
+  });
 
   // /* End of Routes */
 
