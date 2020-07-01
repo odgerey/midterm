@@ -35,28 +35,28 @@ section {
       color: rgb(22, 3, 15) solid;
     }
   }
-}
 
-form {
-  padding: 2em 2em;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  text-align: center;
+  form {
+    padding: 2em 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
 
-  label {
-    margin: 0 0 1rem 0;
-    font-size: 18px;
-    font-weight: 700;
-  }
+    label {
+      margin: 0 0 1rem 0;
+      font-size: 18px;
+      font-weight: 700;
+    }
 
-  textarea {
-    margin: 1rem 0 0 0;
-    overflow: wrap;
-    resize: none;
-    width: 20rem;
-    font-size: 14px;
+    textarea {
+      margin: 1rem 0 0 0;
+      overflow: wrap;
+      resize: none;
+      width: 20rem;
+      font-size: 14px;
+    }
   }
 }
 
