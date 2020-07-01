@@ -76,7 +76,6 @@ module.exports = (db) => {
     SELECT email, id
     FROM buyers
     WHERE buyers.email = $1;
-
     `;
 
     db.query(queryString, [email])
@@ -314,12 +313,15 @@ module.exports = (db) => {
     AND seller_id = $2
     AND buyer_id = $3;
     `;
+    //one for sellers, one for the buyer. seller OR buyer_id
+
     db.query(getListingInfo, [req.params.id]).then((data) => {
       const getMessagesValues = [
         req.params.id,
         data.rows[0].seller_id,
         req.session.buyer_id,
       ];
+      console.log(getMessagesValues);
       db.query(getMessages, getMessagesValues).then((data) => {
         const listingID = req.params.id;
         const messageData = data.rows;
@@ -364,7 +366,6 @@ module.exports = (db) => {
 
   // GET route to reply to messages
   router.get("/listings/:id/messages/reply", (req, res) => {
-    const username = req.session.email;
     res.redirect(`/listings/${req.params.id}/messages`);
   });
 
@@ -372,3 +373,37 @@ module.exports = (db) => {
 
   return router;
 };
+
+//New messages test
+// GET route for new messages
+// router.get("/listings/:id/messages", (req, res) => {
+//   const username = req.session.email;
+//   getListingInfo = `
+//   SELECT *
+//   FROM listings
+//   WHERE id = $1;
+//   `;
+//   getMessages = `
+//   SELECT *
+//   FROM messages
+//   WHERE listing_id = 1
+//   AND seller_id = 1
+//   AND buyer_id = 1 OR buyer_id = 3;
+//   `;
+//   //one for sellers, one for the buyer. seller OR buyer_id
+
+//   db.query(getListingInfo, [req.params.id]).then((data) => {
+//     const getMessagesValues = [
+//       req.params.id,
+//       data.rows[0].seller_id,
+//       req.session.buyer_id,
+//     ];
+//     console.log(getMessagesValues);
+//     db.query(getMessages).then((data) => {
+//       const listingID = req.params.id;
+//       const messageData = data.rows;
+//       templateVars = { username, listingID, messageData };
+//       res.render("messages", templateVars);
+//     });
+//   });
+// });
