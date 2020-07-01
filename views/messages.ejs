@@ -41,7 +41,7 @@
       <section>
         <form method="POST" action="/listings/<%=listingID%>/messages">
           <label>
-            <%=`Send a new message to the seller`%>
+            <%=`Send a new message to ` %> <%= messageData[0].seller_id %>
           </label>
           <textarea
             type="subject"
@@ -58,11 +58,11 @@
           </button>
         </form>
         <div id="message-history">
-          <h2>Message History</h2>
-          <% for(value in listOfMessages) { %>
+          <h2>Previously Sent Messages</h2>
+          <% for(value in messageData) { %>
           <article>
-            <h5>Subject: <%= listOfMessages[value].title %></h5>
-            <p>Message: <%= listOfMessages[value].description %></p>
+            <h5>Subject: <%= messageData[value].title %></h5>
+            <p>Message: <%= messageData[value].description %></p>
             <hr />
           </article>
           <% } %>
