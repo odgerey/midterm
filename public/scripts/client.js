@@ -2,11 +2,11 @@ $(document).ready(function() {
 
   // Escaping Cross-Site Scripting (XSS)
 
-    const escape =  function(str) {
-      let div = document.createElement('div');
-      div.appendChild(document.createTextNode(str));
-      return div.innerHTML;
-    };
+    // const escape =  function(str) {
+    //   let div = document.createElement('div');
+    //   div.appendChild(document.createTextNode(str));
+    //   return div.innerHTML;
+    // };
 
   // Showing or hiding the received messages on the user's page
 
