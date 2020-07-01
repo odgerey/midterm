@@ -59,4 +59,7 @@ $(document).ready(function() {
     alert('Your message has been sent!');
   });
 
+  // Using from now for the date.
+  // $moment(listings.created_at, "").fromNow();
+
 });
