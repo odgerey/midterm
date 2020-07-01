@@ -70,7 +70,7 @@
             </div>
             <div class="message-parameters">
               <span>
-                Buyer ID is: <%= messages[value].buyer_id %>
+                This message was sent from: <%= messages[value].buyer_id %>
               </span>
               <span>
                 <%= messages[value].created_at %>
@@ -78,7 +78,7 @@
             </div>
             <form
               method="GET"
-              action="/listings/<%=messages[value].listing_id%>/messages"
+              action="/listings/<%= messages[value].buyer_id  %>/messages/reply"
             >
               <button type="submit" class="reply-message-button">
                 Reply
