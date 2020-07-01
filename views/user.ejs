@@ -223,9 +223,13 @@
                   method="POST"
                   action="/listings/<%= listings[value].id %>/sold"
                 >
-                  <button type="submit" class="edit-listing-button">
+                  <!-- <button type="radio" class="edit-listing-button">
                     Mark as sold
-                  </button>
+                  </button> -->
+                  <input onchange='this.form.submit();' type="radio" id="for-sale" name="for-sale" value='For Sale' checked>
+                  <label for="true">For Sale</label><br>
+                  <input onchange='this.form.submit();' type="radio" id="Sold" name="for-sale" value='sold'>
+                  <label for="false">Sold</label><br>
                 </form>
                 <form
                   method="POST"
