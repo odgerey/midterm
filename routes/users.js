@@ -322,45 +322,56 @@ module.exports = (db) => {
   // GET route for new messages
   router.get("/listings/:id/messages", (req, res) => {
     const username = req.session.email;
-    queryString = `
+    getSellerID = `
     SELECT *
     FROM listings
     WHERE id =$1;
 
     `;
 
-    queryString2 = `
+    // SELECT buyers.id, listings.*
+    // FROM listings
+    // JOIN buyers ON buyers.id = buyers.id
+    // WHERE listings.id =$1
+    // AND buyers.id = $2;
+
+    showMessages = `
     SELECT *
     FROM messages
     WHERE listing_id = $1
     AND seller_id = $2
-    AND buyer_id = $3
+    AND buyer_id = $3;
     `;
 
-    db.query(queryString, [req.params.id]).then((data) => {
-      console.log("Data:", data.rows[0].seller_id);
-      const queryString2Values = [
+    db.query(getSellerID, [req.params.id]).then((data) => {
+      console.log(
+        "This all the Data:",
+        data.rows[0],
+        "This is the seller id",
+        data.rows[0].seller_id
+      );
+
+      const showMessagesValues = [
         req.params.id,
         data.rows[0].seller_id,
         req.session.buyer_id,
       ];
-      db.query(queryString2, queryString2Values).then((data) => {
+      db.query(showMessages, showMessagesValues).then((data) => {
         const listingID = req.params.id;
         const listOfMessages = data.rows;
         templateVars = { username, listingID, listOfMessages };
-        console.log(listOfMessages);
         res.render("messages", templateVars);
       });
     });
   });
 
   // GET route for replies
-  router.get("/reply/:id", (req, res) => {
-    const username = req.session.email;
-    const listingID = req.params.id;
-    templateVars = { username, listingID };
-    res.render("reply", templateVars);
-  });
+  // router.get("/reply/:id", (req, res) => {
+  //   const username = req.session.email;
+  //   const listingID = req.params.id;
+  //   templateVars = { username, listingID };
+  //   res.render("reply", templateVars);
+  // });
 
   //Post route to send a new message
   router.post("/listings/:id/messages", (req, res) => {
@@ -400,30 +411,51 @@ module.exports = (db) => {
     });
   });
 
-  //Post route to send a new message
-  router.post("/new_message/:id", (req, res) => {
-    const queryString = `
-    INSERT INTO messages (buyer_id, listing_id, seller_id, title, description)
-    VALUES ($1, $2, $3, $4, $5);
-    `;
-    const username = req.session.email;
-    const templateVars = { username };
-    const values = [
-      req.session.buyer_id,
-      req.params.id,
-      5,
-      req.body.subject,
-      req.body.body,
-    ];
-    db.query(queryString, values)
-      .then((data) => {
-        console.log("new message sent");
-        res.redirect("/users/myaccount");
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
+  // // GET route to reply to messages
+  // router.get("/listings/:id/messages/reply", (req, res) => {
+  //   const username = req.session.email;
+  //   getSellerID = `
+  //   SELECT *
+  //   FROM listings
+  //   WHERE id =$1;
+
+  //   `;
+
+  //   // SELECT buyers.id, listings.*
+  //   // FROM listings
+  //   // JOIN buyers ON buyers.id = buyers.id
+  //   // WHERE listings.id =$1
+  //   // AND buyers.id = $2;
+
+  //   showMessages = `
+  //   SELECT *
+  //   FROM messages
+  //   WHERE listing_id = $1
+  //   AND seller_id = $3
+  //   AND buyer_id = $2;
+  //   `;
+
+  //   db.query(getSellerID, [req.params.id]).then((data) => {
+  //     console.log(
+  //       "This all the Data:",
+  //       data.rows[0],
+  //       "This is the seller id",
+  //       data.rows[0].seller_id
+  //     );
+
+  //     const showMessagesValues = [
+  //       req.params.id,
+  //       data.rows[0].seller_id,
+  //       req.session.buyer_id,
+  //     ];
+  //     db.query(showMessages, showMessagesValues).then((data) => {
+  //       const listingID = req.params.id;
+  //       const listOfMessages = data.rows;
+  //       templateVars = { username, listingID, listOfMessages };
+  //       res.render("messages", templateVars);
+  //     });
+  //   });
+  // });
 
   // /* End of Routes */
 

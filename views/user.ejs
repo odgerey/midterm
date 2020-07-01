@@ -70,14 +70,17 @@
             </div>
             <div class="message-parameters">
               <span>
-                <%= messages[value].buyer_id %>
+                Buyer ID is: <%= messages[value].buyer_id %>
               </span>
               <span>
                 <%= messages[value].created_at %>
               </span>
             </div>
 
-            <form method="GET" action="/reply/<%=messages[value].listing_id%>">
+            <form
+              method="GET"
+              action="/listings/<%=messages[value].listing_id%>/messages"
+            >
               <button type="submit" class="reply-message-button">
                 Reply
               </button>
