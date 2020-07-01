@@ -60,6 +60,6 @@ $(document).ready(function() {
   });
 
   // Using from now for the date.
-  // $moment(listings.created_at, "").fromNow();
+  $moment(listings.created_at, "").fromNow();
 
 });

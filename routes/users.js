@@ -1,3 +1,4 @@
+
 /*
  * All routes for Users are defined here
  * Since this file is loaded in server.js into api/users,
@@ -13,6 +14,14 @@ const { user } = require("osenv");
 // const { redirect } = require("statuses");
 
 module.exports = (db) => {
+  // POST route to logout. Sets cookie to NULL
+  router.post("/logout", (req, res) => {
+    console.log("POST request to logout");
+    req.session.email = null;
+    req.session.buyer_id = null;
+    res.redirect("/login");
+  });
+
   //GET route for buyer's page. Shows all favourite items.
   router.get("/myaccount", (req, res) => {
     const favoritesQuery = `
@@ -32,7 +41,6 @@ module.exports = (db) => {
       FROM messages
       WHERE buyer_id = $1
       OR seller_id = $1;
-
       `;
     const email = req.session.email;
     const username = email;
