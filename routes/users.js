@@ -13,13 +13,6 @@ const { user } = require("osenv");
 // const { redirect } = require("statuses");
 
 module.exports = (db) => {
-  /*  Index Routes  */
-
-  //GET route to show index. Index displays all listings.
-  router.get("/", (req, res) => {
-    res.redirect("/listings");
-  });
-
   // POST route to logout. Sets cookie to NULL
   router.post("/logout", (req, res) => {
     console.log("POST request to logout");
@@ -28,10 +21,8 @@ module.exports = (db) => {
     res.redirect("/login");
   });
 
-  /*  User Specific Routes  */
-
   //GET route for buyer's page. Shows all favourite items.
-  router.get("/users/myaccount", (req, res) => {
+  router.get("/myaccount", (req, res) => {
     const favoritesQuery = `
     SELECT listings.*, favorites.*
     FROM favorites
@@ -66,45 +57,6 @@ module.exports = (db) => {
         const messages = messagesResults.rows;
         const templateVars = { favorites, listings, messages, username };
         res.render("user", templateVars);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
-
-  //POST route to add favourite
-  router.post("/add_favorite/:listingID", (req, res) => {
-    const queryString = `
-    INSERT INTO favorites (buyer_id, listing_id)
-    VALUES  ($1, $2);
-    `;
-    const listingID = req.params.listingID;
-    const values = [req.session.buyer_id, listingID];
-    db.query(queryString, values)
-      .then((data) => {
-        console.log(
-          `Added item # ${listingID} from id ${req.session.buyer_id}`
-        );
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
-
-  //POST route to remove favourite
-  router.post("/remove_favorite/:id", (req, res) => {
-    const queryString = `
-    DELETE FROM favorites
-    WHERE buyer_id = $1
-    AND listing_id = $2;
-      `;
-    const listingID = req.params.id;
-    const values = [req.session.buyer_id, listingID];
-    db.query(queryString, values)
-      .then((data) => {
-        console.log(
-          `Removed item # ${listingID} from id ${req.session.buyer_id}`
-        );
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
