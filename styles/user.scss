@@ -33,17 +33,26 @@
 
 .message-text {
   width: 65%;
+  margin: 0 0.5rem 0 0;
   display: flex;
   flex-direction: column;
 
   h4 {
     margin: 0;
   }
+
+  article {
+    font-size: 14px;
+  }
 }
 
 .message-parameters {
   display: flex;
   flex-direction: column;
+}
+
+.message-date {
+  font-size: 14px;
 }
 
 #section-favorites {
@@ -243,6 +252,16 @@ img {
 // }
 
 @media only screen and (min-width: 1024px) {
+
+  .message-text {
+    article {
+      font-size: 20px;
+    }
+  }
+
+  .message-date {
+    font-size: 20px;
+  }
 
   .filter {
     input {
