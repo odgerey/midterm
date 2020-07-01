@@ -50,13 +50,14 @@
 
     <main>
       <section id="section-messages">
-        <h1>
-          My messages
-        </h1>
-
-        <button id="show-messages-button">
-          Toggle messages
-        </button>
+        <div class="section-header">
+          <h1>
+            My messages
+          </h1>
+          <button id="show-messages-button">
+            Toggle messages
+          </button>
+        </div>
         <div id="received-messages">
           <% for(value in messages) { %>
           <div class="one-message">
@@ -87,33 +88,42 @@
                 Reply
               </button>
             </form>
+            <!-- <form
+            method="POST"
+            action="/listings/<%= messages[value].buyer_id  %>/messages/delete"
+          >
+            <button type="submit" class="reply-message-button">
+              Delete
+            </button>
+          </form> -->
           </div>
           <hr />
           <% } %>
-          <!-- <table></table> -->
         </div>
       </section>
 
       <section id="section-favorites">
-        <div>
+        <div class="section-header">
           <h1>
             My favorites
           </h1>
-          <button id="show-favorites-button">
-            Toggle favorites
-          </button>
+          <div>
+            <form method="POST" action="/users/:id/favorites_sort" class="filter">
+              <!-- <label>
+                Sort by price
+              </label> -->
+              <!-- <input placeholder="Please specify..." /> -->
+              <button type="submit" class="filter-button" id="favorites-filter-button">
+                Sort by price
+              </button>
+            </form>
+            <button id="show-favorites-button">
+              Toggle favorites
+            </button>
+          </div>
         </div>
 
         <div id="favorites-container">
-          <form method="POST" action="/users/:id/favorites_sort" class="filter">
-            <label>
-              Sort by price
-            </label>
-            <!-- <input placeholder="Please specify..." /> -->
-            <button type="submit" class="filter-button">
-              Sort
-            </button>
-          </form>
 
           <div class="all-listings">
             <% for(value in favorites) { %>
@@ -159,27 +169,29 @@
       </section>
 
       <section id="section-listings">
-        <div>
+        <div class="section-header">
           <h1>
             My listings
           </h1>
-          <form method="GET" action="/listings/new">
-            <button type="submit" id="new-listing-button">
-              Add a new listing
-            </button>
-          </form>
+          <div>
+            <form method="POST" action="/users/:id/listings_sort" class="filter">
+              <!-- <label>
+                Sort by price
+              </label> -->
+              <!-- <input placeholder="Please specify..." /> -->
+              <button type="submit" class="filter-button">
+                Sort by price
+              </button>
+            </form>
+            <form method="GET" action="/listings/new">
+              <button type="submit" id="new-listing-button">
+                Add a new listing
+              </button>
+            </form>
+          </div>
         </div>
 
         <div id="listings-container">
-          <form method="POST" action="/users/:id/listings_sort" class="filter">
-            <label>
-              Sort by price
-            </label>
-            <!-- <input placeholder="Please specify..." /> -->
-            <button type="submit" class="filter-button">
-              Sort
-            </button>
-          </form>
 
           <div class="all-listings">
             <% for(value in listings) { %>

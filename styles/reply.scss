@@ -6,26 +6,26 @@ section {
   margin: 4em 0 3em 0;
   width: 50%;
   background-color: white;
-}
 
-form {
-  padding: 2em 2em;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
+  form {
+    padding: 2em 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 
-  label {
-    font-size: 18px;
-    font-weight: 700;
-  }
+    label {
+      font-size: 18px;
+      font-weight: 700;
+    }
 
-  textarea {
-    overflow: wrap;
-    resize: none;
-    // overflow-wrap: break-word;
-    width: 20rem;
-    font-size: 14px;
+    textarea {
+      overflow: wrap;
+      resize: none;
+      // overflow-wrap: break-word;
+      width: 20rem;
+      font-size: 14px;
+    }
   }
 }
 

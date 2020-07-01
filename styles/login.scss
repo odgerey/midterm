@@ -6,24 +6,25 @@ section {
   margin: 4em 0 3em 0;
   width: 50%;
   background-color: white;
+
+  form {
+    padding: 2em 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    label {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    input {
+      font-size: 14px;
+    }
+  }
 }
 
-form {
-  padding: 2em 2em;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-
-  label {
-    font-size: 18px;
-    font-weight: 700;
-  }
-
-  input {
-    font-size: 14px;
-  }
-}
 
 #login-button {
   display: inline-block;
