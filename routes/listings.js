@@ -144,14 +144,14 @@ module.exports = (db) => {
   //POST route to mark as sold
   router.post("/:id/sold", (req, res) => {
     console.log("Mark as sold button working");
-    const queryString1 = `
+    const queryString = `
         UPDATE listings
         SET thumbnail_photo_url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ3_Zuf97hXX_3DNcclObUDqCrsQ46enyuPCw&usqp=CAU'
-        WHERE seller_id = $1 AND id = $2 AND for_sale = false;
+        WHERE seller_id = $1 AND id = $2 AND for_sale = true;
         `;
 
     const values = [req.session.buyer_id, req.params.id];
-    db.query(queryString1, values)
+    db.query(queryString, values)
       .then((data) => {
         console.log(`Listing #${req.params.id} marked as sold`);
         res.redirect("/users/myaccount");
