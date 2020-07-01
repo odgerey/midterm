@@ -22,10 +22,9 @@ $(document).ready(function() {
 
   // Changing the favourites button after clicking on it
 
-  // toggleClass
-  // $('#show-favorites-button').on('click', function() {
-  //   $('#favorites-container').slideToggle('fast');
-  // });
+  $('.button-favorite i').on('click', function() {
+    $(event.target).toggleClass("fas fa-heart far fa-heart");
+  });
 
   // Adding to favourites on clicking the add to favourites button
 
