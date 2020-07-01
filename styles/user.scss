@@ -132,22 +132,20 @@
   cursor: pointer;
 }
 
-#show-messages-button, #show-favorites-button {
+#show-messages-button, #show-favorites-button, .filter-button, #new-listing-button {
   width: 9rem;
   // margin: 0 1.5rem 0 0.5rem;
 }
 
 .filter-button {
-  width: 10em;
   font-size: 14px;
 }
 
-#show-favorites-button {
-  width: 9rem;
+#show-favorites-button, #new-listing-button {
   margin: 0 0 0 0.5rem;
 }
 
-.reply-message-button, .new-message-button {
+.reply-message-button, .new-message-button, .edit-listing-button {
   width: 6rem;
   font-size: 14px;
 }
@@ -157,15 +155,8 @@
   margin: 0 0 0 1.5rem;
 }
 
-#new-listing-button {
-  width: 10em;
-  margin: 0 0 0 0.5rem;
-}
-
 .edit-listing-button {
-  width: 6rem;
   margin: 0 0 0 1em;
-  font-size: 14px;
 }
 
 #new-listing-button:hover, .filter-button:hover, .new-message-button:hover, .edit-listing-button:hover, #show-messages-button:hover, #show-favorites-button:hover, .reply-message-button:hover {
