@@ -23,24 +23,35 @@ $(document).ready(function() {
 
   // Changing the favourites button after clicking on it
 
-  $('.button-favorite i').on('click', function() {
-    $(event.target).toggleClass("fas fa-heart far fa-heart");
-  });
+  // $('.button-favorite i').on('click', function() {
+  //   $(event.target).toggleClass("fas fa-heart far fa-heart");
+  // });
 
   // Adding to favourites on clicking the add to favourites button
 
-  // $('#show-favorites-button').on('click', function() {
-  //   $('#favorites-container').slideToggle('fast');
+  // Change to form instead of the button
+  // $('form').on('submit', function(event) {
+  //   event.preventDefault();
   // });
-  // const loadTweets = function() {
-  //   $.ajax({
-  //     url: '/tweets',
-  //     method: 'GET' (POST?)
-  //   })
-  //     .then(function(response) {
-  //       renderTweets(response);
-  //     });
-  // };
+
+  $('.button-favorite i').on('click', function() {
+    $(event.target).toggleClass("fas fa-heart far fa-heart");
+    // $(event.target).removeClass("fas fa-heart far fa-heart");
+
+
+    // $.ajax({
+    //   url: '/remove_favorite/:id',
+    //   method: 'POST'
+    // })
+    //   .then(console.log('working'));
+
+
+    $.ajax({
+      url: '/listings/add_favorite/:listingID',
+      method: 'POST'
+    })
+      .then(console.log('working'));
+  });
 
   // Showing an alert when a message has been sent
 

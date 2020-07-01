@@ -229,6 +229,14 @@
                 </form>
                 <form
                   method="POST"
+                  action="/listings/<%= listings[value].id %>/sold"
+                >
+                  <button type="submit" class="edit-listing-button">
+                    Mark as sold
+                  </button>
+                </form>
+                <form
+                  method="POST"
                   action="/listings/<%= listings[value].id %>/delete"
                 >
                   <button type="submit" class="edit-listing-button">
