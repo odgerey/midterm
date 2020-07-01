@@ -5,9 +5,9 @@
   width: 90%;
   background-color: white;
 
-  h1 {
-    margin-left: 0.25em;
-  }
+  // h1 {
+  //   margin-left: 0.25em;
+  // }
 }
 
 .section-header {
@@ -18,14 +18,14 @@
 
 .section-header > div {
   // width: 25%;
-  margin: 0 1.25rem 0 0;
+  // margin: 0 1.25rem 0 0;
   display: flex;
   align-items: center;
   // justify-content: flex-end;
 }
 
 #received-messages {
-  margin: 1rem 0 0 0.75rem;
+  // margin: 1rem 0 0 0;
   display: flex;
   // display: none;
   flex-direction: column;
@@ -81,9 +81,9 @@
   width: 90%;
   background-color: white;
 
-  h1 {
-    margin-left: 0.25em;
-  }
+  // h1 {
+  //   margin-left: 0.25em;
+  // }
 }
 
 // #favorites-container {
@@ -109,9 +109,9 @@
   width: 90%;
   background-color: white;
 
-  h1 {
-    margin-left: 0.25em;
-  }
+  // h1 {
+  //   margin-left: 0.25em;
+  // }
 }
 
 #section-listings > div {
@@ -134,7 +134,7 @@
 
 #show-messages-button, #show-favorites-button {
   width: 9rem;
-  margin: 0 1.5rem 0 0.5rem;
+  // margin: 0 1.5rem 0 0.5rem;
 }
 
 .filter-button {
@@ -205,7 +205,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 1rem 0 0 0.75rem;
+  // margin: 1rem 0 0 0.75rem;
 
   hr {
     width: 100%;
@@ -223,7 +223,7 @@
 .one-listing {
   display: flex;
   justify-content: space-between;
-  margin: 0 1em 1em 0;
+  margin: 0 0 1em 0;
 }
 
 .listing-info {

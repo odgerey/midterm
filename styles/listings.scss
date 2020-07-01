@@ -5,9 +5,9 @@ section {
   width: 90%;
   background-color: white;
 
-  h1 {
-    margin-left: 0.25em;
-  }
+  // h1 {
+  //   margin-left: 0.25em;
+  // }
 }
 
 .listings-header {
@@ -17,7 +17,7 @@ section {
 
 .listings-header > div {
   width: 25%;
-  margin: 0 1.5rem 0 0;
+  // margin: 0 1.5rem 0 0;
   display: flex;
   // justify-content: flex-end;
 }
@@ -88,7 +88,7 @@ section {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 1rem 0 0 0.75rem;
+  // margin: 1rem 0 0 0.75rem;
 }
 
 .one-listing {
@@ -146,7 +146,7 @@ img {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 0 1em;
+  // padding: 0 1em;
 
   form {
     input {
