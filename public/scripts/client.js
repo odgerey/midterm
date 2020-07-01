@@ -41,4 +41,10 @@ $(document).ready(function() {
   //     });
   // };
 
+  // Showing an alert when a message has been sent
+
+  $('#new-message-button').on('click', function() {
+    alert('Your message has been sent!');
+  });
+
 });
