@@ -141,7 +141,6 @@ module.exports = (db) => {
         const favorites = favoritesResults.rows;
         const listings = listingResults.rows;
         const messages = messagesResults.rows;
-        console.log(messages.title, messages.description, messages.created_at);
         const templateVars = { favorites, listings, messages, username };
         res.render("user", templateVars);
       })
@@ -224,9 +223,6 @@ module.exports = (db) => {
 
     db.query(queryString, values)
       .then((data) => {
-        console.log(`Listing added
-         ${values}`);
-
         res.redirect("/listings");
       })
       .catch((err) => {
@@ -310,7 +306,6 @@ module.exports = (db) => {
     SELECT *
     FROM listings
     WHERE id = $1;
-
     `;
     getMessages = `
     SELECT *
@@ -319,15 +314,7 @@ module.exports = (db) => {
     AND seller_id = $2
     AND buyer_id = $3;
     `;
-
     db.query(getListingInfo, [req.params.id]).then((data) => {
-      console.log(
-        "This all the Data:",
-        data.rows[0],
-        "This is the seller id",
-        data.rows[0].seller_id
-      );
-
       const getMessagesValues = [
         req.params.id,
         data.rows[0].seller_id,
@@ -335,8 +322,8 @@ module.exports = (db) => {
       ];
       db.query(getMessages, getMessagesValues).then((data) => {
         const listingID = req.params.id;
-        const listOfMessages = data.rows;
-        templateVars = { username, listingID, listOfMessages };
+        const messageData = data.rows;
+        templateVars = { username, listingID, messageData };
         res.render("messages", templateVars);
       });
     });
@@ -348,12 +335,8 @@ module.exports = (db) => {
     SELECT *
     FROM listings
     WHERE id = $1;
-
     `;
-
     db.query(getListingInfo, [req.params.id]).then((data) => {
-      console.log("Data:", data.rows[0].seller_id);
-
       const getMessages = `
       INSERT INTO messages (buyer_id, listing_id, seller_id, title, description)
       VALUES ($1, $2, $3, $4, $5);
@@ -371,7 +354,6 @@ module.exports = (db) => {
 
       db.query(getMessages, values)
         .then((data) => {
-          console.log("new message sent");
           res.redirect("/users/myaccount");
         })
         .catch((err) => {
