@@ -42,10 +42,8 @@
 
     <main>
       <section>
-        <form method="POST" action="/listings/<%=listingID%>/messages">
-          <label>
-            <%=`Send a new message to ` %> <%= messageData[0].seller_id %>
-          </label>
+        <form method="POST" action="messages/listings/<%=listingID%>/messages">
+          <label> </label>
           <textarea
             type="subject"
             name="subject"

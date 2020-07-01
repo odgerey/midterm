@@ -95,7 +95,7 @@
               <div class="listing-buttons">
                 <form
                   method="POST"
-                  action="/add_favorite/<%=products[value].id%>"
+                  action="/favorites/add_favorite/<%=products[value].id%>"
                 >
                   <button type="submit" class="button-favorite">
                     <i class="far fa-heart"></i>
@@ -111,7 +111,7 @@
                 </form> -->
                 <form
                   method="GET"
-                  action="/listings/<%=products[value].id%>/messages "
+                  action="/messages/listings/<%=products[value].id%>/messages "
                 >
                   <button type="submit" class="new-message-button">
                     Contact

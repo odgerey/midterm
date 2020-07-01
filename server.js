@@ -44,13 +44,22 @@ app.use(express.static("public"));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
+const indexRoutes = require("./routes/index");
 const usersRoutes = require("./routes/users");
-const widgetsRoutes = require("./routes/widgets");
-
+const loginRoutes = require("./routes/login");
+const listingsRoutes = require("./routes/listings");
+const favoritesRoutes = require("./routes/favorites");
+const messagesRoutes = require("./routes/messages");
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/", usersRoutes(db));
-app.use("/api/widgets", widgetsRoutes(db));
+app.use("/", indexRoutes(db));
+app.use("/users", usersRoutes(db));
+app.use("/login", loginRoutes(db));
+app.use("/listings", listingsRoutes(db));
+app.use("/favorites", favoritesRoutes(db));
+app.use("/messages", messagesRoutes(db));
+
+// app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 app.use(function (req, res) {
@@ -61,9 +70,10 @@ app.use(function (req, res) {
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-// app.get("/login", (req, res) => {
-//   res.render("login");
-//   console.log("GET request for login page");
+//GET route to show index. Index displays all listings.
+// app.get("/", (req, res) => {
+//   console.log("working");
+//   res.redirect("/listings");
 // });
 
 // app.post("/login", (req, res) => {
