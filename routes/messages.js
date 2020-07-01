@@ -36,6 +36,7 @@ module.exports = (db) => {
 
   //Post route to send a new message
   router.post("/listings/:id/messages", (req, res) => {
+    console.log("post route for messages working");
     getListingInfo = `
     SELECT *
     FROM listings
@@ -59,6 +60,7 @@ module.exports = (db) => {
 
       db.query(getMessages, values)
         .then((data) => {
+          console.log("Message sent with values:", values);
           res.redirect("/users/myaccount");
         })
         .catch((err) => {
@@ -69,7 +71,7 @@ module.exports = (db) => {
 
   // GET route to reply to messages
   router.get("/listings/:id/messages/reply", (req, res) => {
-    res.redirect(`/listings/${req.params.id}/messages`);
+    res.redirect(`/messages/listings/${req.params.id}/messages`);
   });
   return router;
 };

@@ -89,6 +89,7 @@ module.exports = (db) => {
       .then(([favoritesResults, listingResults, messagesResults]) => {
         const favorites = favoritesResults.rows;
         const listings = listingResults.rows;
+        console.log(listings);
         const messages = messagesResults.rows;
         const templateVars = { favorites, listings, messages, username };
         res.render("user", templateVars);
