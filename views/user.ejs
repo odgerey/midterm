@@ -108,11 +108,7 @@
             My favorites
           </h1>
           <div>
-            <form
-              method="POST"
-              action="/users/:id/favorites_sort"
-              class="filter"
-            >
+            <form method="POST" action="/users/favorites_sort" class="filter">
               <!-- <label>
                 Sort by price
               </label> -->
@@ -181,11 +177,7 @@
             My listings
           </h1>
           <div>
-            <form
-              method="POST"
-              action="/users/:id/listings_sort"
-              class="filter"
-            >
+            <form method="POST" action="/users/listings_sort" class="filter">
               <!-- <label>
                 Sort by price
               </label> -->
@@ -225,6 +217,14 @@
                 <form method="GET" action="/listings/<%= listings[value].id %>">
                   <button type="submit" class="edit-listing-button">
                     Edit
+                  </button>
+                </form>
+                <form
+                  method="POST"
+                  action="/listings/<%= listings[value].id %>/sold"
+                >
+                  <button type="submit" class="edit-listing-button">
+                    Mark as sold
                   </button>
                 </form>
                 <form

@@ -63,5 +63,44 @@ module.exports = (db) => {
       });
   });
 
+  //POST route to filter user's favourites by price
+  router.post("/favorites_sort", (req, res) => {
+    console.log("favourites sort working");
+    const username = req.session.email;
+    const queryString = `
+        SELECT *
+        FROM listings
+        ORDER BY price ASC;
+        `;
+    db.query(queryString)
+      .then((data) => {
+        const products = data.rows;
+        const templateVars = { products, username };
+        res.render("user", templateVars);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  router.post("/listings_sort", (req, res) => {
+    console.log("Listings Sort working");
+    const username = req.session.email;
+    const queryString = `
+        SELECT *
+        FROM listings
+        ORDER BY price ASC;
+        `;
+    db.query(queryString)
+      .then((data) => {
+        const products = data.rows;
+        const templateVars = { products, username };
+        res.render("user", templateVars);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
   return router;
 };
