@@ -108,12 +108,20 @@
             My favorites
           </h1>
           <div>
-            <form method="POST" action="/users/:id/favorites_sort" class="filter">
+            <form
+              method="POST"
+              action="/users/:id/favorites_sort"
+              class="filter"
+            >
               <!-- <label>
                 Sort by price
               </label> -->
               <!-- <input placeholder="Please specify..." /> -->
-              <button type="submit" class="filter-button" id="favorites-filter-button">
+              <button
+                type="submit"
+                class="filter-button"
+                id="favorites-filter-button"
+              >
                 Sort by price
               </button>
             </form>
@@ -124,7 +132,6 @@
         </div>
 
         <div id="favorites-container">
-
           <div class="all-listings">
             <% for(value in favorites) { %>
             <div class="one-listing">
@@ -146,7 +153,7 @@
               <div class="listing-buttons">
                 <form
                   method="POST"
-                  action="/remove_favorite/<%=favorites[value].listing_id%>"
+                  action="/favorites/remove_favorite/<%=favorites[value].listing_id%>"
                 >
                   <button type="submit" class="button-favorite">
                     <i class="fas fa-heart"></i>
@@ -174,7 +181,11 @@
             My listings
           </h1>
           <div>
-            <form method="POST" action="/users/:id/listings_sort" class="filter">
+            <form
+              method="POST"
+              action="/users/:id/listings_sort"
+              class="filter"
+            >
               <!-- <label>
                 Sort by price
               </label> -->
@@ -192,7 +203,6 @@
         </div>
 
         <div id="listings-container">
-
           <div class="all-listings">
             <% for(value in listings) { %>
             <div class="one-listing">
