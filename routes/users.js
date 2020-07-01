@@ -108,11 +108,13 @@ module.exports = (db) => {
     JOIN buyers ON favorites.buyer_id = buyers.id
     WHERE buyers.email = $1;
         `;
-    const listingsQuery = `
-      SELECT *
+
+      const listingsQuery = `
+      SELECT listings.*
       FROM listings
       WHERE seller_id = $1;
       `;
+
     const messagesQuery = `
       SELECT *
       FROM messages
