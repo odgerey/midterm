@@ -20,10 +20,11 @@ form {
     font-weight: 700;
   }
 
-  input {
+  textarea {
     overflow: wrap;
-    overflow-wrap: break-word;
-    // height: 20em;
+    resize: none;
+    // overflow-wrap: break-word;
+    width: 20rem;
     font-size: 14px;
   }
 }
@@ -62,7 +63,7 @@ form {
       font-size: 28px;
     }
 
-    input {
+    textarea {
       font-size: 16px;
     }
   }

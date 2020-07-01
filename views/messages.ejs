@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
 
     <!-- New message page CSS -->
-    <link rel="stylesheet" href="/styles/new_message.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/messages.css" type="text/css" />
 
     <!-- Footer CSS -->
     <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
@@ -43,16 +43,30 @@
           <label>
             <%=`Send a new message to the seller`%>
           </label>
-          <input
+          <textarea
             type="subject"
             name="subject"
             placeholder="A request about [listing.name]..."
-          />
-          <input type="body" name="body" placeholder="Your message here..." />
+          ></textarea>
+          <textarea
+            type="body"
+            name="body"
+            placeholder="Your message here..."
+          ></textarea>
           <button type="submit" id="new-message-button">
             Send
           </button>
         </form>
+        <div id="message-history">
+          <h2>Message History</h2>
+          <% for(value in listOfMessages) { %>
+          <article>
+            <h5>Subject: <%= listOfMessages[value].title %></h5>
+            <p>Message: <%= listOfMessages[value].description %></p>
+            <hr />
+          </article>
+          <% } %>
+        </div>
       </section>
     </main>
 
