@@ -18,6 +18,7 @@ $(document).ready(function() {
 
   $('#show-favorites-button').on('click', function() {
     $('#favorites-container').slideToggle('fast');
+    $('#favorites-filter-button').slideToggle('fast');
   });
 
   // Changing the favourites button after clicking on it
