@@ -38,15 +38,6 @@
     <%- include('partials/_header') %>
 
     <main>
-      <% for(value in listOfMessages) { %>
-
-      <h1>Message History</h1>
-
-      <p>Subject: <%= listOfMessages[value].title %></p>
-      <p>Message: <%= listOfMessages[value].description %></p>
-
-      <% } %>
-
       <section>
         <form method="POST" action="/listings/<%=listingID%>/messages">
           <label>
