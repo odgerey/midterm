@@ -17,23 +17,7 @@ module.exports = (db) => {
 
   //GET route to show index. Index displays all listings.
   router.get("/", (req, res) => {
-    const queryString = `
-    SELECT *
-    FROM listings;
-    `;
-    db.query(queryString)
-      .then((data) => {
-        if (req.session.email === null) {
-          res.redirect("login");
-        }
-        const products = data.rows;
-        const username = req.session.email;
-        const templateVars = { products, username };
-        res.render("listings", templateVars);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+    res.redirect("listings");
   });
 
   //Get request to load listings
@@ -413,43 +397,7 @@ module.exports = (db) => {
 
   // GET route to reply to messages
   router.get("/listings/:id/messages/reply", (req, res) => {
-    console.log("hello");
     const username = req.session.email;
-    getListingInfo = `
-    SELECT *
-    FROM listings
-    WHERE id = $1;
-
-    `;
-
-    getMessages = `
-    SELECT *
-    FROM messages
-    WHERE listing_id = $1
-    AND seller_id = $3
-    AND buyer_id = $2;
-    `;
-
-    db.query(getListingInfo, [req.params.id]).then((data) => {
-      console.log(
-        "This all the Data:",
-        data.rows[0],
-        "This is the seller id",
-        data.rows[0].seller_id
-      );
-
-      const getMessagesValues = [
-        req.params.id,
-        data.rows[0].seller_id,
-        req.session.buyer_id,
-      ];
-      db.query(getMessages, getMessagesValues).then((data) => {
-        const listingID = req.params.id;
-        const listOfMessages = data.rows;
-        templateVars = { username, listingID, listOfMessages };
-        res.render("messages", templateVars);
-      });
-    });
   });
 
   // /* End of Routes */
