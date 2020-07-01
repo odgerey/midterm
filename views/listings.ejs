@@ -74,7 +74,7 @@
         <div id="listings-container">
           <div id="all-listings">
             <% for(value in products) { %>
-            <div class="one-listing">
+            <div class="one-listing" id='<%= products[value].listing_id%>'>
               <div class="listing-info">
                 <img src="<%= products[value].thumbnail_photo_url%>" />
                 <div>

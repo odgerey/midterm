@@ -34,26 +34,37 @@ $(document).ready(function() {
     $(icon).removeClass("far fa-heart").addClass("fas fa-heart");
     // $(event.target).toggleClass("fas fa-heart far fa-heart");
 
+    const listingId = $('.one-listing').attr("id");
+
     $.ajax({
-      url: '/listings/add_favorite/:listingID',
-      method: 'POST'
+      url: `/listings/add_favorite/${listingId}`,
+      method: 'POST',
     })
-      .then(console.log('working'));
+      // .then(console.log('working'));
   });
 
   // Removing from favourites on clicking the remove from favourites icon
 
   $('.remove-favorite-form').on('submit', function(event) {
-    // event.preventDefault();
+    event.preventDefault();
     const icon = $(event.target).find('.button-favorite i');
     $(icon).removeClass("fas fa-heart").addClass("far fa-heart");
     // $(event.target).toggleClass("fas fa-heart far fa-heart");
 
+    const listingId = $('.one-listing').attr("id");
+    // console.log(listingId);
+
+    // const inputId = $('#' + listingId).val();
+    // console.log(inputId);
+
     $.ajax({
-      url: '/listings/remove_favorite/:listingID',
-      method: 'POST'
+      // url: '/listings/remove_favorite/:listingID',
+      url: `/remove_favorite/${listingId}`,
+      method: 'POST',
+      // data: listingId,
     })
-      .then(console.log('working'));
+      // .then(() => console.log(listingId))
+      // .then(() => $(`#${listingId}`).hide('fast'));
   });
 
   // Showing an alert when a message is sent
