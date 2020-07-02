@@ -1,12 +1,12 @@
 INSERT INTO buyers(username, email, password)
-VALUES ('nadia01', 'nadia@gmail.com', '#Nadia123'),
-('sarah01', 'sarah@gmail.com', '#Sarah123'),
-('john01', 'john@gmail.com', '#John123'),
-('rudolph01', 'rudolphe@gmail.com', '#rudolph123'),
-('jerry01', 'jerry01@gmail.com', '#jerry01'),
-('schmidtKing', 'schmidtking@gmail.com', '#king01'),
-('simoneCat', 'thedarksphynx@gmail.com', '#435KIND'),
-('Nickyappy', 'nickeyhappy@gmail.com', 'HA34KF');
+VALUES ('nadia01', 'nadia@gmail.com', '1234'),
+('sarah01', 'sarah@gmail.com', '1234'),
+('john01', 'john@gmail.com', '1234'),
+('rudolph01', 'rudolphe@gmail.com', '1234'),
+('jerry01', 'jerry01@gmail.com', '1234'),
+('schmidtKing', 'schmidtking@gmail.com', '1234'),
+('simoneCat', 'thedarksphynx@gmail.com', '1234'),
+('Nickyappy', 'nickeyhappy@gmail.com', '1234');
 
 INSERT INTO sellers(buyer_id )
 VALUES (1),
