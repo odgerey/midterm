@@ -1,5 +1,9 @@
+// main {
+//   height: 100vh;
+// }
+
 section {
-  height: 18em;
+  height: 16.5em;
   display: flex;
   justify-content: center;
   border: rgb(22, 3, 15) solid;
@@ -55,13 +59,15 @@ section {
 
 @media only screen and (min-width: 1024px) {
 
-  form {
-    label {
-      font-size: 28px;
-    }
+  section {
+    form {
+      label {
+        font-size: 28px;
+      }
 
-    input {
-      font-size: 16px;
+      input {
+        font-size: 16px;
+      }
     }
   }
 

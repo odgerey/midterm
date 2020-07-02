@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>My account</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/user.css" type="text/css" />
+
+    <!-- Custom fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Global layout CSS -->
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+    <!-- Header CSS -->
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+
+    <!-- User page CSS -->
+    <link rel="stylesheet" href="/styles/user.css" type="text/css" />
+
+    <!-- Footer CSS -->
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+
+    <!-- Fontawesome custom icons -->
+    <script
+      src="https://kit.fontawesome.com/f0b575b405.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <!-- Client-side JS -->
+    <script type="text/javascript" src="/scripts/client.js"></script>
+
+    <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+  </head>
+
+  <body>
+    <%- include('partials/_header') %>
+
+    <main>
+      <section id="section-messages">
+        <div class="section-header">
+          <h1>
+            My messages
+          </h1>
+          <button id="show-messages-button">
+            Toggle messages
+          </button>
+        </div>
+        <div id="received-messages">
+          <% for(value in messages) { %>
+          <div class="one-message">
+            <div class="message-text">
+              <h4>
+                <%= messages[value].title %>
+              </h4>
+              <article>
+                <%= messages[value].description %>
+              </article>
+            </div>
+            <div class="message-parameters">
+              <span>
+                This message was sent from: <%= messages[value].buyer_id %>
+              </span>
+              <span>
+                This message was sent to: <%= messages[value].seller_id %>
+              </span>
+              <span class="message-date">
+                <%= messages[value].created_at %>
+              </span>
+            </div>
+            <form
+              method="GET"
+              action="/messages/listings/<%= messages[value].listing_id  %>/messages/reply"
+            >
+              <button type="submit" class="reply-message-button">
+                Reply
+              </button>
+            </form>
+            <!-- <form
+              method="POST"
+              action="/listings/<%= messages[value].buyer_id  %>/messages/delete"
+            >
+              <button type="submit" class="reply-message-button">
+                Delete
+              </button>
+            </form> -->
+          </div>
+          <hr />
+          <% } %>
+        </div>
+      </section>
+
+      <section id="section-favorites">
+        <div class="section-header">
+          <h1>
+            My favorites
+          </h1>
+          <div>
+            <form method="POST" action="/users/favorites_sort" class="filter">
+              <!-- <label>
+                Sort by price
+              </label> -->
+              <!-- <input placeholder="Please specify..." /> -->
+              <button
+                type="submit"
+                class="filter-button"
+                id="favorites-filter-button"
+              >
+                Sort by price
+              </button>
+            </form>
+            <button id="show-favorites-button">
+              Toggle favorites
+            </button>
+          </div>
+        </div>
+
+        <div id="favorites-container">
+          <div class="all-listings" id="favorites-listings">
+            <% for(value in favorites) { %>
+            <div class="one-listing" id="<%= favorites[value].listing_id%>">
+              <div class="listing-info">
+                <img src="<%= favorites[value].thumbnail_photo_url%>" />
+                <div>
+                  <div class="listing-parameters">
+                    <h3><%= favorites[value].title%></h3>
+                    <div>
+                      <span>CAD <%= favorites[value].price%></span>
+                      <span>Posted on: <%= favorites[value].date%></span>
+                    </div>
+                  </div>
+                  <article class="listing-description">
+                    <%= favorites[value].description %>
+                  </article>
+                </div>
+              </div>
+              <div class="listing-buttons">
+                <form
+                  method="POST"
+                  action="/favorites/remove_favorite/<%=favorites[value].listing_id%>"
+                  class="remove-favorite-form"
+                >
+                  <button type="submit" class="button-favorite">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </form>
+                <form
+                  method="GET"
+                  action="/messages/listings/<%=favorites[value].listing_id%>/messages/"
+                >
+                  <button type="submit" class="new-message-button">
+                    Contact
+                  </button>
+                </form>
+              </div>
+            </div>
+            <hr />
+            <% } %>
+          </div>
+        </div>
+      </section>
+
+      <section id="section-listings">
+        <div class="section-header">
+          <h1>
+            All the listings
+          </h1>
+          <div>
+            <form method="POST" action="/users/listings_sort" class="filter">
+              <!-- <label>
+                Sort by price
+              </label> -->
+              <!-- <input placeholder="Please specify..." /> -->
+              <button type="submit" class="filter-button">
+                Sort by price
+              </button>
+            </form>
+            <form method="GET" action="/listings/new">
+              <button type="submit" id="new-listing-button">
+                Add a new listing
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div id="listings-container">
+          <div class="all-listings">
+            <% for(value in listings) { %>
+            <div class="one-listing">
+              <div class="listing-info">
+                <img src="<%= listings[value].thumbnail_photo_url%>" />
+                <div>
+                  <div class="listing-parameters">
+                    <h3><%= listings[value].title%></h3>
+                    <div>
+                      <span>CAD <%= listings[value].price%></span>
+                      <span>Posted on: <%= listings[value].date%></span>
+                    </div>
+                  </div>
+                  <article class="listing-description">
+                    <%= listings[value].description %>
+                  </article>
+                </div>
+              </div>
+              <div class="listing-buttons">
+                <form method="GET" action="/listings/<%= listings[value].id %>">
+                  <button type="submit" class="edit-listing-button">
+                    Edit
+                  </button>
+                </form>
+                <form
+                  method="POST"
+                  action="/listings/<%= listings[value].id %>/sold"
+                >
+                  <button type="submit" class="edit-listing-button">
+                    Mark as sold
+                  </button>
+                </form>
+                <form
+                  method="POST"
+                  action="/listings/<%= listings[value].id %>/delete"
+                >
+                  <button type="submit" class="edit-listing-button">
+                    Delete
+                  </button>
+                </form>
+              </div>
+            </div>
+            <hr />
+            <% } %>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <%- include('partials/_footer') %>
+  </body>
+</html>
