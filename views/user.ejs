@@ -71,10 +71,10 @@
             </div>
             <div class="message-parameters">
               <span>
-                This message was sent from: <%= messages[value].buyer_id %>
+                From: <%= messages[value].buyer_id %>
               </span>
               <span>
-                This message was sent to: <%= messages[value].seller_id %>
+                Listing: [<%= messages[value].listing_id %>]
               </span>
               <span class="message-date">
                 <%= messages[value].created_at %>
@@ -178,15 +178,6 @@
             My listings
           </h1>
           <div>
-            <form method="POST" action="/users/listings_sort" class="filter">
-              <!-- <label>
-                Sort by price
-              </label> -->
-              <!-- <input placeholder="Please specify..." /> -->
-              <button type="submit" class="filter-button">
-                Sort by price
-              </button>
-            </form>
             <form method="GET" action="/listings/new">
               <button type="submit" id="new-listing-button">
                 Add a new listing

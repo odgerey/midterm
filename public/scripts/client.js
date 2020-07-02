@@ -72,31 +72,41 @@ $(document).ready(function() {
 
   // Checking and showing an error if the fields are empty when submitting a new listing form
 
-  // $('#new-listing-form').on('submit', function(event) {
+  $('#new-listing-form').on('submit', function(event) {
 
-  //   event.preventDefault();
+    event.preventDefault();
 
-  //   let input = $('textarea').val();
+    let input = $('textarea').val();
 
-  //   if (!input) {
-  //     $('.error').slideUp('fast');
-  //     $('.error').html('Please fill in the fields for the new listing :)');
-  //     $('.error').slideDown('fast');
-  //   } else {
-  //     $('.error').slideUp('fast');
-  //     $.ajax({
-  //       url: '/listings/new_listing',
-  //       method: 'POST',
-  //       // data: $(this).serialize(),
-  //     })
-  //       .then($('textarea').val(""))
-  //       // .then($.ajax({
-  //       //   url: '/listings',
-  //       //   method: 'GET',
-  //       // }));
-  //   }
+    if (!input) {
+      $('.error').slideUp('fast');
+      $('.error').html('Please fill in the fields for the new listing :)');
+      $('.error').slideDown('fast');
+    } else {
+      $('.error').slideUp('fast');
+      $.ajax({
+        url: '/listings/new_listing',
+        method: 'POST',
+        // data: $(this).serialize(),
+      })
+        .then($('textarea').val(""))
+        .then($.ajax({
+          url: '/listings',
+          method: 'GET',
+        }));
+    }
 
-  // });
+    // $("#new-listing-form").on("submit", function (event) {
+    //   let input = $("textarea").val();
+    //   if (!input) {
+    //     event.preventDefault();
+    //     $(".error").slideUp("fast");
+    //     $(".error").html("Please fill in the fields for the new listing :)");
+    //     $(".error").slideDown("fast");
+    //   }
+    // });
+
+  });
 
     // Checking and showing an error if the fields are empty when submitting an edit listing form
 
