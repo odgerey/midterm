@@ -62,7 +62,12 @@
 
   article {
     font-size: 14px;
+    margin: 0 0.5rem 0 0;
   }
+}
+
+article {
+  text-align: justify;
 }
 
 .message-parameters {

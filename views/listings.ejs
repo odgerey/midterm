@@ -35,6 +35,10 @@
   </head>
   <body>
     <%- include('partials/_header') %>
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature/front-end
     <main>
       <section>
         <div class="listings-header">
@@ -61,7 +65,10 @@
         <div id="listings-container">
           <div id="all-listings">
             <% for(value in products) { %>
+<<<<<<< HEAD
               <%= isFavorite(products[value].id, favorites) %>
+=======
+>>>>>>> feature/front-end
             <div class="one-listing" id='<%= products[value].id%>'>
               <div class="listing-info">
                 <img src="<%= products[value].thumbnail_photo_url%>" />
@@ -81,6 +88,17 @@
                 </div>
               </div>
               <div class="listing-buttons">
+                <% if (isFavorite(products[value].id, favorites)) { %>
+                <form
+                  method="POST"
+                  action="/favorites/remove_favorite/<%=products[value].id%>"
+                  class="remove-favorite-form"
+                >
+                  <button type="submit" class="button-favorite">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </form>
+                <% } else { %>
                 <form
                   method="POST"
                   action="/favorites/add_favorite/<%=products[value].id%>"
@@ -90,14 +108,7 @@
                     <i class="far fa-heart"></i>
                   </button>
                 </form>
-                <!-- <form
-                  method="POST"
-                  action="/remove_favorite/<%=products[value].id%>"
-                >
-                  <button type="submit" class="button-favorite">
-                    <i class="fas fa-heart"></i>
-                  </button>
-                </form> -->
+                <% } %>
                 <form
                   method="GET"
                   action="/messages/listings/<%=products[value].id%>/messages "
