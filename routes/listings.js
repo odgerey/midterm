@@ -1,7 +1,14 @@
 const express = require("express");
 const router = express.Router();
-module.exports = (db) => {
 
+const isFavorite = function (listingID, favoritesArray) {
+  const favoriteIDs = favoritesArray.map(function (favorite) {
+    return favorite.listing_id;
+  });
+  return favoriteIDs.includes(listingID);
+};
+
+module.exports = (db) => {
   //Get request to load listings and user's favourites
   router.get("/", (req, res) => {
     const getAllProducts = `
@@ -14,7 +21,7 @@ module.exports = (db) => {
     JOIN listings ON favorites.listing_id = listings.id
     JOIN buyers ON favorites.buyer_id = buyers.id
     WHERE buyers.email = $1;
-    `
+    `;
     const email = req.session.email;
     const username = email;
     const promises = [
@@ -26,7 +33,7 @@ module.exports = (db) => {
       .then(([productsResults, favoritesResults]) => {
         const favorites = favoritesResults.rows;
         const products = productsResults.rows;
-        const templateVars = { favorites, products, username };
+        const templateVars = { favorites, products, username, isFavorite };
         res.render("listings", templateVars);
       })
       .catch((err) => {
@@ -51,7 +58,7 @@ module.exports = (db) => {
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
-    })
+  });
 
   //GET route to add new listing
   router.get("/new", (req, res) => {
