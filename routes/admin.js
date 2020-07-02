@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const { isAdmin } = require("../helperFunctions");
 
 module.exports = (db) => {
-  //GET route for buyer's page. Shows all favourite items.
   router.get("/", (req, res) => {
     const listingsQuery = `
       SELECT *
@@ -15,7 +15,7 @@ module.exports = (db) => {
     Promise.all(promises)
       .then(([listingResults]) => {
         const listings = listingResults.rows;
-        const templateVars = { listings, username };
+        const templateVars = { listings, username, isAdmin  };
         res.render("admin", templateVars);
       })
       .catch((err) => {

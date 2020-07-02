@@ -1,15 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const { isAdmin } = require("../helperFunctions");
 
 module.exports = (db) => {
-  // GET route for login page
   router.get("/", (req, res) => {
     const username = req.session.email;
     templateVars = { username };
     res.render("login", templateVars);
   });
 
-  //POST route for login page
   router.post("/", (req, res) => {
     const values = [req.body.email, req.body.password];
     const queryString = `
@@ -22,15 +21,13 @@ module.exports = (db) => {
     db.query(queryString, values)
       .then((data) => {
         const username = req.session.email;
-        templateVars = { username }
+        templateVars = { username, isAdmin }
         if (!data.rows[0]) {
           res.render("error", templateVars);
         }else {
         const userData = data.rows[0];
         req.session.email = userData.email;
         req.session.buyer_id = userData.id;
-        console.log(`Login successful.
-        // User Cookie ${req.session.email} and id is ${req.session.buyer_id}`);
         res.redirect(`/users/myaccount`);
         }
       })

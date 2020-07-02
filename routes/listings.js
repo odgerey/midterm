@@ -32,7 +32,7 @@ module.exports = (db) => {
           return { ...product, date: date };
         });
         console.log(products[0]);
-        const templateVars = { favorites, products, username, isFavorite };
+        const templateVars = { favorites, products, username, isFavorite, isAdmin };
         res.render("listings", templateVars);
       })
       .catch((err) => {
@@ -65,7 +65,7 @@ module.exports = (db) => {
       .then(([productsResults, favoritesResults]) => {
         const favorites = favoritesResults.rows;
         const products = productsResults.rows;
-        const templateVars = { favorites, products, username, isFavorite };
+        const templateVars = { favorites, products, username, isFavorite, isAdmin };
         res.render("listings", templateVars);
       })
       .catch((err) => {
@@ -76,7 +76,7 @@ module.exports = (db) => {
   //GET route to add new listing
   router.get("/new", (req, res) => {
     const username = req.session.email;
-    const templateVars = { username };
+    const templateVars = { username, isAdmin  };
     res.render("new_listing", templateVars);
   });
 
@@ -134,7 +134,7 @@ module.exports = (db) => {
     userCheck(db, req.params.id, req.session.buyer_id)
       .then((product) => {
         const username = req.session.email;
-        templateVars = { username, product };
+        templateVars = { username, product, isAdmin  };
         res.render("edit_listing", templateVars);
       })
       .catch((err) => {

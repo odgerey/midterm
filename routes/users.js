@@ -1,26 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const moment = require("moment");
-
+const { isAdmin } = require("../helperFunctions");
 
 module.exports = (db) => {
-  // POST route to logout. Sets cookie to NULL
-  router.post("/logout", (req, res) => {
-    console.log("POST request to logout");
-    req.session.email = null;
-    req.session.buyer_id = null;
-    res.redirect("/login");
-  });
 
-  //GET route for buyer's page. Shows all favourite items.
   router.get("/myaccount", (req, res) => {
     const favoritesQuery = `
-    SELECT listings.*, favorites.*
-    FROM favorites
-    JOIN listings ON favorites.listing_id = listings.id
-    JOIN buyers ON favorites.buyer_id = buyers.id
-    WHERE buyers.email = $1;
-    `;
+      SELECT listings.*, favorites.*
+      FROM favorites
+      JOIN listings ON favorites.listing_id = listings.id
+      JOIN buyers ON favorites.buyer_id = buyers.id
+      WHERE buyers.email = $1;
+      `;
     const listingsQuery = `
       SELECT *
       FROM listings
@@ -45,7 +37,7 @@ module.exports = (db) => {
         const favorites = favoritesResults.rows;
         const listings = listingResults.rows;
         const messages = messagesResults.rows;
-        const templateVars = { favorites, listings, messages, username };
+        const templateVars = { favorites, listings, messages, username, isAdmin};
         res.render("user", templateVars);
       })
       .catch((err) => {
@@ -88,7 +80,7 @@ module.exports = (db) => {
         const favorites = favoritesResults.rows;
         const listings = listingResults.rows;
         const messages = messagesResults.rows;
-        const templateVars = { favorites, listings, messages, username };
+        const templateVars = { favorites, listings, messages, username, isAdmin };
         res.render("user", templateVars);
       })
       .catch((err) => {
@@ -100,13 +92,13 @@ module.exports = (db) => {
   router.post("/listings_sort", (req, res) => {
     console.log("Listings Sort working");
     const favoritesQuery = `
-    SELECT listings.*, favorites.*
-    FROM favorites
-    JOIN listings ON favorites.listing_id = listings.id
-    JOIN buyers ON favorites.buyer_id = buyers.id
-    WHERE buyers.email = $1
-    ORDER BY price ASC;
-        `;
+      SELECT listings.*, favorites.*
+      FROM favorites
+      JOIN listings ON favorites.listing_id = listings.id
+      JOIN buyers ON favorites.buyer_id = buyers.id
+      WHERE buyers.email = $1
+      ORDER BY price ASC;
+      `;
 
     const listingsQuery = `
       SELECT listings.*
@@ -134,7 +126,7 @@ module.exports = (db) => {
         const favorites = favoritesResults.rows;
         const listings = listingResults.rows;
         const messages = messagesResults.rows;
-        const templateVars = { favorites, listings, messages, username };
+        const templateVars = { favorites, listings, messages, username, isAdmin };
         res.render("user", templateVars);
       })
       .catch((err) => {

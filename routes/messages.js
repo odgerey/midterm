@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const { isAdmin } = require("../helperFunctions");
+
 module.exports = (db) => {
   // GET route for new messages
   router.get("/listings/:id/messages", (req, res) => {
@@ -17,7 +19,7 @@ module.exports = (db) => {
       db.query(getMessages, getMessagesValues).then((data) => {
         const listingID = req.params.id;
         const messageData = data.rows;
-        templateVars = { username, listingID, messageData };
+        templateVars = { username, listingID, messageData, isAdmin };
         res.render("messages", templateVars);
     });
   });
@@ -33,13 +35,9 @@ module.exports = (db) => {
       INSERT INTO messages (buyer_id, listing_id, seller_id, title, description)
       VALUES ($1, $2, $3, $4, $5);
       `;
-      const username = req.session.email;
-      const listingID = req.params.id;
-      const listingTitle = req.params.title;
-      const templateVars = { username };
       const values = [
         req.session.buyer_id,
-        listingID,
+        req.params.id,
         data.rows[0].seller_id,
         req.body.subject,
         req.body.body,
