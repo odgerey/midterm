@@ -5,10 +5,6 @@ const { isFavorite, userCheck, isAdmin } = require("../helperFunctions");
 module.exports = (db) => {
   //Get request to load listings and user's favourites
   router.get("/", (req, res) => {
-    isAdmin(db, req.session.buyer_id).then((result) => {
-      console.log(result);
-    });
-
     const getAllProducts = `
     SELECT *
     FROM listings;
@@ -156,16 +152,15 @@ module.exports = (db) => {
       req.body.price,
       req.params.id,
     ];
-    db.query(updateListing, listingValues)
-      .then(() => {
-        if (isAdmin(db, req.session.buyer_id)) {
+    db.query(updateListing, listingValues).then(() => {
+      isAdmin(db, req.session.buyer_id).then((result) => {
+        if (result === true) {
           res.redirect("/admin");
+        } else {
+          res.redirect("/users/myaccount");
         }
-        res.redirect("/listings");
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
       });
+    });
   });
 
   //POST route to mark as sold
@@ -173,17 +168,20 @@ module.exports = (db) => {
     userCheck(db, req.params.id, req.session.buyer_id);
     const markAsSold = `
       UPDATE listings
-      SET thumbnail_photo_url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ3_Zuf97hXX_3DNcclObUDqCrsQ46enyuPCw&usqp=CAU'
+      SET thumbnail_photo_url = '/images/sold.png'
       WHERE id = $1
       AND for_sale = true;
         `;
     const values = [req.params.id];
     db.query(markAsSold, values)
       .then(() => {
-        if (isAdmin(db, req.session.buyer_id)) {
-          res.redirect("/admin");
-        }
-        res.redirect("/users/myaccount/#section-listings");
+        isAdmin(db, req.session.buyer_id).then((result) => {
+          if (result === true) {
+            res.redirect("/admin");
+          } else {
+            res.redirect("/users/myaccount/#section-listings");
+          }
+        });
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
