@@ -34,7 +34,8 @@ $(document).ready(function() {
     $(icon).removeClass("far fa-heart").addClass("fas fa-heart");
     // $(event.target).toggleClass("fas fa-heart far fa-heart");
 
-    const listingId = $('.one-listing').attr("id");
+    const currentListing = $(event.target).closest('.one-listing');
+    const listingId = $(currentListing).attr("id");
 
     $.ajax({
       url: `/favorites/add_favorite/${listingId}`,
@@ -45,23 +46,20 @@ $(document).ready(function() {
 
   // Removing from favourites on clicking the remove from favourites icon
 
+  // Add empty container and render favourites to .then
+
   $('.remove-favorite-form').on('submit', function(event) {
     event.preventDefault();
     const icon = $(event.target).find('.button-favorite i');
     $(icon).removeClass("fas fa-heart").addClass("far fa-heart");
     // $(event.target).toggleClass("fas fa-heart far fa-heart");
 
-    const listingId = $('.one-listing').attr("id");
-    // console.log(listingId);
-
-    // const inputId = $('#' + listingId).val();
-    // console.log(inputId);
+    const currentListing = $(event.target).closest('.one-listing');
+    const listingId = $(currentListing).attr("id");
 
     $.ajax({
-      // url: '/listings/remove_favorite/:listingID',
       url: `/favorites/remove_favorite/${listingId}`,
       method: 'POST',
-      // data: listingId,
     })
       // .then(() => console.log(listingId))
       // .then(() => $(`#${listingId}`).hide('fast'));
