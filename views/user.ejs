@@ -71,10 +71,10 @@
             </div>
             <div class="message-parameters">
               <span>
-                From: <%= messages[value].buyer_id %>
+                From: <%= messages[value].username %>
               </span>
               <span>
-                Listing: [<%= messages[value].listing_id %>]
+                Listing: <%= messages[value].listing_id %>
               </span>
               <span class="message-date">
                 <%= messages[value].created_at %>

@@ -24,9 +24,9 @@ module.exports = (db) => {
   //Post route to send a new message
   router.post("/listings/:id/messages", (req, res) => {
     getListingInfo = `
-    SELECT *
-    FROM listings
-    WHERE id = $1;
+    SELECT buyers.username as name, listings.* FROM listings
+    JOIN buyers ON buyers.id = buyers.id
+    WHERE listings.id = $1;
     `;
     db.query(getListingInfo, [req.params.id]).then((data) => {
       const getMessages = `
