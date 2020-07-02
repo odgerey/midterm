@@ -8,7 +8,6 @@ module.exports = (db) => {
 
   // POST route to logout. Sets cookie to NULL
   router.post("/logout", (req, res) => {
-    console.log("POST request to logout");
     req.session.email = null;
     req.session.buyer_id = null;
     res.redirect("/login");
