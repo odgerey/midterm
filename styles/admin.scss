@@ -1,15 +1,3 @@
-#section-messages {
-  padding: 0 1em 1.5em 1em;
-  border: rgb(22, 3, 15) solid;
-  margin: 4em 0 3em 0;
-  width: 90%;
-  background-color: white;
-
-  // h1 {
-  //   margin-left: 0.25em;
-  // }
-}
-
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -24,77 +12,9 @@
   // justify-content: flex-end;
 }
 
-#received-messages {
-  // margin: 1rem 0 0 0;
-  display: flex;
-  // display: none;
-  flex-direction: column;
-  align-items: center;
-
-  hr {
-    width: 100%;
-    margin: 1rem 0 1rem 0;
-    color: rgb(22, 3, 15) solid;
-  }
-}
-
-.one-message {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  // align-items: center;
-
-  form {
-    display: flex;
-    align-items: center;
-  }
-}
-
-.message-text {
-  width: 65%;
-  margin: 0 0.5rem 0 0;
-  display: flex;
-  flex-direction: column;
-
-  h4 {
-    margin: 0;
-  }
-
-  article {
-    overflow-wrap: anywhere;
-    font-size: 14px;
-    margin: 0 0.5rem 0 0;
-  }
-}
-
 article {
   text-align: justify;
 }
-
-.message-parameters {
-  display: flex;
-  flex-direction: column;
-}
-
-.message-date {
-  font-size: 14px;
-}
-
-#section-favorites {
-  padding: 0 1em 1.5em 1em;
-  border: rgb(22, 3, 15) solid;
-  margin: 0 0 3em 0;
-  width: 90%;
-  background-color: white;
-
-  // h1 {
-  //   margin-left: 0.25em;
-  // }
-}
-
-// #favorites-container {
-//   display: none;
-// }
 
 .button-favorite {
   // margin: 1.5rem 0 0 0;
@@ -112,7 +32,7 @@ article {
 #section-listings {
   padding: 0 1em 1.5em 1em;
   border: rgb(22, 3, 15) solid;
-  margin: 0 0 3em 0;
+  margin: 4em 0 3em 0;
   width: 90%;
   background-color: white;
 
@@ -126,7 +46,7 @@ article {
   justify-content: space-between;
 }
 
-#new-listing-button, .filter-button, .new-message-button, .edit-listing-button, #show-messages-button, #show-favorites-button, .reply-message-button {
+#new-listing-button, .filter-button, .edit-listing-button {
   display: inline-block;
   text-align: center;
   text-decoration: none;
@@ -139,7 +59,7 @@ article {
   cursor: pointer;
 }
 
-#show-messages-button, #show-favorites-button, .filter-button, #new-listing-button, .edit-listing-button {
+.filter-button, #new-listing-button, .edit-listing-button {
   width: 9rem;
   // margin: 0 1.5rem 0 0.5rem;
 }
@@ -148,30 +68,25 @@ article {
   font-size: 14px;
 }
 
-#show-favorites-button, #new-listing-button {
+#new-listing-button {
   margin: 0 0 0 0.5rem;
 }
 
-.reply-message-button, .new-message-button {
+.new-message-button {
   width: 6rem;
   font-size: 14px;
-}
-
-.reply-message-button {
-  align-self: center;
-  margin: 0 0 0 1.5rem;
 }
 
 .edit-listing-button {
   margin: 0 0 0 1em;
 }
 
-#new-listing-button:hover, .filter-button:hover, .new-message-button:hover, .edit-listing-button:hover, #show-messages-button:hover, #show-favorites-button:hover, .reply-message-button:hover {
+#new-listing-button:hover, .filter-button:hover, .new-message-button:hover, .edit-listing-button:hover {
   background-color: rgb(22, 3, 15);
   color: white;
 }
 
-#listings-container, #favorites-container {
+#listings-container {
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
@@ -282,23 +197,13 @@ img {
 
 @media only screen and (min-width: 1024px) {
 
-  .message-text {
-    article {
-      font-size: 20px;
-    }
-  }
-
-  .message-date {
-    font-size: 20px;
-  }
-
   .filter {
     input {
       font-size: 16px;
     }
   }
 
-  .filter-button, .new-message-button, .edit-listing-button, .reply-message-button {
+  .filter-button, .new-message-button, .edit-listing-button {
     font-size: 16px;
   }
 
