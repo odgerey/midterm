@@ -1,16 +1,5 @@
-/*
- * All routes for Users are defined here
- * Since this file is loaded in server.js into api/users,
- *   these routes are mounted onto /users
- * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
- */
-
 const express = require("express");
 const router = express.Router();
-const { c } = require("tar");
-const { query } = require("express");
-const { user } = require("osenv");
-// const { redirect } = require("statuses");
 
 module.exports = (db) => {
   //GET route for buyer's page. Shows all favourite items.
@@ -46,7 +35,6 @@ module.exports = (db) => {
       .then(([favoritesResults, listingResults, messagesResults]) => {
         const favorites = favoritesResults.rows;
         const listings = listingResults.rows;
-        console.log("Listings:", listings)
         const messages = messagesResults.rows;
         const templateVars = { favorites, listings, messages, username };
         res.render("user", templateVars);
@@ -56,9 +44,8 @@ module.exports = (db) => {
       });
   });
 
-  //POST route to filter user's favourites by price
+  //POST route to sort user's favourites by price
   router.post("/favorites_sort", (req, res) => {
-    console.log("favorites sort working");
     const favoritesQuery = `
     SELECT listings.*, favorites.*
     FROM favorites
@@ -91,7 +78,6 @@ module.exports = (db) => {
       .then(([favoritesResults, listingResults, messagesResults]) => {
         const favorites = favoritesResults.rows;
         const listings = listingResults.rows;
-        console.log(listings);
         const messages = messagesResults.rows;
         const templateVars = { favorites, listings, messages, username };
         res.render("user", templateVars);
@@ -113,7 +99,7 @@ module.exports = (db) => {
     ORDER BY price ASC;
         `;
 
-      const listingsQuery = `
+    const listingsQuery = `
       SELECT listings.*
       FROM listings
       WHERE seller_id = $1;
@@ -138,7 +124,6 @@ module.exports = (db) => {
       .then(([favoritesResults, listingResults, messagesResults]) => {
         const favorites = favoritesResults.rows;
         const listings = listingResults.rows;
-        console.log("listing:", listings)
         const messages = messagesResults.rows;
         const templateVars = { favorites, listings, messages, username };
         res.render("user", templateVars);
