@@ -43,8 +43,10 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
     />
   </head>
+
   <body>
     <%- include('partials/_header') %>
+
     <main>
       <section>
         <div class="listings-header">
@@ -68,6 +70,7 @@
             </form>
           </div>
         </div>
+
         <div id="listings-container">
           <div id="all-listings">
             <% for(value in products) { %>
@@ -127,6 +130,8 @@
         </div>
       </section>
     </main>
+
     <%- include('partials/_footer') %>
   </body>
+
 </html>
