@@ -35,6 +35,7 @@ module.exports = (db) => {
       `;
       const username = req.session.email;
       const listingID = req.params.id;
+      const listingTitle = req.params.title;
       const templateVars = { username };
       const values = [
         req.session.buyer_id,

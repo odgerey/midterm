@@ -191,4 +191,4 @@ $(document).ready(function() {
     alert('Your message has been sent!');
   });
 
-});
+})

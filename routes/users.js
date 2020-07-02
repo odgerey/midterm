@@ -46,6 +46,7 @@ module.exports = (db) => {
       .then(([favoritesResults, listingResults, messagesResults]) => {
         const favorites = favoritesResults.rows;
         const listings = listingResults.rows;
+        console.log("Listings:", listings)
         const messages = messagesResults.rows;
         const templateVars = { favorites, listings, messages, username };
         res.render("user", templateVars);
@@ -111,11 +112,13 @@ module.exports = (db) => {
     WHERE buyers.email = $1
     ORDER BY price ASC;
         `;
-    const listingsQuery = `
-      SELECT *
+
+      const listingsQuery = `
+      SELECT listings.*
       FROM listings
       WHERE seller_id = $1;
       `;
+
     const messagesQuery = `
       SELECT *
       FROM messages
@@ -135,6 +138,7 @@ module.exports = (db) => {
       .then(([favoritesResults, listingResults, messagesResults]) => {
         const favorites = favoritesResults.rows;
         const listings = listingResults.rows;
+        console.log("listing:", listings)
         const messages = messagesResults.rows;
         const templateVars = { favorites, listings, messages, username };
         res.render("user", templateVars);

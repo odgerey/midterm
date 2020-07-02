@@ -2,55 +2,39 @@
 <html lang="en">
   <head>
     <title>All the listings</title>
-
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
-
     <!-- Custom fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap"
       rel="stylesheet"
     />
-
     <!-- Global layout CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
     <!-- Header CSS -->
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
-
     <!-- Listings page CSS -->
     <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
-
     <!-- Footer CSS -->
     <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
-
     <!-- Fontawesome custom icons -->
     <script
       src="https://kit.fontawesome.com/f0b575b405.js"
       crossorigin="anonymous"
     ></script>
-
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
-
     <!-- Client-side JS -->
     <script type="text/javascript" src="/scripts/client.js"></script>
-
     <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
     />
   </head>
-
   <body>
     <%- include('partials/_header') %>
-
-
-
-
-
     <main>
       <section>
         <div class="listings-header">
@@ -74,12 +58,10 @@
             </form>
           </div>
         </div>
-
         <div id="listings-container">
           <div id="all-listings">
             <% for(value in products) { %>
               <%= isFavorite(products[value].id, favorites) %>
-
             <div class="one-listing" id='<%= products[value].id%>'>
               <div class="listing-info">
                 <img src="<%= products[value].thumbnail_photo_url%>" />
@@ -132,7 +114,6 @@
         </div>
       </section>
     </main>
-
     <%- include('partials/_footer') %>
   </body>
 </html>
