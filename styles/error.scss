@@ -2,10 +2,15 @@ section {
   height: 18em;
   display: flex;
   justify-content: center;
+  align-items: center;
   border: rgb(22, 3, 15) solid;
   margin: 4em 0 3em 0;
   width: 50%;
   background-color: white;
+
+  span {
+    margin: 0 0 2rem 0;
+  }
 }
 
 // @media only screen and (min-width: 768px) {
