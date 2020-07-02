@@ -74,9 +74,14 @@
         <div id="listings-container">
           <div id="all-listings">
             <% for(value in products) { %>
-            <div class="one-listing" id='<%= products[value].id%>'>
+            <div class="one-listing" id="<%= products[value].id%>">
               <div class="listing-info">
-                <img src="<%= products[value].thumbnail_photo_url%>" />
+                <a
+                  href="<%= products[value].thumbnail_photo_url%>"
+                  target="new"
+                >
+                  <img src="<%= products[value].thumbnail_photo_url%>" />
+                </a>
                 <div>
                   <div class="listing-parameters">
                     <h3>
@@ -133,5 +138,4 @@
 
     <%- include('partials/_footer') %>
   </body>
-
 </html>
