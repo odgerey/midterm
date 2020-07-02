@@ -41,18 +41,32 @@ module.exports = (db) => {
       });
   });
 
-  //POST route to filter by price
+  //POST route to sort by price
   router.post("/", (req, res) => {
-    const username = req.session.email;
-    const queryString = `
-      SELECT *
-      FROM listings
-      ORDER BY price ASC;
-      `;
-    db.query(queryString)
-      .then((data) => {
-        const products = data.rows;
-        const templateVars = { products, username };
+    const getAllProducts = `
+    SELECT *
+    FROM listings
+    ORDER BY price ASC;
+    `;
+    const getUsersFavorites = `
+    SELECT listings.*, favorites.*
+    FROM favorites
+    JOIN listings ON favorites.listing_id = listings.id
+    JOIN buyers ON favorites.buyer_id = buyers.id
+    WHERE buyers.email = $1;
+    `;
+    const email = req.session.email;
+    const username = email;
+    const promises = [
+      db.query(getAllProducts),
+      db.query(getUsersFavorites, [email]),
+    ];
+
+    Promise.all(promises)
+      .then(([productsResults, favoritesResults]) => {
+        const favorites = favoritesResults.rows;
+        const products = productsResults.rows;
+        const templateVars = { favorites, products, username, isFavorite };
         res.render("listings", templateVars);
       })
       .catch((err) => {
@@ -161,7 +175,7 @@ module.exports = (db) => {
   });
 
   //POST route to mark as sold
-  router.post("/:id/sold", (req, res) => {
+  router.post("/:id/sold/", (req, res) => {
     console.log("Mark as sold button working");
     const queryString = `
   UPDATE listings
@@ -174,7 +188,7 @@ module.exports = (db) => {
     db.query(queryString, values)
       .then((data) => {
         console.log(`Listing #${req.params.id} marked as sold`);
-        res.redirect("/users/myaccount");
+        res.redirect("/users/myaccount/#section-listings");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
