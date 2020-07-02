@@ -1,12 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
-const isFavorite = function (listingID, favoritesArray) {
-  const favoriteIDs = favoritesArray.map(function (favorite) {
-    return favorite.listing_id;
-  });
-  return favoriteIDs.includes(listingID);
-};
+const { isFavorite } = require("../helperFunctions");
 
 module.exports = (db) => {
   //Get request to load listings and user's favourites
