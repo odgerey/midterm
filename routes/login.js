@@ -11,18 +11,18 @@ module.exports = (db) => {
 
   //POST route for login page
   router.post("/", (req, res) => {
-    const email = req.body.email;
+    const values = [req.body.email, req.body.password];
     const queryString = `
-    SELECT email, id
+    SELECT email, id, password
     FROM buyers
-    WHERE buyers.email = $1;
+    WHERE buyers.email = $1
+    AND buyers.password = $2;
     `;
 
-    db.query(queryString, [email])
+    db.query(queryString, values)
       .then((data) => {
         if (!data.rows[0]) {
-          console.log("User does not exist");
-          res.status(403).json({ message: "User does not exist" });
+          res.status(403).json({ message: "Incorrect login credentials" });
         }
         const userData = data.rows[0];
         req.session.email = userData.email;
