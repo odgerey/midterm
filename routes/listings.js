@@ -85,6 +85,7 @@ module.exports = (db) => {
       true,
       req.session.buyer_id,
     ];
+    console.log("VALUES ARE", values);
     const queryString = `
   INSERT INTO listings
   (title, description, cover_photo_url, price, for_sale, seller_id)
