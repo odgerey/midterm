@@ -34,6 +34,7 @@ $(document).ready(function() {
   //   event.preventDefault();
   // });
 
+
   $('.button-favorite i').on('click', function() {
     $(event.target).toggleClass("fas fa-heart far fa-heart");
     // $(event.target).removeClass("fas fa-heart far fa-heart");
@@ -59,4 +60,4 @@ $(document).ready(function() {
     alert('Your message has been sent!');
   });
 
-});
+})
