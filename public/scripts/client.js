@@ -29,7 +29,7 @@ $(document).ready(function() {
   // Adding to favourites on clicking the add to favourites icon
 
   $('.add-favorite-form').on('submit', function(event) {
-    // event.preventDefault();
+    event.preventDefault();
     const icon = $(event.target).find('.button-favorite i');
     $(icon).removeClass("far fa-heart").addClass("fas fa-heart");
     // $(event.target).toggleClass("fas fa-heart far fa-heart");
@@ -37,7 +37,7 @@ $(document).ready(function() {
     const listingId = $('.one-listing').attr("id");
 
     $.ajax({
-      url: `/listings/add_favorite/${listingId}`,
+      url: `/favorites/add_favorite/${listingId}`,
       method: 'POST',
     })
       // .then(console.log('working'));
@@ -59,7 +59,7 @@ $(document).ready(function() {
 
     $.ajax({
       // url: '/listings/remove_favorite/:listingID',
-      url: `/remove_favorite/${listingId}`,
+      url: `/favorites/remove_favorite/${listingId}`,
       method: 'POST',
       // data: listingId,
     })
