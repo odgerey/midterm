@@ -161,7 +161,7 @@ module.exports = (db) => {
   });
 
   //POST route to mark as sold
-  router.post("/:id/sold", (req, res) => {
+  router.post("/:id/sold/", (req, res) => {
     console.log("Mark as sold button working");
     const queryString = `
   UPDATE listings
@@ -174,7 +174,7 @@ module.exports = (db) => {
     db.query(queryString, values)
       .then((data) => {
         console.log(`Listing #${req.params.id} marked as sold`);
-        res.redirect("/users/myaccount");
+        res.redirect("/users/myaccount/#section-listings");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
