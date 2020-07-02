@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { isFavorite } = require("../helperFunctions");
+const { isFavorite, isAdmin } = require("../helperFunctions");
 
 module.exports = (db) => {
   //Get request to load listings and user's favourites
@@ -85,12 +85,11 @@ module.exports = (db) => {
       true,
       req.session.buyer_id,
     ];
-    console.log("VALUES ARE", values);
     const queryString = `
-  INSERT INTO listings
-  (title, description, cover_photo_url, price, for_sale, seller_id)
-  VALUES ($1, $2, $3, $4, $5, $6)
-  RETURNING *;
+      INSERT INTO listings
+      (title, description, cover_photo_url, price, for_sale, seller_id)
+      VALUES ($1, $2, $3, $4, $5, $6)
+      RETURNING *;
   `;
 
     db.query(queryString, values)
@@ -104,6 +103,7 @@ module.exports = (db) => {
 
   //POST route to delete listings
   router.post("/:id/delete", (req, res) => {
+    isAdmin(db, req.params.id, req.session.buyer_id);
     const queryString = `
       DELETE FROM listings
       WHERE seller_id = $1
@@ -120,19 +120,10 @@ module.exports = (db) => {
       });
   });
 
-  // GET route for new listings page
+  // GET route for edit listing
   router.get("/:id", (req, res) => {
-    listingID = req.params.id;
-    const queryString = `
-    SELECT *
-    FROM listings
-    WHERE seller_id = $1
-    AND id = $2
-    `;
-    const values = [req.session.buyer_id, listingID];
-    db.query(queryString, values)
-      .then((data) => {
-        const product = data.rows[0];
+    isAdmin(db, req.params.id, req.session.buyer_id)
+      .then((product) => {
         const username = req.session.email;
         templateVars = { username, product };
         res.render("edit_listing", templateVars);
@@ -142,25 +133,22 @@ module.exports = (db) => {
       });
   });
 
-  //POST route to add edit listings
+  //POST route to submit an edited listing
   router.post("/edit_listing/:id", (req, res) => {
-    const queryString = `
-    UPDATE listings
-    SET  title = $1, description = $2, thumbnail_photo_url = $3, price = $4
-    WHERE seller_id = $5
-    AND id = $6
-    `;
-
-    const values = [
+    isAdmin(db, req.params.id, req.session.buyer_id);
+    const updateListing = `
+      UPDATE listings
+      SET  title = $1, description = $2, thumbnail_photo_url = $3, price = $4
+      WHERE id = $5
+      `;
+    const listingValues = [
       req.body.title,
       req.body.description,
       req.body.image_url,
       req.body.price,
-      req.session.buyer_id,
       req.params.id,
     ];
-
-    db.query(queryString, values)
+    db.query(updateListing, listingValues)
       .then((data) => {
         res.redirect("/listings");
       })
@@ -171,16 +159,16 @@ module.exports = (db) => {
 
   //POST route to mark as sold
   router.post("/:id/sold/", (req, res) => {
-    console.log("Mark as sold button working");
-    const queryString = `
-  UPDATE listings
-  SET thumbnail_photo_url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ3_Zuf97hXX_3DNcclObUDqCrsQ46enyuPCw&usqp=CAU'
-  WHERE seller_id = $1
-  AND id = $2
-  AND for_sale = true;
-     `;
-    const values = [req.session.buyer_id, req.params.id];
-    db.query(queryString, values)
+    isAdmin(db, req.params.id, req.session.buyer_id);
+
+    const markAsSold = `
+      UPDATE listings
+      SET thumbnail_photo_url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ3_Zuf97hXX_3DNcclObUDqCrsQ46enyuPCw&usqp=CAU'
+      WHERE id = $1
+      AND for_sale = true;
+        `;
+    const values = [req.params.id];
+    db.query(markAsSold, values)
       .then((data) => {
         console.log(`Listing #${req.params.id} marked as sold`);
         res.redirect("/users/myaccount/#section-listings");
