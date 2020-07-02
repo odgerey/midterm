@@ -4,40 +4,18 @@ const router = express.Router();
 module.exports = (db) => {
   //GET route for buyer's page. Shows all favourite items.
   router.get("/", (req, res) => {
-    console.log("test");
-    const favoritesQuery = `
-    SELECT listings.*, favorites.*
-    FROM favorites
-    JOIN listings ON favorites.listing_id = listings.id
-    JOIN buyers ON favorites.buyer_id = buyers.id
-    WHERE buyers.email = $1;
-    `;
     const listingsQuery = `
       SELECT *
       FROM listings
-      WHERE seller_id = $1;
-      `;
-    const messagesQuery = `
-      SELECT *
-      FROM messages
-      WHERE buyer_id = $1
-      OR seller_id = $1;
-
       `;
     const email = req.session.email;
     const username = email;
-    const promises = [
-      db.query(favoritesQuery, [email]),
-      db.query(listingsQuery, [req.session.buyer_id]),
-      db.query(messagesQuery, [req.session.buyer_id]),
-    ];
+    const promises = [db.query(listingsQuery)];
 
     Promise.all(promises)
-      .then(([favoritesResults, listingResults, messagesResults]) => {
-        const favorites = favoritesResults.rows;
+      .then(([listingResults]) => {
         const listings = listingResults.rows;
-        const messages = messagesResults.rows;
-        const templateVars = { favorites, listings, messages, username };
+        const templateVars = { listings, username };
         res.render("admin", templateVars);
       })
       .catch((err) => {
