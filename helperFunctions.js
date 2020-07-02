@@ -14,7 +14,11 @@ const isFavorite = function (listingID, favoritesArray) {
 
 //Middleware
 const logInMiddleware = function (req, res, next) {
-  if (req.path === "/login" || req.path.startsWith("/styles")) {
+  if (
+    req.path === "/login"
+    // req.path.startsWith("/styles") ||
+    // req.path.startsWith("/scripts")
+  ) {
     next();
   } else if (!(req.session && ifLoggedIn(req.session.email))) {
     res.redirect("/login");
