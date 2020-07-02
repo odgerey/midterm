@@ -72,68 +72,66 @@ $(document).ready(function() {
 
   // Checking and showing an error if the fields are empty when submitting a new listing form
 
-  // $('#new-listing-form').on('submit', function(event) {
+  $('#new-listing-form').on('submit', function(event) {
 
-  //   event.preventDefault();
+    event.preventDefault();
 
-  //   let input = $('textarea').val();
+    let input = true;
 
-  //   if (!input) {
-  //     $('.error').slideUp('fast');
-  //     $('.error').html('Please fill in the fields for the new listing :)');
-  //     $('.error').slideDown('fast');
-  //   } else {
-  //     $('.error').slideUp('fast');
-  //     $.ajax({
-  //       url: '/listings/new_listing',
-  //       method: 'POST',
-  //       // data: $(this).serialize(),
-  //     })
-  //       .then($('textarea').val(""))
-  //       .then($.ajax({
-  //         url: '/listings',
-  //         method: 'GET',
-  //       }));
-  //   }
+    $('textarea').each((id, elem) => {
+      if (input && elem.value.length === 0) {
+        input = false;
+      }
+    })
 
-    // $("#new-listing-form").on("submit", function (event) {
-    //   let input = $("textarea").val();
-    //   if (!input) {
-    //     event.preventDefault();
-    //     $(".error").slideUp("fast");
-    //     $(".error").html("Please fill in the fields for the new listing :)");
-    //     $(".error").slideDown("fast");
-    //   }
-    // });
+    if (!input) {
+      $('.error').slideUp('fast');
+      $('.error').html('Please fill in the fields for the new listing :)');
+      $('.error').slideDown('fast');
+    } else {
+      $('.error').slideUp('fast');
+      $.ajax({
+        url: '/listings/new_listing',
+        method: 'POST',
+        data: $(this).serialize(),
+      })
+        // .then($('textarea').val(""))
+        .then(() => window.location.href = window.location.origin + '/listings')
+    }
 
-  // });
+  });
 
-    // Checking and showing an error if the fields are empty when submitting an edit listing form
+  // Checking and showing an error if the fields are empty when submitting an edit listing form
 
-    // $('#edit-listing-form').on('submit', function(event) {
+  $('#edit-listing-form').on('submit', function(event) {
 
-    //   event.preventDefault();
+    event.preventDefault();
 
-    //   let input = $('textarea').val();
+    let input = true;
 
-    //   if (!input) {
-    //     $('.error').slideUp('fast');
-    //     $('.error').html('Please fill in the fields for your listing :)');
-    //     $('.error').slideDown('fast');
-    //   } else {
-    //     $('.error').slideUp('fast');
-    //     $.ajax({
-    //       url: '/listings/edit_listing/<%=product.id%>',
-    //       method: 'POST',
-    //       // data: $(this).serialize(),
-    //     })
-    //       .then($('textarea').val(""))
-    //       // .then($.ajax({
-    //       //   url: '/listings',
-    //       //   method: 'GET',
-    //       // }));
-    //   }
+    $('textarea').each((id, elem) => {
+      console.log(elem);
+      if (input && elem.value.length === 0) {
+        console.log(elem);
+        input = false;
+      }
+    })
 
-    // });
+    if (!input) {
+      $('.error').slideUp('fast');
+      $('.error').html('Please fill in the fields for your listing :)');
+      $('.error').slideDown('fast');
+    } else {
+      $('.error').slideUp('fast');
+      $.ajax({
+        url: event.target.action,
+        method: 'POST',
+        data: $(this).serialize(),
+      })
+        // .then($('textarea').val(""))
+        .then(() => window.location.href = window.location.origin + '/listings')
+    }
 
-})
+  });
+
+});
