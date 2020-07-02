@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { isAdmin } = require("../helperFunctions");
 module.exports = (db) => {
   //POST route to add favourite
   router.post("/add_favorite/:listingID", (req, res) => {
@@ -11,9 +12,6 @@ module.exports = (db) => {
     const values = [req.session.buyer_id, listingID];
     db.query(queryString, values)
       .then((data) => {
-      console.log(
-          `Added item # ${listingID} from id ${req.session.buyer_id}`
-        );
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -31,9 +29,6 @@ module.exports = (db) => {
     const values = [req.session.buyer_id, listingID];
     db.query(queryString, values)
       .then((data) => {
-        console.log(
-          `Removed item # ${listingID} from id ${req.session.buyer_id}`
-        );
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
