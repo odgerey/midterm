@@ -28,7 +28,6 @@ module.exports = (db) => {
         const products = productsResults.rows;
         const templateVars = { favorites, products, username };
         res.render("listings", templateVars);
-        console.log("favorites:", favorites)
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
