@@ -28,6 +28,9 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
 
+    <!-- Client-side JS -->
+    <script type="text/javascript" src="/scripts/client.js"></script>
+
     <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
     <meta
       name="viewport"
@@ -40,38 +43,38 @@
 
     <main>
       <section>
-        <form method="POST" action="/listings/edit_listing/<%=product.id%>">
+        <form method="POST" action="/listings/edit_listing/<%=product.id%>" id="edit-listing-form">
           <label>
             Edit your listing
           </label>
           <span>Title</span>
-          <textarea
-            type="title"
-            name="title"
-            value="<%= product.title %>"
-            placeholder="Please enter the new title..."
-          ></textarea>
+          <textarea type="title" name="title">
+            <%= product.title %>
+          </textarea>
           <span>Description</span>
           <textarea
             type="description"
             name="description"
-            value="<%= product.description %>"
             placeholder="Please enter the new description..."
-          ></textarea>
+          >
+            <%= product.description %>
+          </textarea>
           <span>Price</span>
           <textarea
             type="price"
             name="price"
-            value="<%= product.price %>"
             placeholder="Please enter the new price..."
-          ></textarea>
+          >
+            <%= product.price %>
+          </textarea>
           <span>Image</span>
           <textarea
             type="image_url"
             name="image_url"
-            value="<%= product.thumbnail_photo_url %>"
             placeholder="Please enter the new image URL..."
-          ></textarea>
+          >
+            <%= product.thumbnail_photo_url %>
+          </textarea>
           <button type="submit" id="submit-button">
             Submit
           </button>

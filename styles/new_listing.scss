@@ -1,6 +1,7 @@
 section {
   // height: 18em;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   border: rgb(22, 3, 15) solid;
   margin: 4em 0 3em 0;
@@ -36,6 +37,20 @@ section {
   }
 }
 
+.error {
+  display: none;
+  padding: 15px 10px 15px 50px;
+  border: 1px solid;
+  margin: 2rem 0 0 0;
+  text-align: center;
+  color: rgb(189, 44, 0);
+  font-size: 14px;
+  background-color: #FFCCBA;
+  background-image: url('../images/error.png');
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+
 #submit-button {
   display: inline-block;
   text-align: center;
@@ -66,18 +81,24 @@ section {
 
 @media only screen and (min-width: 1024px) {
 
-  form {
-    label {
-      font-size: 28px;
-    }
+  section {
+    form {
+      label {
+        font-size: 28px;
+      }
 
-    span {
-      font-size: 20px;
-    }
+      span {
+        font-size: 20px;
+      }
 
-    textarea {
-      font-size: 16px;
+      textarea {
+        font-size: 16px;
+      }
     }
+  }
+
+  .error {
+    font-size: 16px;
   }
 
   #submit-button {

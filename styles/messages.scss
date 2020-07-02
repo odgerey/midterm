@@ -1,9 +1,10 @@
 section {
+  min-height: 16.5em;
+  width: 60%;
   display: flex;
   justify-content: center;
   border: rgb(22, 3, 15) solid;
   margin: 4em 0 3em 0;
-  width: 60%;
   background-color: white;
 
   div {
@@ -95,6 +96,7 @@ section {
   }
 
   p {
+    overflow-wrap: anywhere;
     text-align: justify;
   }
 }
