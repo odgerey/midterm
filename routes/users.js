@@ -113,11 +113,11 @@ module.exports = (db) => {
       `;
 
     const messagesQuery = `
-      SELECT *
+      SELECT buyers.username, messages.*
       FROM messages
+      JOIN buyers ON buyer_id = buyers.id
       WHERE buyer_id = $1
       OR seller_id = $1;
-
       `;
     const email = req.session.email;
     const username = email;

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const moment = require('moment'); // require
 const { isFavorite } = require("../helperFunctions");
 
 module.exports = (db) => {
@@ -26,7 +27,11 @@ module.exports = (db) => {
     Promise.all(promises)
       .then(([productsResults, favoritesResults]) => {
         const favorites = favoritesResults.rows;
-        const products = productsResults.rows;
+        const products = productsResults.rows.map(product => {
+          const date = moment(product.created_at).format("ddd, hA");
+          return { ...product, date:date }
+        })
+        console.log(products[0])
         const templateVars = { favorites, products, username, isFavorite };
         res.render("listings", templateVars);
       })
@@ -87,7 +92,7 @@ module.exports = (db) => {
     ];
     const queryString = `
   INSERT INTO listings
-  (title, description, cover_photo_url, price, for_sale, seller_id)
+  (title, description, thumbnail_photo_url, price, for_sale, seller_id)
   VALUES ($1, $2, $3, $4, $5, $6)
   RETURNING *;
   `;

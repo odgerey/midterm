@@ -19,7 +19,7 @@ CREATE TABLE  listings (
   description TEXT,
   thumbnail_photo_url VARCHAR(255),
   cover_photo_url VARCHAR(255),
-  created_at DATE,
+  created_at DATE DEFAULT now(),
   price INTEGER NOT NULL DEFAULT 0,
   for_sale BOOLEAN NOT NULL,
   seller_id INTEGER NOT NULL

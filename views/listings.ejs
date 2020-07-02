@@ -37,6 +37,7 @@
     <!-- Client-side JS -->
     <script type="text/javascript" src="/scripts/client.js"></script>
 
+
     <!-- Disabling zooming on mobile devices so as not to prevent using the mobile layout -->
     <meta
       name="viewport"
@@ -89,11 +90,8 @@
                     </h3>
                     <div>
                       <span>CAD <%= products[value].price%></span>
-                      <script
-                      src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/af.min.js"
-                      crossorigin="anonymous"
-                    ></script>
-                      <span>Posted on: <%= products[value].created_at%></span>
+
+                      <span>Posted on: <%= products[value].date%></span>
                     </div>
                   </div>
                   <article class="listing-description">
