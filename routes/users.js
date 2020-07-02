@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const moment = require('moment'); // require
 
 module.exports = (db) => {
   // POST route to logout. Sets cookie to NULL
@@ -121,6 +122,7 @@ module.exports = (db) => {
       `;
     const email = req.session.email;
     const username = email;
+    const name = username
     const promises = [
       db.query(favoritesQuery, [email]),
       db.query(listingsQuery, [req.session.buyer_id]),
@@ -129,8 +131,14 @@ module.exports = (db) => {
 
     Promise.all(promises)
       .then(([favoritesResults, listingResults, messagesResults]) => {
-        const favorites = favoritesResults.rows;
-        const listings = listingResults.rows;
+        const favorites = favoritesResults.rows.map(product => {
+          const date = moment(favorite.created_at).format("ddd, hA");
+          return { ...favorite, data:date}
+        });
+        const listings = listingResults.rows.map(product => {
+          const date = moment(listing.created_at).format("ddd, hA");
+          return { ...listing, date:date}
+        });
         const messages = messagesResults.rows;
         const templateVars = { favorites, listings, messages, username };
         res.render("user", templateVars);

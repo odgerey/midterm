@@ -31,7 +31,6 @@ module.exports = (db) => {
           const date = moment(product.created_at).format("ddd, hA");
           return { ...product, date:date }
         })
-        console.log(products[0])
         const templateVars = { favorites, products, username, isFavorite };
         res.render("listings", templateVars);
       })
