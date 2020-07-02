@@ -32,7 +32,7 @@ module.exports = (db) => {
         res.redirect(`/users/myaccount`);
       })
       .catch((err) => {
-        res.status(500).json({ error: err.message });
+        res.redirect(`/errors`)
       });
   });
 

@@ -11,7 +11,7 @@ module.exports = (db) => {
     const values = [req.session.buyer_id, listingID];
     db.query(queryString, values)
       .then((data) => {
-        console.log(
+      console.log(
           `Added item # ${listingID} from id ${req.session.buyer_id}`
         );
       })
