@@ -106,13 +106,14 @@ module.exports = (db) => {
     isAdmin(db, req.params.id, req.session.buyer_id);
     const queryString = `
       DELETE FROM listings
-      WHERE seller_id = $1
-      AND id = $2;
+      WHERE id = $1;
       `;
-    const values = [req.session.buyer_id, req.params.id];
+    const values = [req.params.id];
     db.query(queryString, values)
-      .then((data) => {
-        console.log(`Listing #${req.params.id} deleted`);
+      .then(() => {
+        if (isAdmin(db, req.params.id, req.session.buyer_id)) {
+          res.redirect("/admin");
+        }
         res.redirect("/users/myaccount");
       })
       .catch((err) => {
@@ -149,7 +150,10 @@ module.exports = (db) => {
       req.params.id,
     ];
     db.query(updateListing, listingValues)
-      .then((data) => {
+      .then(() => {
+        if (isAdmin(db, req.params.id, req.session.buyer_id)) {
+          res.redirect("/admin");
+        }
         res.redirect("/listings");
       })
       .catch((err) => {
@@ -160,7 +164,6 @@ module.exports = (db) => {
   //POST route to mark as sold
   router.post("/:id/sold/", (req, res) => {
     isAdmin(db, req.params.id, req.session.buyer_id);
-
     const markAsSold = `
       UPDATE listings
       SET thumbnail_photo_url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ3_Zuf97hXX_3DNcclObUDqCrsQ46enyuPCw&usqp=CAU'
@@ -169,8 +172,10 @@ module.exports = (db) => {
         `;
     const values = [req.params.id];
     db.query(markAsSold, values)
-      .then((data) => {
-        console.log(`Listing #${req.params.id} marked as sold`);
+      .then(() => {
+        if (isAdmin(db, req.params.id, req.session.buyer_id)) {
+          res.redirect("/admin");
+        }
         res.redirect("/users/myaccount/#section-listings");
       })
       .catch((err) => {
