@@ -142,8 +142,6 @@ module.exports = (db) => {
     AND id = $6
     `;
 
-
-
     const values = [
       req.body.title,
       req.body.description,
@@ -162,32 +160,18 @@ module.exports = (db) => {
       });
   });
 
-   //POST route to mark as sold
-   router.post("/:id/sold", (req, res) => {
+  //POST route to mark as sold
+  router.post("/:id/sold", (req, res) => {
     console.log("Mark as sold button working");
     const queryString = `
-    UPDATE listings
-    SET thumbnail_photo_url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ3_Zuf97hXX_3DNcclObUDqCrsQ46enyuPCw&usqp=CAU'
-    WHERE seller_id = $1
-    AND id = $2
-    AND for_sale = true;
-       `;
-
-    const queryString2 = `
-    UPDATE listings
-    SET thumbnail_photo_url = 'https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350'
-    WHERE seller_id = $1
-    AND id = $2
-    AND for_sale = false
-    `;
-
+  UPDATE listings
+  SET thumbnail_photo_url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ3_Zuf97hXX_3DNcclObUDqCrsQ46enyuPCw&usqp=CAU'
+  WHERE seller_id = $1
+  AND id = $2
+  AND for_sale = true;
+     `;
     const values = [req.session.buyer_id, req.params.id];
-    const promises = [
-      db.query(queryString, values),
-      db.query(queryString2, values),
-    ];
-
-    Promise.all(promises)
+    db.query(queryString, values)
       .then((data) => {
         console.log(`Listing #${req.params.id} marked as sold`);
         res.redirect("/users/myaccount");
