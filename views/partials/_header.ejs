@@ -14,10 +14,13 @@
       <form method="POST" action="/logout">
         <button type="submit">Logout</button>
       </form>
+      <form method="GET" action="/admin">
+        <button type="submit">Admin</button>
+      </form>
       <% } else { %>
-        <form method="GET" action="/login">
-          <button type="submit">Login</button>
-        </form>
+      <form method="GET" action="/login">
+        <button type="submit">Login</button>
+      </form>
       <!-- <form method="GET" action="/register">
         <button type="submit">Register</button>
       </form> -->

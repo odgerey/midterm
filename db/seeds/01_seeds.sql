@@ -1,3 +1,5 @@
+Begin;
+
 INSERT INTO buyers(username, email, password)
 VALUES ('nadia01', 'nadia@gmail.com', '1234'),
 ('sarah01', 'sarah@gmail.com', '1234'),
@@ -7,6 +9,10 @@ VALUES ('nadia01', 'nadia@gmail.com', '1234'),
 ('schmidtKing', 'schmidtking@gmail.com', '1234'),
 ('simoneCat', 'thedarksphynx@gmail.com', '1234'),
 ('Nickyappy', 'nickeyhappy@gmail.com', '1234');
+
+INSERT INTO buyers(username, email, password, is_admin)
+VALUES ('admin', 'admin@admin.com', '1234', true);
+
 
 INSERT INTO sellers(buyer_id )
 VALUES (1),
@@ -50,3 +56,4 @@ INSERT INTO messages (buyer_id, seller_id, listing_id, title, description)
 VALUES (8, 1, 1, 'INTERESTED', 'Hey, man I really want that'),
 (5, 1, 1, 'Call me', 'Can you accept 100?');
 
+Commit;
