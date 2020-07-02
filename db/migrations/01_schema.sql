@@ -21,7 +21,7 @@ CREATE TABLE  listings (
   cover_photo_url VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   price INTEGER NOT NULL DEFAULT 0,
-  for_sale BOOLEAN NOT NULL DEFAULT TRUE,
+  for_sale BOOLEAN NOT NULL,
   seller_id INTEGER NOT NULL
 );
 CREATE TABLE favorites (
@@ -37,7 +37,7 @@ CREATE TABLE messages (
   listing_id INTEGER REFERENCES listings(id) ON DELETE CASCADE,
   title VARCHAR (255) NOT NULL,
   description text,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  created_at DATE
 );
 
 ALTER TABLE buyers

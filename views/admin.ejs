@@ -71,10 +71,10 @@
             </div>
             <div class="message-parameters">
               <span>
-                From: <%= messages[value].buyer_id %>
+                This message was sent from: <%= messages[value].buyer_id %>
               </span>
               <span>
-                Listing: [<%= messages[value].listing_id %>]
+                This message was sent to: <%= messages[value].seller_id %>
               </span>
               <span class="message-date">
                 <%= messages[value].created_at %>
@@ -138,7 +138,7 @@
                     <h3><%= favorites[value].title%></h3>
                     <div>
                       <span>CAD <%= favorites[value].price%></span>
-                      <span>Posted on: <%= favorites[value].created_at%></span>
+                      <span>Posted on: <%= favorites[value].date%></span>
                     </div>
                   </div>
                   <article class="listing-description">
@@ -175,9 +175,18 @@
       <section id="section-listings">
         <div class="section-header">
           <h1>
-            My listings
+            All the listings
           </h1>
           <div>
+            <form method="POST" action="/users/listings_sort" class="filter">
+              <!-- <label>
+                Sort by price
+              </label> -->
+              <!-- <input placeholder="Please specify..." /> -->
+              <button type="submit" class="filter-button">
+                Sort by price
+              </button>
+            </form>
             <form method="GET" action="/listings/new">
               <button type="submit" id="new-listing-button">
                 Add a new listing
@@ -197,7 +206,7 @@
                     <h3><%= listings[value].title%></h3>
                     <div>
                       <span>CAD <%= listings[value].price%></span>
-                      <span>Posted on: <%= listings[value].created_at%></span>
+                      <span>Posted on: <%= listings[value].date%></span>
                     </div>
                   </div>
                   <article class="listing-description">

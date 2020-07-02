@@ -1,20 +1,33 @@
 const express = require("express");
 const router = express.Router();
+const { isFavorite } = require("../helperFunctions");
+
 module.exports = (db) => {
-  //Get request to load listings
+  //Get request to load listings and user's favourites
   router.get("/", (req, res) => {
-    const queryString = `
+    const getAllProducts = `
     SELECT *
     FROM listings;
     `;
-    db.query(queryString)
-      .then((data) => {
-        if (req.session.email === null) {
-          res.redirect("/login");
-        }
-        const products = data.rows;
-        const username = req.session.email;
-        const templateVars = { products, username };
+    const getUsersFavorites = `
+    SELECT listings.*, favorites.*
+    FROM favorites
+    JOIN listings ON favorites.listing_id = listings.id
+    JOIN buyers ON favorites.buyer_id = buyers.id
+    WHERE buyers.email = $1;
+    `;
+    const email = req.session.email;
+    const username = email;
+    const promises = [
+      db.query(getAllProducts),
+      db.query(getUsersFavorites, [email]),
+    ];
+
+    Promise.all(promises)
+      .then(([productsResults, favoritesResults]) => {
+        const favorites = favoritesResults.rows;
+        const products = productsResults.rows;
+        const templateVars = { favorites, products, username, isFavorite };
         res.render("listings", templateVars);
       })
       .catch((err) => {
@@ -22,18 +35,32 @@ module.exports = (db) => {
       });
   });
 
-  //POST route to filter by price
+  //POST route to sort by price
   router.post("/", (req, res) => {
-    const username = req.session.email;
-    const queryString = `
-      SELECT *
-      FROM listings
-      ORDER BY price ASC;
-      `;
-    db.query(queryString)
-      .then((data) => {
-        const products = data.rows;
-        const templateVars = { products, username };
+    const getAllProducts = `
+    SELECT *
+    FROM listings
+    ORDER BY price ASC;
+    `;
+    const getUsersFavorites = `
+    SELECT listings.*, favorites.*
+    FROM favorites
+    JOIN listings ON favorites.listing_id = listings.id
+    JOIN buyers ON favorites.buyer_id = buyers.id
+    WHERE buyers.email = $1;
+    `;
+    const email = req.session.email;
+    const username = email;
+    const promises = [
+      db.query(getAllProducts),
+      db.query(getUsersFavorites, [email]),
+    ];
+
+    Promise.all(promises)
+      .then(([productsResults, favoritesResults]) => {
+        const favorites = favoritesResults.rows;
+        const products = productsResults.rows;
+        const templateVars = { favorites, products, username, isFavorite };
         res.render("listings", templateVars);
       })
       .catch((err) => {
@@ -141,5 +168,25 @@ module.exports = (db) => {
       });
   });
 
+  //POST route to mark as sold
+  router.post("/:id/sold/", (req, res) => {
+    console.log("Mark as sold button working");
+    const queryString = `
+  UPDATE listings
+  SET thumbnail_photo_url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ3_Zuf97hXX_3DNcclObUDqCrsQ46enyuPCw&usqp=CAU'
+  WHERE seller_id = $1
+  AND id = $2
+  AND for_sale = true;
+     `;
+    const values = [req.session.buyer_id, req.params.id];
+    db.query(queryString, values)
+      .then((data) => {
+        console.log(`Listing #${req.params.id} marked as sold`);
+        res.redirect("/users/myaccount/#section-listings");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
   return router;
 };

@@ -11,25 +11,28 @@ module.exports = (db) => {
 
   //POST route for login page
   router.post("/", (req, res) => {
-    const email = req.body.email;
+    const values = [req.body.email, req.body.password];
     const queryString = `
-    SELECT email, id
+    SELECT email, id, password
     FROM buyers
-    WHERE buyers.email = $1;
+    WHERE buyers.email = $1
+    AND buyers.password = $2;
     `;
 
-    db.query(queryString, [email])
+    db.query(queryString, values)
       .then((data) => {
+        const username = req.session.email;
+        templateVars = { username }
         if (!data.rows[0]) {
-          console.log("User does not exist");
-          res.status(403).json({ message: "User does not exist" });
-        }
+          res.render("error", templateVars);
+        }else {
         const userData = data.rows[0];
         req.session.email = userData.email;
         req.session.buyer_id = userData.id;
         console.log(`Login successful.
         // User Cookie ${req.session.email} and id is ${req.session.buyer_id}`);
         res.redirect(`/users/myaccount`);
+        }
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });

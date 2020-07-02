@@ -42,12 +42,12 @@
 
     <main>
       <section>
-        <form method="POST" action="messages/listings/<%=listingID%>/messages">
-          <label> </label>
+        <form method="POST" action="/messages/listings/<%=listingID%>/messages">
+          <label>Send a message</label>
           <textarea
             type="subject"
             name="subject"
-            placeholder="A request about [listing.name]..."
+            placeholder="A request about the listing..."
           ></textarea>
           <textarea
             type="body"
@@ -60,10 +60,14 @@
         </form>
         <div id="message-history">
           <h2>Previously Sent Messages</h2>
+          <button id="show-messages-button">
+            Toggle messages
+          </button>
           <% for(value in messageData) { %>
-          <article>
+          <article class="previous-message">
             <h5>Subject: <%= messageData[value].title %></h5>
-            <p>Message: <%= messageData[value].description %></p>
+            <span>From: </span>
+            <p><strong>Message:</strong> <%= messageData[value].description %></p>
             <hr />
           </article>
           <% } %>

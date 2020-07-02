@@ -61,8 +61,14 @@
   }
 
   article {
+    overflow-wrap: anywhere;
     font-size: 14px;
+    margin: 0 0.5rem 0 0;
   }
+}
+
+article {
+  text-align: justify;
 }
 
 .message-parameters {
@@ -99,7 +105,8 @@
   i {
     font-size: 24px;
     color: rgb(121, 0, 80);
-  }
+  };
+
 }
 
 #section-listings {

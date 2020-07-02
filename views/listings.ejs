@@ -74,9 +74,14 @@
         <div id="listings-container">
           <div id="all-listings">
             <% for(value in products) { %>
-            <div class="one-listing">
+            <div class="one-listing" id="<%= products[value].id%>">
               <div class="listing-info">
-                <img src="<%= products[value].thumbnail_photo_url%>" />
+                <a
+                  href="<%= products[value].thumbnail_photo_url%>"
+                  target="new"
+                >
+                  <img src="<%= products[value].thumbnail_photo_url%>" />
+                </a>
                 <div>
                   <div class="listing-parameters">
                     <h3>
@@ -84,10 +89,14 @@
                     </h3>
                     <div>
                       <span>CAD <%= products[value].price%></span>
+<<<<<<< HEAD
                       <script
                       src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/af.min.js"
                       crossorigin="anonymous"
                     ></script>
+=======
+                      <span>Posted on: <%= products[value].created_at%></span>
+>>>>>>> master
                     </div>
                   </div>
                   <article class="listing-description">
@@ -96,22 +105,27 @@
                 </div>
               </div>
               <div class="listing-buttons">
+                <% if (isFavorite(products[value].id, favorites)) { %>
+                <form
+                  method="POST"
+                  action="/favorites/remove_favorite/<%=products[value].id%>"
+                  class="remove-favorite-form"
+                >
+                  <button type="submit" class="button-favorite">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </form>
+                <% } else { %>
                 <form
                   method="POST"
                   action="/favorites/add_favorite/<%=products[value].id%>"
+                  class="add-favorite-form"
                 >
                   <button type="submit" class="button-favorite">
                     <i class="far fa-heart"></i>
                   </button>
                 </form>
-                <!-- <form
-                  method="POST"
-                  action="/remove_favorite/<%=products[value].id%>"
-                >
-                  <button type="submit" class="button-favorite">
-                    <i class="fas fa-heart"></i>
-                  </button>
-                </form> -->
+                <% } %>
                 <form
                   method="GET"
                   action="/messages/listings/<%=products[value].id%>/messages "

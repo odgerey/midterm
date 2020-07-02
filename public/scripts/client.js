@@ -1,65 +1,139 @@
 $(document).ready(function() {
 
-  // Escaping Cross-Site Scripting (XSS)
+  // Hiding the received messages by default when loading the user's page
 
-    // const escape =  function(str) {
-    //   let div = document.createElement('div');
-    //   div.appendChild(document.createTextNode(str));
-    //   return div.innerHTML;
-    // };
+  $('#received-messages').fadeOut('fast');
+
+  // Showing or hiding the received messages on the messages page
+
+  $('#show-messages-button').on('click', function() {
+    $('.previous-message').fadeToggle('fast');
+  });
 
   // Showing or hiding the received messages on the user's page
 
   $('#show-messages-button').on('click', function() {
-    $('#received-messages').slideToggle('fast');
+    $('#received-messages').fadeToggle('fast');
   });
 
   // Showing or hiding the user's favourites on the user's page
 
   $('#show-favorites-button').on('click', function() {
-    $('#favorites-container').slideToggle('fast');
-    $('#favorites-filter-button').slideToggle('fast');
+    $('#favorites-container').fadeToggle('fast');
+    $('#favorites-filter-button').fadeToggle('fast');
   });
 
-  // Changing the favourites button after clicking on it
+  // Adding to favourites on clicking the add to favourites icon
 
-  // $('.button-favorite i').on('click', function() {
-  //   $(event.target).toggleClass("fas fa-heart far fa-heart");
-  // });
+  $('.add-favorite-form').on('submit', function(event) {
 
-  // Adding to favourites on clicking the add to favourites button
+    event.preventDefault();
 
-  // Change to form instead of the button
-  // $('form').on('submit', function(event) {
-  //   event.preventDefault();
-  // });
+    const icon = $(event.target).find('.button-favorite i');
+    $(icon).removeClass("far fa-heart").addClass("fas fa-heart");
+    // $(event.target).toggleClass("fas fa-heart far fa-heart");
 
-  $('.button-favorite i').on('click', function() {
-    $(event.target).toggleClass("fas fa-heart far fa-heart");
-    // $(event.target).removeClass("fas fa-heart far fa-heart");
-
-
-    // $.ajax({
-    //   url: '/remove_favorite/:id',
-    //   method: 'POST'
-    // })
-    //   .then(console.log('working'));
-
+    const currentListing = $(event.target).closest('.one-listing');
+    const listingId = $(currentListing).attr("id");
 
     $.ajax({
-      url: '/listings/add_favorite/:listingID',
-      method: 'POST'
+      url: `/favorites/add_favorite/${listingId}`,
+      method: 'POST',
     })
-      .then(console.log('working'));
   });
 
-  // Showing an alert when a message has been sent
+  // Removing from favourites on clicking the remove from favourites icon
+
+  $('.remove-favorite-form').on('submit', function(event) {
+
+    event.preventDefault();
+
+    const icon = $(event.target).find('.button-favorite i');
+    $(icon).removeClass("fas fa-heart").addClass("far fa-heart");
+    // $(event.target).toggleClass("fas fa-heart far fa-heart");
+
+    const currentListing = $(event.target).closest('.one-listing');
+    const listingId = $(currentListing).attr("id");
+
+    $.ajax({
+      url: `/favorites/remove_favorite/${listingId}`,
+      method: 'POST',
+    })
+      // .then(() => $(currentListing).fadeOut('fast'));
+      // .then($('#favorites-listings').empty())
+      // .then(loadFavorites)
+  });
+
+  // Showing an alert when a message is sent
 
   $('#new-message-button').on('click', function() {
     alert('Your message has been sent!');
   });
 
-  // Using from now for the date.
-  $moment(listings.created_at, "").fromNow();
+  // Checking and showing an error if the fields are empty when submitting a new listing form
 
-});
+  // $('#new-listing-form').on('submit', function(event) {
+
+  //   event.preventDefault();
+
+  //   let input = $('textarea').val();
+
+  //   if (!input) {
+  //     $('.error').slideUp('fast');
+  //     $('.error').html('Please fill in the fields for the new listing :)');
+  //     $('.error').slideDown('fast');
+  //   } else {
+  //     $('.error').slideUp('fast');
+  //     $.ajax({
+  //       url: '/listings/new_listing',
+  //       method: 'POST',
+  //       // data: $(this).serialize(),
+  //     })
+  //       .then($('textarea').val(""))
+  //       .then($.ajax({
+  //         url: '/listings',
+  //         method: 'GET',
+  //       }));
+  //   }
+
+    // $("#new-listing-form").on("submit", function (event) {
+    //   let input = $("textarea").val();
+    //   if (!input) {
+    //     event.preventDefault();
+    //     $(".error").slideUp("fast");
+    //     $(".error").html("Please fill in the fields for the new listing :)");
+    //     $(".error").slideDown("fast");
+    //   }
+    // });
+
+  // });
+
+    // Checking and showing an error if the fields are empty when submitting an edit listing form
+
+    // $('#edit-listing-form').on('submit', function(event) {
+
+    //   event.preventDefault();
+
+    //   let input = $('textarea').val();
+
+    //   if (!input) {
+    //     $('.error').slideUp('fast');
+    //     $('.error').html('Please fill in the fields for your listing :)');
+    //     $('.error').slideDown('fast');
+    //   } else {
+    //     $('.error').slideUp('fast');
+    //     $.ajax({
+    //       url: '/listings/edit_listing/<%=product.id%>',
+    //       method: 'POST',
+    //       // data: $(this).serialize(),
+    //     })
+    //       .then($('textarea').val(""))
+    //       // .then($.ajax({
+    //       //   url: '/listings',
+    //       //   method: 'GET',
+    //       // }));
+    //   }
+
+    // });
+
+})
