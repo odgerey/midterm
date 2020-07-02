@@ -66,17 +66,19 @@ section {
 
 @media only screen and (min-width: 1024px) {
 
-  form {
-    label {
-      font-size: 28px;
-    }
+  section {
+    form {
+      label {
+        font-size: 28px;
+      }
 
-    span {
-      font-size: 20px;
-    }
+      span {
+        font-size: 20px;
+      }
 
-    textarea {
-      font-size: 16px;
+      textarea {
+        font-size: 16px;
+      }
     }
   }
 
