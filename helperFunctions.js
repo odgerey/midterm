@@ -1,4 +1,5 @@
-const adminListing = function (db, id, buyerID) {
+//Checks if the user is the buyer or the admin and returns the listing
+const userCheck = function (db, cookie, buyerID) {
   const getListing = `
     SELECT *
     FROM listings
@@ -10,7 +11,7 @@ const adminListing = function (db, id, buyerID) {
     WHERE id = $1
     `;
   return Promise.all([
-    db.query(getListing, [id]),
+    db.query(getListing, [cookie]),
     db.query(getBuyer, [buyerID]),
   ]).then(([listingResults, buyerResults]) => {
     const buyer = buyerResults.rows[0];
@@ -22,6 +23,36 @@ const adminListing = function (db, id, buyerID) {
     }
   });
 };
+
+const isAdmin = function (db, cookie) {
+  const getAdmin = `
+  SELECT *
+  FROM buyers
+  WHERE is_admin = true
+  AND id = $1;
+  `;
+  return db.query(getAdmin, [cookie]).then((data) => {
+    if (!data.rows[0]) {
+      return false;
+    }
+    return true;
+  });
+};
+
+// const isAdmin = function (db, cookie) {
+//   const getAdmin = `
+//   SELECT *
+//   FROM buyers
+//   WHERE is_admin = true
+//   AND id = $1;
+//   `;
+//   return db.query(getAdmin, [cookie]).then((data) => {
+//     if (data.rows[0].id === undefined) {
+//       return "hello";
+//     }
+//     return true;
+//   });
+// };
 
 const ifLoggedIn = function (cookie) {
   if (cookie === null) {
@@ -55,5 +86,6 @@ const logInMiddleware = function (req, res, next) {
 module.exports = {
   logInMiddleware,
   isFavorite,
-  adminListing,
+  userCheck,
+  isAdmin,
 };
