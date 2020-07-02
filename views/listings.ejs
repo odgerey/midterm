@@ -47,6 +47,10 @@
   <body>
     <%- include('partials/_header') %>
 
+
+
+
+
     <main>
       <section>
         <div class="listings-header">
@@ -74,7 +78,9 @@
         <div id="listings-container">
           <div id="all-listings">
             <% for(value in products) { %>
-            <div class="one-listing">
+              <%= isFavorite(products[value].id, favorites) %>
+
+            <div class="one-listing" id='<%= products[value].id%>'>
               <div class="listing-info">
                 <img src="<%= products[value].thumbnail_photo_url%>" />
                 <div>
@@ -96,6 +102,7 @@
                 <form
                   method="POST"
                   action="/favorites/add_favorite/<%=products[value].id%>"
+                  class="add-favorite-form"
                 >
                   <button type="submit" class="button-favorite">
                     <i class="far fa-heart" aria-hidden="true"></i>

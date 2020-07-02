@@ -82,7 +82,7 @@
             </div>
             <form
               method="GET"
-              action="/messages/listings/<%= messages[value].buyer_id  %>/messages/reply"
+              action="/messages/listings/<%= messages[value].listing_id  %>/messages/reply"
             >
               <button type="submit" class="reply-message-button">
                 Reply
@@ -130,7 +130,7 @@
         <div id="favorites-container">
           <div class="all-listings">
             <% for(value in favorites) { %>
-            <div class="one-listing">
+            <div class="one-listing" id='<%= favorites[value].listing_id%>'>
               <div class="listing-info">
                 <img src="<%= favorites[value].thumbnail_photo_url%>" />
                 <div>
@@ -150,6 +150,7 @@
                 <form
                   method="POST"
                   action="/favorites/remove_favorite/<%=favorites[value].listing_id%>"
+                  class="remove-favorite-form"
                 >
                   <button type="submit" class="button-favorite">
                     <i class="fas fa-heart"></i>

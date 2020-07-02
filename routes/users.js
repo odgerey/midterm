@@ -64,7 +64,8 @@ module.exports = (db) => {
     FROM favorites
     JOIN listings ON favorites.listing_id = listings.id
     JOIN buyers ON favorites.buyer_id = buyers.id
-    WHERE buyers.email = $1;
+    WHERE buyers.email = $1
+    ORDER BY price ASC;
         `;
     const listingsQuery = `
       SELECT *
@@ -108,7 +109,8 @@ module.exports = (db) => {
     FROM favorites
     JOIN listings ON favorites.listing_id = listings.id
     JOIN buyers ON favorites.buyer_id = buyers.id
-    WHERE buyers.email = $1;
+    WHERE buyers.email = $1
+    ORDER BY price ASC;
         `;
 
       const listingsQuery = `
