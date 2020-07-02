@@ -1,10 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const { isFavorite, userCheck } = require("../helperFunctions");
+const { isFavorite, userCheck, isAdmin } = require("../helperFunctions");
 
 module.exports = (db) => {
   //Get request to load listings and user's favourites
   router.get("/", (req, res) => {
+    isAdmin(db, req.session.buyer_id).then((result) => {
+      console.log(result);
+    });
+
     const getAllProducts = `
     SELECT *
     FROM listings;
@@ -111,10 +115,13 @@ module.exports = (db) => {
     const values = [req.params.id];
     db.query(queryString, values)
       .then(() => {
-        if (userCheck(db, req.params.id, req.session.buyer_id)) {
-          res.redirect("/admin");
-        }
-        res.redirect("/users/myaccount");
+        isAdmin(db, req.session.buyer_id).then((result) => {
+          if (result === true) {
+            res.redirect("/admin");
+          } else {
+            res.redirect("/users/myaccount");
+          }
+        });
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -151,7 +158,7 @@ module.exports = (db) => {
     ];
     db.query(updateListing, listingValues)
       .then(() => {
-        if (userCheck(db, req.params.id, req.session.buyer_id)) {
+        if (isAdmin(db, req.session.buyer_id)) {
           res.redirect("/admin");
         }
         res.redirect("/listings");
@@ -173,7 +180,7 @@ module.exports = (db) => {
     const values = [req.params.id];
     db.query(markAsSold, values)
       .then(() => {
-        if (userCheck(db, req.params.id, req.session.buyer_id)) {
+        if (isAdmin(db, req.session.buyer_id)) {
           res.redirect("/admin");
         }
         res.redirect("/users/myaccount/#section-listings");
