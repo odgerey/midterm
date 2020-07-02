@@ -47,6 +47,10 @@
   <body>
     <%- include('partials/_header') %>
 
+
+
+
+
     <main>
       <section>
         <div class="listings-header">
@@ -74,7 +78,9 @@
         <div id="listings-container">
           <div id="all-listings">
             <% for(value in products) { %>
-            <div class="one-listing" id='<%= products[value].listing_id%>'>
+              <%= isFavorite(products[value].id, favorites) %>
+
+            <div class="one-listing" id='<%= products[value].id%>'>
               <div class="listing-info">
                 <img src="<%= products[value].thumbnail_photo_url%>" />
                 <div>
