@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { isFavorite, adminListing } = require("../helperFunctions");
+const { isFavorite, userCheck } = require("../helperFunctions");
 
 module.exports = (db) => {
   //Get request to load listings and user's favourites
@@ -103,7 +103,7 @@ module.exports = (db) => {
 
   //POST route to delete listings
   router.post("/:id/delete", (req, res) => {
-    adminListing(db, req.params.id, req.session.buyer_id);
+    userCheck(db, req.params.id, req.session.buyer_id);
     const queryString = `
       DELETE FROM listings
       WHERE id = $1;
@@ -111,7 +111,7 @@ module.exports = (db) => {
     const values = [req.params.id];
     db.query(queryString, values)
       .then(() => {
-        if (adminListing(db, req.params.id, req.session.buyer_id)) {
+        if (userCheck(db, req.params.id, req.session.buyer_id)) {
           res.redirect("/admin");
         }
         res.redirect("/users/myaccount");
@@ -123,7 +123,7 @@ module.exports = (db) => {
 
   // GET route for edit listing
   router.get("/:id", (req, res) => {
-    adminListing(db, req.params.id, req.session.buyer_id)
+    userCheck(db, req.params.id, req.session.buyer_id)
       .then((product) => {
         const username = req.session.email;
         templateVars = { username, product };
@@ -136,7 +136,7 @@ module.exports = (db) => {
 
   //POST route to submit an edited listing
   router.post("/edit_listing/:id", (req, res) => {
-    adminListing(db, req.params.id, req.session.buyer_id);
+    userCheck(db, req.params.id, req.session.buyer_id);
     const updateListing = `
       UPDATE listings
       SET  title = $1, description = $2, thumbnail_photo_url = $3, price = $4
@@ -151,7 +151,7 @@ module.exports = (db) => {
     ];
     db.query(updateListing, listingValues)
       .then(() => {
-        if (adminListing(db, req.params.id, req.session.buyer_id)) {
+        if (userCheck(db, req.params.id, req.session.buyer_id)) {
           res.redirect("/admin");
         }
         res.redirect("/listings");
@@ -163,7 +163,7 @@ module.exports = (db) => {
 
   //POST route to mark as sold
   router.post("/:id/sold/", (req, res) => {
-    adminListing(db, req.params.id, req.session.buyer_id);
+    userCheck(db, req.params.id, req.session.buyer_id);
     const markAsSold = `
       UPDATE listings
       SET thumbnail_photo_url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ3_Zuf97hXX_3DNcclObUDqCrsQ46enyuPCw&usqp=CAU'
@@ -173,7 +173,7 @@ module.exports = (db) => {
     const values = [req.params.id];
     db.query(markAsSold, values)
       .then(() => {
-        if (adminListing(db, req.params.id, req.session.buyer_id)) {
+        if (userCheck(db, req.params.id, req.session.buyer_id)) {
           res.redirect("/admin");
         }
         res.redirect("/users/myaccount/#section-listings");
