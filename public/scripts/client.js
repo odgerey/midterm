@@ -26,7 +26,9 @@ $(document).ready(function() {
   // Adding to favourites on clicking the add to favourites icon
 
   $('.add-favorite-form').on('submit', function(event) {
+
     event.preventDefault();
+
     const icon = $(event.target).find('.button-favorite i');
     $(icon).removeClass("far fa-heart").addClass("fas fa-heart");
     // $(event.target).toggleClass("fas fa-heart far fa-heart");
@@ -43,7 +45,9 @@ $(document).ready(function() {
   // Removing from favourites on clicking the remove from favourites icon
 
   $('.remove-favorite-form').on('submit', function(event) {
+
     event.preventDefault();
+
     const icon = $(event.target).find('.button-favorite i');
     $(icon).removeClass("fas fa-heart").addClass("far fa-heart");
     // $(event.target).toggleClass("fas fa-heart far fa-heart");
@@ -66,35 +70,60 @@ $(document).ready(function() {
     alert('Your message has been sent!');
   });
 
-  // Checking and showing an error if the fields are empty when submitting forms on add or edit listing pages
+  // Checking and showing an error if the fields are empty when submitting a new listing form
 
-  $('form').on('submit', function(event) {
+  $('#new-listing-form').on('submit', function(event) {
 
     event.preventDefault();
 
-    let tweetText = $('#tweet-text').val();
+    let input = $('textarea').val();
 
-    if (tweetText.length > 140) {
+    if (!input) {
       $('.error').slideUp('fast');
-      $('.error').html('The tweet exceeds the maximum length');
-      $('.error').slideDown('fast');
-    } else if (!tweetText) {
-      $('.error').slideUp('fast');
-      $('.error').html('Please enter the tweet');
+      $('.error').html('Please fill in the fields for the new listing :)');
       $('.error').slideDown('fast');
     } else {
       $('.error').slideUp('fast');
       $.ajax({
-        url: '/tweets',
+        url: '/listings/new_listing',
         method: 'POST',
-        data: $(this).serialize(),
+        // data: $(this).serialize(),
       })
-        .then($('#tweets-container').empty())
-        .then($('#tweet-text').val(""))
-        .then($('output').val(140))
-        .then(loadTweets);
+        .then($('textarea').val(""))
+        // .then($.ajax({
+        //   url: '/listings',
+        //   method: 'GET',
+        // }));
     }
 
   });
+
+    // Checking and showing an error if the fields are empty when submitting an edit listing form
+
+    // $('#edit-listing-form').on('submit', function(event) {
+
+    //   event.preventDefault();
+
+    //   let input = $('textarea').val();
+
+    //   if (!input) {
+    //     $('.error').slideUp('fast');
+    //     $('.error').html('Please fill in the fields for your listing :)');
+    //     $('.error').slideDown('fast');
+    //   } else {
+    //     $('.error').slideUp('fast');
+    //     $.ajax({
+    //       url: '/listings/edit_listing/<%=product.id%>',
+    //       method: 'POST',
+    //       // data: $(this).serialize(),
+    //     })
+    //       .then($('textarea').val(""))
+    //       // .then($.ajax({
+    //       //   url: '/listings',
+    //       //   method: 'GET',
+    //       // }));
+    //   }
+
+    // });
 
 })
