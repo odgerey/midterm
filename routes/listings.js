@@ -1,14 +1,7 @@
 const express = require("express");
 const router = express.Router();
-
-const isFavorite = function (listingID, favoritesArray) {
-  const favoriteIDs = favoritesArray.map(function (favorite) {
-    return favorite.listing_id;
-  });
-  return favoriteIDs.includes(listingID);
-};
-
 module.exports = (db) => {
+
   //Get request to load listings and user's favourites
   router.get("/", (req, res) => {
     const getAllProducts = `
@@ -21,7 +14,7 @@ module.exports = (db) => {
     JOIN listings ON favorites.listing_id = listings.id
     JOIN buyers ON favorites.buyer_id = buyers.id
     WHERE buyers.email = $1;
-    `;
+    `
     const email = req.session.email;
     const username = email;
     const promises = [
@@ -33,7 +26,7 @@ module.exports = (db) => {
       .then(([productsResults, favoritesResults]) => {
         const favorites = favoritesResults.rows;
         const products = productsResults.rows;
-        const templateVars = { favorites, products, username, isFavorite };
+        const templateVars = { favorites, products, username };
         res.render("listings", templateVars);
       })
       .catch((err) => {
@@ -58,7 +51,7 @@ module.exports = (db) => {
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
-  });
+    })
 
   //GET route to add new listing
   router.get("/new", (req, res) => {
@@ -156,39 +149,38 @@ module.exports = (db) => {
         res.redirect("/listings");
       })
       .catch((err) => {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error:err.message });
       });
   });
 
-  //POST route to mark as sold
-  router.post("/:id/sold", (req, res) => {
-    console.log("Mark as sold button working");
-    const queryString = `
-        UPDATE listings
-        SET thumbnail_photo_url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ3_Zuf97hXX_3DNcclObUDqCrsQ46enyuPCw&usqp=CAU'
-        WHERE seller_id = $1 AND id = $2 AND for_sale = true;
-        `
-    const queryString2 = `
+//POST route to mark as sold
+ router.post("/:id/sold", (req, res) => {
+  console.log("Mark as sold button working");
+  const queryString = `
       UPDATE listings
-      SET thumbnail_photo_url = 'https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350'
-      WHERE seller_id = $1 AND id = $2 AND for_sale = false;
+      SET thumbnail_photo_url = ‘https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ3_Zuf97hXX_3DNcclObUDqCrsQ46enyuPCw&usqp=CAU’
+      WHERE seller_id = $1 AND id = $2 AND for_sale = true;
       `
-
-    const values = [req.session.buyer_id, req.params.id];
-    const promises = [
-      db.query(queryString, values),
-      db.query(queryString2, values),
-    ];
-
-    Promise.all(promises)
-      .then((data) => {
-        console.log(`Listing #${req.params.id} marked as sold`);
-        res.redirect("/users/myaccount");
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
-
+  const queryString2 = `
+    UPDATE listings
+    SET thumbnail_photo_url = ‘https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350’
+    WHERE seller_id = $1 AND id = $2 AND for_sale = false;
+    `
+    console.log("I'm reaching you")
+  const values = [req.session.buyer_id, req.params.id];
+  console.log("I'm reaching you again.")
+  const promises = [
+    db.query(queryString, values),
+    db.query(queryString2, values),
+  ];
+  Promise.all(promises)
+    .then((data) => {
+      console.log(`Listing #${req.params.id} marked as sold`);
+      res.redirect("/users/myaccount");
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
   return router;
 };
