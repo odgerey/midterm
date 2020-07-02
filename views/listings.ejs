@@ -78,11 +78,8 @@
         <div id="listings-container">
           <div id="all-listings">
             <% for(value in products) { %>
-<<<<<<< HEAD
-=======
               <%= isFavorite(products[value].id, favorites) %>
 
->>>>>>> feature/routing
             <div class="one-listing" id='<%= products[value].id%>'>
               <div class="listing-info">
                 <img src="<%= products[value].thumbnail_photo_url%>" />
