@@ -1,4 +1,4 @@
-const isAdmin = function (db, id, buyerID) {
+const adminListing = function (db, id, buyerID) {
   const getListing = `
     SELECT *
     FROM listings
@@ -15,8 +15,6 @@ const isAdmin = function (db, id, buyerID) {
   ]).then(([listingResults, buyerResults]) => {
     const buyer = buyerResults.rows[0];
     const listing = listingResults.rows[0];
-    console.log("Buyer", buyer, "listing", listing);
-
     if (buyer.is_admin || buyer.id === listing.seller_id) {
       return listing;
     } else {
@@ -57,5 +55,5 @@ const logInMiddleware = function (req, res, next) {
 module.exports = {
   logInMiddleware,
   isFavorite,
-  isAdmin,
+  adminListing,
 };
