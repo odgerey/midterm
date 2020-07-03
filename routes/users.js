@@ -52,16 +52,18 @@ module.exports = (db) => {
           const messages = messagesResults.rows;
           const adminUser = userPermissionsResults.rows;
           if (adminUser.length) {
-            req.session.is_admin = adminUser;
+            req.session.is_admin = adminUser.is_admin;
           } else {
             req.session.is_admin = null;
           }
+          adminCookie = req.session.is_admin;
+          console.log("ADMIN COOKIE IS:", adminCookie);
           const templateVars = {
             favorites,
             listings,
             messages,
             username,
-            adminUser,
+            adminCookie,
           };
           res.render("user", templateVars);
         }
