@@ -4,6 +4,9 @@ const { isAdmin } = require("../helperFunctions");
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
+    if (req.session.is_admin === null) {
+      res.redirect("/login");
+    }
     const listingsQuery = `
       SELECT *
       FROM listings
@@ -15,7 +18,7 @@ module.exports = (db) => {
     Promise.all(promises)
       .then(([listingResults]) => {
         const listings = listingResults.rows;
-        const templateVars = { listings, username, isAdmin  };
+        const templateVars = { listings, username, isAdmin };
         res.render("admin", templateVars);
       })
       .catch((err) => {

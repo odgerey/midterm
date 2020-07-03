@@ -113,7 +113,6 @@ module.exports = (db) => {
           listings,
           messages,
           username,
-          isAdmin,
         };
         res.render("user", templateVars);
       })
@@ -165,7 +164,6 @@ module.exports = (db) => {
           listings,
           messages,
           username,
-          isAdmin,
         };
         res.render("user", templateVars);
       })

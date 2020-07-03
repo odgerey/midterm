@@ -2,7 +2,7 @@
   <nav>
     <a href="/">Website name</a>
     <div>
-      <% if (username) { %>
+      <% if (adminCookie) %> <% if (username) { %>
       <span
         >Logged in as:
         <strong><%= username %></strong>

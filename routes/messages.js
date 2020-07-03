@@ -1,26 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const { isAdmin } = require("../helperFunctions");
 
 module.exports = (db) => {
   // GET route for new messages
   router.get("/listings/:id/messages", (req, res) => {
     const username = req.session.email;
-    const getMessagesValues = [
-      req.params.id,
-      req.session.buyer_id,
-    ];
+    const getMessagesValues = [req.params.id, req.session.buyer_id];
     getMessages = `
     SELECT *
     FROM messages
     WHERE listing_id = $1
     AND (seller_id = $2 OR buyer_id = $2);
     `;
-      db.query(getMessages, getMessagesValues).then((data) => {
-        const listingID = req.params.id;
-        const messageData = data.rows;
-        templateVars = { username, listingID, messageData, isAdmin };
-        res.render("messages", templateVars);
+    db.query(getMessages, getMessagesValues).then((data) => {
+      const listingID = req.params.id;
+      const messageData = data.rows;
+      templateVars = { username, listingID, messageData };
+      res.render("messages", templateVars);
     });
   });
   //Post route to send a new message

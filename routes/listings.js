@@ -17,22 +17,38 @@ module.exports = (db) => {
     JOIN buyers ON favorites.buyer_id = buyers.id
     WHERE buyers.email = $1;
     `;
+    const userPermissions = `
+    SELECT *
+    FROM buyers
+    WHERE is_admin = true
+    AND id = $1;
+    `;
     const email = req.session.email;
     const username = email;
     const promises = [
       db.query(getAllProducts),
       db.query(getUsersFavorites, [email]),
+      db.query(userPermissions, [req.session.buyer_id]),
     ];
 
     Promise.all(promises)
-      .then(([productsResults, favoritesResults]) => {
+      .then(([productsResults, favoritesResults, userPermissionsResults]) => {
         const favorites = favoritesResults.rows;
         const products = productsResults.rows.map((product) => {
           const date = moment(product.created_at).format("ddd, hA");
           return { ...product, date: date };
         });
-        console.log(products[0]);
-        const templateVars = { favorites, products, username, isFavorite, isAdmin };
+        let adminUser = false;
+        if (userPermissionsResults.rows.length) {
+          adminUser = true;
+        }
+        const templateVars = {
+          favorites,
+          products,
+          username,
+          isFavorite,
+          adminUser,
+        };
         res.render("listings", templateVars);
       })
       .catch((err) => {
@@ -54,18 +70,35 @@ module.exports = (db) => {
     JOIN buyers ON favorites.buyer_id = buyers.id
     WHERE buyers.email = $1;
     `;
+    const userPermissions = `
+    SELECT *
+    FROM buyers
+    WHERE is_admin = true
+    AND id = $1;
+    `;
     const email = req.session.email;
     const username = email;
     const promises = [
       db.query(getAllProducts),
       db.query(getUsersFavorites, [email]),
+      db.query(userPermissions, [req.session.buyer_id]),
     ];
 
     Promise.all(promises)
-      .then(([productsResults, favoritesResults]) => {
+      .then(([productsResults, favoritesResults, userPermissionsResults]) => {
         const favorites = favoritesResults.rows;
         const products = productsResults.rows;
-        const templateVars = { favorites, products, username, isFavorite, isAdmin };
+        let adminUser = false;
+        if (userPermissionsResults.rows.length) {
+          adminUser = true;
+        }
+        const templateVars = {
+          favorites,
+          products,
+          username,
+          isFavorite,
+          adminUser,
+        };
         res.render("listings", templateVars);
       })
       .catch((err) => {
@@ -76,7 +109,7 @@ module.exports = (db) => {
   //GET route to add new listing
   router.get("/new", (req, res) => {
     const username = req.session.email;
-    const templateVars = { username, isAdmin  };
+    const templateVars = { username };
     res.render("new_listing", templateVars);
   });
 
@@ -134,7 +167,7 @@ module.exports = (db) => {
     userCheck(db, req.params.id, req.session.buyer_id)
       .then((product) => {
         const username = req.session.email;
-        templateVars = { username, product, isAdmin  };
+        templateVars = { username, product };
         res.render("edit_listing", templateVars);
       })
       .catch((err) => {

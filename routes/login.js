@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const { isAdmin } = require("../helperFunctions");
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
