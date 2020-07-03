@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const moment = require("moment");
 const { isAdmin } = require("../helperFunctions");
 
 module.exports = (db) => {
@@ -17,7 +18,10 @@ module.exports = (db) => {
 
     Promise.all(promises)
       .then(([listingResults]) => {
-        const listings = listingResults.rows;
+        const listings = listingResults.rows.map((listing) => {
+          const date = moment(listing.created_at).format("ddd, hA");
+          return { ...listing, date:date }
+        });
         const templateVars = { listings, username, isAdmin };
         res.render("admin", templateVars);
       })

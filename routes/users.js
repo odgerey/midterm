@@ -156,17 +156,17 @@ module.exports = (db) => {
 
     Promise.all(promises)
       .then(([favoritesResults, listingResults, messagesResults]) => {
-        const favorites = favoritesResults.rows.map((product) => {
+        const favorites = favoritesResults.rows.map((favorite) => {
           const date = moment(favorite.created_at).format("ddd, hA");
-          return { ...favorite, data: date };
+          return { ...favorite, date:date };
         });
-        const listings = listingResults.rows.map((product) => {
+        const listings = listingResults.rows.map((listing) => {
           const date = moment(listing.created_at).format("ddd, hA");
-          return { ...listing, date: date };
+          return { ...listing, date:date };
         });
-        const messages = messagesResults.rows.map((product) => {
+        const messages = messagesResults.rows.map((message) => {
           const date = moment(message.created_at).format("ddd, hA");
-          return { ...message, date: date };
+          return { ...message, date:date };
         });
         const templateVars = { favorites, listings, messages, username };
         res.render("user", templateVars);
