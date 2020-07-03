@@ -64,11 +64,25 @@ $(document).ready(function() {
       // .then(loadFavorites)
   });
 
+  // Displaying a confirmation when a message is sent
+
+  $('#new-message-form').on('submit', function(event) {
+
+    event.preventDefault();
+    $('.confirmation').slideDown('fast');
+    $.ajax({
+      url: event.target.action,
+      method: 'POST',
+      data: $(this).serialize(),
+    })
+
+  });
+
   // Showing an alert when a message is sent
 
-  $('#new-message-button').on('click', function() {
-    alert('Your message has been sent!');
-  });
+  // $('#new-message-button').on('click', function() {
+  //   alert('Your message has been sent!');
+  // });
 
   // Checking and showing an error if the fields are empty when submitting a new listing form
 
@@ -110,9 +124,7 @@ $(document).ready(function() {
     let input = true;
 
     $('textarea').each((id, elem) => {
-      console.log(elem);
       if (input && elem.value.length === 0) {
-        console.log(elem);
         input = false;
       }
     })

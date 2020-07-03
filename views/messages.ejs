@@ -42,35 +42,38 @@
 
     <main>
       <section>
-        <form method="POST" action="/messages/listings/<%=listingID%>/messages">
-          <label>Send a message</label>
-          <textarea
-            type="subject"
-            name="subject"
-            placeholder="A request about the listing..."
-          ></textarea>
-          <textarea
-            type="body"
-            name="body"
-            placeholder="Your message here..."
-          ></textarea>
-          <button type="submit" id="new-message-button">
-            Send
-          </button>
-        </form>
-        <div id="message-history">
-          <h2>Previously Sent Messages</h2>
-          <button id="show-messages-button">
-            Toggle messages
-          </button>
-          <% for(value in messageData) { %>
-          <article class="previous-message">
-            <h5>Subject: <%= messageData[value].title %></h5>
-            <span><strong>From:</strong> </span>
-            <p><strong>Message:</strong> <%= messageData[value].description %></p>
-            <hr />
-          </article>
-          <% } %>
+        <div class="confirmation">Your message has been sent!</div>
+        <div class="messages-container">
+          <form method="POST" action="/messages/listings/<%=listingID%>/messages" id="new-message-form">
+            <label>Send a message</label>
+            <textarea
+              type="subject"
+              name="subject"
+              placeholder="A request about the listing..."
+            ></textarea>
+            <textarea
+              type="body"
+              name="body"
+              placeholder="Your message here..."
+            ></textarea>
+            <button type="submit" id="new-message-button">
+              Send
+            </button>
+          </form>
+          <div id="message-history">
+            <h2>Previously Sent Messages</h2>
+            <button id="show-messages-button">
+              Toggle messages
+            </button>
+            <% for(value in messageData) { %>
+            <article class="previous-message">
+              <h5>Subject: <%= messageData[value].title %></h5>
+              <span><strong>From:</strong> </span>
+              <p><strong>Message:</strong> <%= messageData[value].description %></p>
+              <hr />
+            </article>
+            <% } %>
+          </div>
         </div>
       </section>
     </main>
