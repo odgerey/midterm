@@ -26,10 +26,11 @@ module.exports = (db) => {
       WHERE seller_id = $1;
       `;
     const messagesQuery = `
-      SELECT *
-      FROM messages
-      WHERE buyer_id = $1
-      OR seller_id = $1;
+    SELECT messages.*, listings.title
+    FROM messages
+    JOIN listings ON messages.listing_id = listings.id
+    WHERE messages.buyer_id = $1
+    OR messages.seller_id = $1;
       `;
     const email = req.session.email;
     const username = email;
@@ -45,6 +46,7 @@ module.exports = (db) => {
         const listings = listingResults.rows;
         const messages = messagesResults.rows;
         const templateVars = { favorites, listings, messages, username };
+        console.log(listings)
         res.render("user", templateVars);
       })
       .catch((err) => {

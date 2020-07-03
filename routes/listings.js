@@ -64,7 +64,6 @@ module.exports = (db) => {
     Promise.all(promises)
       .then(([productsResults, favoritesResults]) => {
         const favorites = favoritesResults.rows;
-        console.log("Favorites:", favorites)
         const products = productsResults.rows;
         const templateVars = { favorites, products, username, isFavorite };
         res.render("listings", templateVars);
