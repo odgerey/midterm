@@ -5,7 +5,7 @@ const { isAdmin } = require("../helperFunctions");
 module.exports = (db) => {
   router.get("/", (req, res) => {
     if (req.session.is_admin === null) {
-      res.redirect("/login");
+      res.redirect("/users/myaccount");
     }
     const listingsQuery = `
       SELECT *
