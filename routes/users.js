@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const moment = require("moment");
 const { isAdmin } = require("../helperFunctions");
+const admin = require("./admin");
 
 module.exports = (db) => {
   router.get("/myaccount", (req, res) => {
@@ -52,18 +53,16 @@ module.exports = (db) => {
           const messages = messagesResults.rows;
           const adminUser = userPermissionsResults.rows;
           if (adminUser.length) {
-            req.session.is_admin = adminUser.is_admin;
+            req.session.is_admin = adminUser;
           } else {
             req.session.is_admin = null;
           }
-          adminCookie = req.session.is_admin;
-          console.log("ADMIN COOKIE IS:", adminCookie);
+          console.log("ADMIN COOKIE:", req.session.is_admin);
           const templateVars = {
             favorites,
             listings,
             messages,
             username,
-            adminCookie,
           };
           res.render("user", templateVars);
         }
