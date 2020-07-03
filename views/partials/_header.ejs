@@ -2,7 +2,7 @@
   <nav>
     <a href="/">Website name</a>
     <div>
-      <% %> <% if (username) { %>
+      <% if (username) { %>
       <span
         >Logged in as:
         <strong><%= username %></strong>
@@ -13,9 +13,6 @@
       </form>
       <form method="POST" action="/logout">
         <button type="submit">Logout</button>
-      </form>
-      <form method="GET" action="/admin">
-        <button type="submit">Admin</button>
       </form>
       <% } else { %>
       <form method="GET" action="/login">
