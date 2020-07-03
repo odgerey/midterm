@@ -47,6 +47,11 @@
           <form method="POST" action="/messages/listings/<%=listingID%>/messages" id="new-message-form">
             <label>Send a message</label>
             <textarea
+              type="subject"
+              name="subject"
+              placeholder="A request about the listing..."
+            ></textarea>
+            <textarea
               type="body"
               name="body"
               placeholder="Your message here..."
@@ -63,6 +68,8 @@
             <div>
               <% for(value in messageData) { %>
               <article class="previous-message">
+                <h5>Subject: <%= messageData[value].title %></h5>
+                <span><strong>From:</strong> </span>
                 <p><strong>Message:</strong> <%= messageData[value].description %></p>
               </article>
               <hr />
