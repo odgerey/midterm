@@ -4,7 +4,6 @@ const moment = require("moment");
 const { isAdmin } = require("../helperFunctions");
 
 module.exports = (db) => {
-
   router.get("/myaccount", (req, res) => {
     const favoritesQuery = `
       SELECT listings.*, favorites.*
@@ -24,22 +23,49 @@ module.exports = (db) => {
       WHERE buyer_id = $1
       OR seller_id = $1;
       `;
+    const userPermissions = `
+      SELECT *
+      FROM buyers
+      WHERE is_admin = true
+      AND id = $1;
+      `;
+
     const email = req.session.email;
     const username = email;
     const promises = [
       db.query(favoritesQuery, [email]),
       db.query(listingsQuery, [req.session.buyer_id]),
       db.query(messagesQuery, [req.session.buyer_id]),
+      db.query(userPermissions, [req.session.buyer_id]),
     ];
 
     Promise.all(promises)
-      .then(([favoritesResults, listingResults, messagesResults]) => {
-        const favorites = favoritesResults.rows;
-        const listings = listingResults.rows;
-        const messages = messagesResults.rows;
-        const templateVars = { favorites, listings, messages, username, isAdmin};
-        res.render("user", templateVars);
-      })
+      .then(
+        ([
+          favoritesResults,
+          listingResults,
+          messagesResults,
+          userPermissionsResults,
+        ]) => {
+          const favorites = favoritesResults.rows;
+          const listings = listingResults.rows;
+          const messages = messagesResults.rows;
+          const adminUser = userPermissionsResults.rows;
+          if (adminUser.length) {
+            req.session.is_admin = adminUser;
+          } else {
+            req.session.is_admin = null;
+          }
+          const templateVars = {
+            favorites,
+            listings,
+            messages,
+            username,
+            adminUser,
+          };
+          res.render("user", templateVars);
+        }
+      )
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
@@ -80,7 +106,13 @@ module.exports = (db) => {
         const favorites = favoritesResults.rows;
         const listings = listingResults.rows;
         const messages = messagesResults.rows;
-        const templateVars = { favorites, listings, messages, username, isAdmin };
+        const templateVars = {
+          favorites,
+          listings,
+          messages,
+          username,
+          isAdmin,
+        };
         res.render("user", templateVars);
       })
       .catch((err) => {
@@ -126,7 +158,13 @@ module.exports = (db) => {
         const favorites = favoritesResults.rows;
         const listings = listingResults.rows;
         const messages = messagesResults.rows;
-        const templateVars = { favorites, listings, messages, username, isAdmin };
+        const templateVars = {
+          favorites,
+          listings,
+          messages,
+          username,
+          isAdmin,
+        };
         res.render("user", templateVars);
       })
       .catch((err) => {

@@ -5,7 +5,8 @@ const { isAdmin } = require("../helperFunctions");
 module.exports = (db) => {
   router.get("/", (req, res) => {
     const username = req.session.email;
-    templateVars = { username };
+    const adminUser = req.session.admin;
+    templateVars = { username, adminUser };
     res.render("login", templateVars);
   });
 
@@ -21,14 +22,14 @@ module.exports = (db) => {
     db.query(queryString, values)
       .then((data) => {
         const username = req.session.email;
-        templateVars = { username, isAdmin }
+        templateVars = { username };
         if (!data.rows[0]) {
           res.render("error", templateVars);
-        }else {
-        const userData = data.rows[0];
-        req.session.email = userData.email;
-        req.session.buyer_id = userData.id;
-        res.redirect(`/users/myaccount`);
+        } else {
+          const userData = data.rows[0];
+          req.session.email = userData.email;
+          req.session.buyer_id = userData.id;
+          res.redirect(`/users/myaccount`);
         }
       })
       .catch((err) => {
