@@ -76,6 +76,7 @@ $(document).ready(function() {
       method: 'POST',
       data: $(this).serialize(),
     })
+      .then($('textarea').val(""));
 
   });
 
