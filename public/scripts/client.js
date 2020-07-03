@@ -8,6 +8,7 @@ $(document).ready(function() {
 
   $('#show-messages-button').on('click', function() {
     $('.previous-message').fadeToggle('fast');
+    // $('.previous-message').toggleClass('hidden');
   });
 
   // Showing or hiding the received messages on the user's page

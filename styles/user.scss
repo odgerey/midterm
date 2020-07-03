@@ -212,11 +212,9 @@ article {
   }
 }
 
-// .all-listings:last-child {
-//   hr {
-//     display: none;
-//   }
-// }
+.all-listings hr:last-child, #received-messages hr:last-child {
+  display: none;
+}
 
 .one-listing {
   display: flex;

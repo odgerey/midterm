@@ -65,14 +65,16 @@
             <button id="show-messages-button">
               Toggle messages
             </button>
-            <% for(value in messageData) { %>
-            <article class="previous-message">
-              <h5>Subject: <%= messageData[value].title %></h5>
-              <span><strong>From:</strong> </span>
-              <p><strong>Message:</strong> <%= messageData[value].description %></p>
+            <div>
+              <% for(value in messageData) { %>
+              <article class="previous-message">
+                <h5>Subject: <%= messageData[value].title %></h5>
+                <span><strong>From:</strong> </span>
+                <p><strong>Message:</strong> <%= messageData[value].description %></p>
+              </article>
               <hr />
-            </article>
-            <% } %>
+              <% } %>
+            </div>
           </div>
         </div>
       </section>

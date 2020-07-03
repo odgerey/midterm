@@ -91,6 +91,10 @@ section {
   // margin: 1rem 0 0 0.75rem;
 }
 
+#all-listings hr:last-child {
+  display: none;
+}
+
 .one-listing {
   display: flex;
   justify-content: space-between;
