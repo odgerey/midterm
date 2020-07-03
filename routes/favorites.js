@@ -3,6 +3,7 @@ const router = express.Router();
 module.exports = (db) => {
   //POST route to add favourite
   router.post("/add_favorite/:listingID", (req, res) => {
+
     const queryString = `
     INSERT INTO favorites (buyer_id, listing_id)
     VALUES  ($1, $2);
@@ -15,6 +16,7 @@ module.exports = (db) => {
           `Added item # ${listingID} from id ${req.session.buyer_id}`
         );
       })
+
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
@@ -22,7 +24,9 @@ module.exports = (db) => {
 
   //POST route to remove favourite
   router.post("/remove_favorite/:id", (req, res) => {
-    const queryString = `
+
+
+  const queryString = `
     DELETE FROM favorites
     WHERE buyer_id = $1
     AND listing_id = $2;

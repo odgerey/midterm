@@ -122,7 +122,7 @@ module.exports = (db) => {
       `;
     const email = req.session.email;
     const username = email;
-    const name = username
+
     const promises = [
       db.query(favoritesQuery, [email]),
       db.query(listingsQuery, [req.session.buyer_id]),
@@ -133,13 +133,16 @@ module.exports = (db) => {
       .then(([favoritesResults, listingResults, messagesResults]) => {
         const favorites = favoritesResults.rows.map(product => {
           const date = moment(favorite.created_at).format("ddd, hA");
-          return { ...favorite, data:date}
+          return { ...favorite, data:date }
         });
         const listings = listingResults.rows.map(product => {
           const date = moment(listing.created_at).format("ddd, hA");
-          return { ...listing, date:date}
+          return { ...listing, date:date }
         });
-        const messages = messagesResults.rows;
+        const messages = messagesResults.rows.map(product => {
+          const date = moment(message.created_at).format("ddd, hA");
+          return { ...message, date:date }
+        });
         const templateVars = { favorites, listings, messages, username };
         res.render("user", templateVars);
       })
