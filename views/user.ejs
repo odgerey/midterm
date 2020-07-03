@@ -9,9 +9,9 @@
 
     <!-- Custom fonts -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,700;1,300;1,700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Mirza:wght@400;700&family=Source+Sans+Pro:wght@300;700&display=swap"
       rel="stylesheet"
-    />
+    >
 
     <!-- Global layout CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
@@ -70,13 +70,13 @@
             </div>
             <div class="message-parameters">
               <span>
-                From: <%= messages[value].username%>
+                From: <%= username%>
               </span>
               <span>
                 Listing: <%= messages[value].listing_id %>
               </span>
               <span class="message-date">
-                <%= messages[value].created_at %>
+                <%= messages[value].date %>
               </span>
             </div>
             <form
@@ -137,7 +137,7 @@
                     <h3><%= favorites[value].title%></h3>
                     <div>
                       <span>CAD <%= favorites[value].price%></span>
-                      <span>Posted on: <%= favorites[value].created_at%></span>
+                      <span>Posted on: <%= favorites[value].date%></span>
                     </div>
                   </div>
                   <article class="listing-description">
@@ -196,7 +196,7 @@
                     <h3><%= listings[value].title%></h3>
                     <div>
                       <span>CAD <%= listings[value].price%></span>
-                      <span>Posted on: <%= listings[value].created_at%></span>
+                      <span>Posted on: <%= listings[value].date%></span>
                     </div>
                   </div>
                   <article class="listing-description">

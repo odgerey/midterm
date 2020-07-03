@@ -38,7 +38,7 @@ CREATE TABLE messages (
   listing_id INTEGER REFERENCES listings(id) ON DELETE CASCADE,
   title VARCHAR (255) NOT NULL,
   description text,
-  created_at DATE
+  created_at DATE DEFAULT now()
 );
 
 ALTER TABLE buyers

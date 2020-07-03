@@ -147,6 +147,7 @@ module.exports = (db) => {
       `;
     const email = req.session.email;
     const username = email;
+
     const promises = [
       db.query(favoritesQuery, [email]),
       db.query(listingsQuery, [req.session.buyer_id]),
@@ -155,15 +156,19 @@ module.exports = (db) => {
 
     Promise.all(promises)
       .then(([favoritesResults, listingResults, messagesResults]) => {
-        const favorites = favoritesResults.rows;
-        const listings = listingResults.rows;
-        const messages = messagesResults.rows;
-        const templateVars = {
-          favorites,
-          listings,
-          messages,
-          username,
-        };
+        const favorites = favoritesResults.rows.map((product) => {
+          const date = moment(favorite.created_at).format("ddd, hA");
+          return { ...favorite, data: date };
+        });
+        const listings = listingResults.rows.map((product) => {
+          const date = moment(listing.created_at).format("ddd, hA");
+          return { ...listing, date: date };
+        });
+        const messages = messagesResults.rows.map((product) => {
+          const date = moment(message.created_at).format("ddd, hA");
+          return { ...message, date: date };
+        });
+        const templateVars = { favorites, listings, messages, username };
         res.render("user", templateVars);
       })
       .catch((err) => {

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const moment = require("moment");
+const moment = require("moment"); // require
 const { isFavorite, userCheck, isAdmin } = require("../helperFunctions");
 
 module.exports = (db) => {
@@ -17,37 +17,26 @@ module.exports = (db) => {
     JOIN buyers ON favorites.buyer_id = buyers.id
     WHERE buyers.email = $1;
     `;
-    const userPermissions = `
-    SELECT *
-    FROM buyers
-    WHERE is_admin = true
-    AND id = $1;
-    `;
+
     const email = req.session.email;
     const username = email;
     const promises = [
       db.query(getAllProducts),
       db.query(getUsersFavorites, [email]),
-      db.query(userPermissions, [req.session.buyer_id]),
     ];
 
     Promise.all(promises)
-      .then(([productsResults, favoritesResults, userPermissionsResults]) => {
+      .then(([productsResults, favoritesResults]) => {
         const favorites = favoritesResults.rows;
         const products = productsResults.rows.map((product) => {
           const date = moment(product.created_at).format("ddd, hA");
           return { ...product, date: date };
         });
-        let adminUser = false;
-        if (userPermissionsResults.rows.length) {
-          adminUser = true;
-        }
         const templateVars = {
           favorites,
           products,
           username,
           isFavorite,
-          adminUser,
         };
         res.render("listings", templateVars);
       })
@@ -85,19 +74,15 @@ module.exports = (db) => {
     ];
 
     Promise.all(promises)
-      .then(([productsResults, favoritesResults, userPermissionsResults]) => {
+      .then(([productsResults, favoritesResults]) => {
         const favorites = favoritesResults.rows;
+        console.log("Favorites:", favorites);
         const products = productsResults.rows;
-        let adminUser = false;
-        if (userPermissionsResults.rows.length) {
-          adminUser = true;
-        }
         const templateVars = {
           favorites,
           products,
           username,
           isFavorite,
-          adminUser,
         };
         res.render("listings", templateVars);
       })
